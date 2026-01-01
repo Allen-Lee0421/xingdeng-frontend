@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>星燈防詐中心 | XingDeng Anti-Fraud</title>
+    <title>星燈防詐中心 | XingDeng Security</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -23,7 +23,7 @@
 
     <header>
         <h1 id="mainTitle">🛡️ 星燈防詐中心</h1>
-        <p id="subTitle">V4.0 全球化防護與及時偵測系統</p>
+        <p id="subTitle">V5.0 軍事級全球防護系統</p>
     </header>
 
     <main class="container">
@@ -31,12 +31,12 @@
             <h2 id="scanTitle">🔍 網址詐騙掃描</h2>
             <form id="scanForm">
                 <input type="text" id="url_to_scan" placeholder="https://example.com" required>
-                <button type="submit" id="btnScan">開始掃描</button>
+                <button type="submit" id="btnScan">啟動深度掃描</button>
             </form>
-            <div id="scan_result" class="result-placeholder">掃描結果將在此顯示</div>
+            <div id="scan_result" class="result-placeholder">系統待命中心...</div>
         </section>
 
-        <section class="report-box" style="margin-top: 2rem;">
+        <section class="report-box">
             <h2 id="reportTitle">📢 詐騙網址通報</h2>
             <form id="reportForm">
                 <input type="text" id="link" placeholder="可疑網址 (http://...)" required>
@@ -44,9 +44,23 @@
                 <input type="text" id="contact" placeholder="聯絡方式 (選填)">
                 <button type="submit" id="btnReport">提交通報</button>
             </form>
-            <div id="message" style="display:none; margin-top:10px;"></div>
+            <div id="message" class="result-placeholder" style="display:none;"></div>
+        </section>
+
+        <section class="payment-box">
+            <h2 id="payTitle">💎 贊助與升級</h2>
+            <p>支持星燈防護系統持續運作</p>
+            <div class="pay-btn-group">
+                <button class="btn-paypal" onclick="window.open('https://www.paypal.me/yourname')">
+                    <i class="fab fa-paypal"></i> PayPal 贊助
+                </button>
+                <button class="btn-atm" onclick="alert('匯款帳號：(822) 123-456789-0')">
+                    <i class="fas fa-university"></i> ATM 轉帳
+                </button>
+            </div>
         </section>
     </main>
+
     <script src="script.js"></script>
 </body>
 </html>
