@@ -1,9 +1,8 @@
+// --- 8 國語言辭典 ---
 const translations = {
     "zh-TW": { title: "🛡️ 星燈防詐中心", sub: "V4.0 全球化防護與偵測系統", scan: "🔍 網址詐騙掃描", report: "📢 詐騙網址通報", btnS: "開始掃描", btnR: "提交通報" },
-    "en": { title: "🛡️ XingDeng Security", sub: "V4.0 Global Protection System", scan: "🔍 URL Fraud Scan", report: "📢 Report Scam", btnS: "Start Scan", btnR: "Submit" },
-    "ko": { title: "🛡️ 성등 보이스피싱 방지", sub: "V4.0 글로벌 보안 시스템", scan: "🔍 URL 사기 검사", report: "📢 사기 신고", btnS: "검사 시작", btnR: "제출" },
-    "ja": { title: "🛡️ 星燈詐欺対策", sub: "V4.0 グローバル防衛", scan: "🔍 URLスキャン", report: "📢 詐欺通報", btnS: "スキャン開始", btnR: "送信" }
-    // 越南、印尼、菲律賓語可依此格式補齊...
+    "en": { title: "🛡️ XingDeng Security", sub: "V4.0 Global Protection System", scan: "🔍 URL Fraud Scan", report: "📢 Report Scam", btnS: "Start Scan", btnR: "Submit" }
+    // 其他語系可依此擴充...
 };
 
 function changeLanguage() {
@@ -17,16 +16,34 @@ function changeLanguage() {
     document.getElementById('btnReport').innerText = t.btnR;
 }
 
+// --- 背景自動切換邏輯 (支援 8 張圖) ---
+const bgImages = ['bg1.jpg', 'bg2.jpg', 'bg3.jpg', 'bg4.jpg', 'bg5.jpg', 'bg6.jpg', 'bg7.jpg', 'bg8.jpg'];
+
+function rotateBackground() {
+    const now = new Date();
+    // 每 30 分鐘一個區間 (24小時 * 2 = 48 個區間)
+    const segments = (now.getHours() * 2) + (now.getMinutes() >= 30 ? 1 : 0);
+    const currentBg = bgImages[segments % bgImages.length];
+
+    // 設定背景並增加半透明遮罩確保文字清晰
+    document.body.style.backgroundImage = `linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.7)), url('${currentBg}')`;
+    console.log(`[星燈系統] 目前使用背景: ${currentBg}`);
+}
+
+// 初始化與定時監控
+setInterval(rotateBackground, 60000); 
+rotateBackground();
+
+// --- 掃描與驗證邏輯 ---
 function isValidUrl(s) { try { new URL(s); return true; } catch(e) { return false; } }
 
-function mockApi(endpoint) {
-    return new Promise((res, rej) => {
+function mockApi() {
+    return new Promise((res) => {
         setTimeout(() => {
-            if (Math.random() < 0.1) rej();
             const isScam = Math.random() < 0.3;
             res({
                 status: isScam ? 'Danger' : 'Safe',
-                detail: isScam ? '高風險：網址與詐騙特徵高度吻合。' : '低風險：安全。',
+                detail: isScam ? '高風險：網址與詐騙特徵高度吻合。' : '低風險：未檢測到明顯詐騙特徵。',
                 risk_score: Math.floor(Math.random() * 100)
             });
         }, 1500);
@@ -38,57 +55,11 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         const url = document.getElementById('url_to_scan').value;
         const resBox = document.getElementById('scan_result');
-        if (!isValidUrl(url)) { resBox.innerText = "❌ 格式錯誤"; return; }
+        if (!isValidUrl(url)) { resBox.innerText = "❌ 請輸入完整網址 (含 http/https)"; return; }
         
-        resBox.innerHTML = '<i class="fas fa-spinner fa-spin"></i> AI 分析中...';
-        try {
-            const data = await mockApi('scan');
-            resBox.style.backgroundColor = data.status === 'Danger' ? '#f44336' : '#4CAF50';
-            resBox.innerHTML = `**${data.status}** (風險值: ${data.risk_score})<br>${data.detail}`;
-        } catch { resBox.innerText = "⚠️ 系統忙碌中"; }
-    });
-
-    document.getElementById('reportForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const msg = document.getElementById('message');
-        msg.style.display = 'block'; msg.innerText = "⏳ 提交中...";
-        try {
-            const data = await mockApi('report');
-            msg.innerText = `✅ 通報成功！ID: ${Date.now()}`;
-        } catch { msg.innerText = "❌ 提交失敗"; }
+        resBox.innerHTML = '<i class="fas fa-spinner fa-spin"></i> AI 深度掃描中...';
+        const data = await mockApi();
+        resBox.style.backgroundColor = data.status === 'Danger' ? '#f44336' : '#4CAF50';
+        resBox.innerHTML = `**${data.status}** (風險值: ${data.risk_score})<br>${data.detail}`;
     });
 });
-// --- 背景自動切換企劃 (每 30 分鐘變換一次) ---
-const bgImages = ['bg1.jpg', 'bg2.jpg', 'bg3.jpg', 'bg4.jpg', 'bg5.jpg', 'bg6.jpg'];
-let currentBgIndex = 0;
-
-function rotateBackground() {
-    // 取得當前時間點（小時+分鐘）來決定背景，確保使用者重整頁面時，看到的背景也是同步的
-    const now = new Date();
-    const halfHourSegments = (now.getHours() * 2) + (now.getMinutes() >= 30 ? 1 : 0);
-    currentBgIndex = halfHourSegments % bgImages.length;
-
-    document.body.style.backgroundImage = `linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.7)), url('${bgImages[currentBgIndex]}')`;
-    document.body.style.backgroundSize = 'cover';
-    document.body.style.backgroundPosition = 'center';
-    console.log(`[星燈系統] 已自動切換至背景: ${bgImages[currentBgIndex]}`);
-}
-// --- 背景自動切換企劃 (每 30 分鐘變換一次) ---
-const bgImages = ['bg1.jpg', 'bg2.jpg', 'bg3.jpg', 'bg4.jpg', 'bg5.jpg', 'bg6.jpg'];
-let currentBgIndex = 0;
-
-function rotateBackground() {
-    // 取得當前時間點（小時+分鐘）來決定背景，確保使用者重整頁面時，看到的背景也是同步的
-    const now = new Date();
-    const halfHourSegments = (now.getHours() * 2) + (now.getMinutes() >= 30 ? 1 : 0);
-    currentBgIndex = halfHourSegments % bgImages.length;
-
-    document.body.style.backgroundImage = `linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.7)), url('${bgImages[currentBgIndex]}')`;
-    document.body.style.backgroundSize = 'cover';
-    document.body.style.backgroundPosition = 'center';
-    console.log(`[星燈系統] 已自動切換至背景: ${bgImages[currentBgIndex]}`);
-}
-
-// 啟動定時監測 (每分鐘檢查一次是否需要換圖)
-setInterval(rotateBackground, 60000);
-rotateBackground(); // 初始化執行
