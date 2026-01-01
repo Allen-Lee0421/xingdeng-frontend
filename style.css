@@ -1,58 +1,27 @@
 body {
     background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
     color: #f8fafc;
-    font-family: 'Segoe UI', sans-serif;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    margin: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh;
 }
-
 .lang-selector { position: absolute; top: 20px; right: 20px; }
 select { padding: 8px; border-radius: 6px; background: #1e293b; color: white; border: 1px solid #3b82f6; }
-
-header { text-align: center; padding: 2rem; border-bottom: 2px solid #3b82f6; width: 100%; margin-bottom: 2rem; }
-
-.container { width: 90%; max-width: 600px; }
-
+header { text-align: center; padding: 2.5rem; border-bottom: 2px solid #3b82f6; width: 100%; margin-bottom: 2rem; }
+.container { width: 90%; max-width: 650px; }
 .scan-box, .report-box {
-    background: rgba(30, 41, 59, 0.8);
-    padding: 2rem;
-    border-radius: 1rem;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-    border: 1px solid #334155;
-    backdrop-filter: blur(10px);
+    background: rgba(30, 41, 59, 0.7); padding: 2.5rem; border-radius: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4); border: 1px solid #334155; backdrop-filter: blur(10px);
 }
-
 input, textarea {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border-radius: 6px;
-    border: 1px solid #334155;
-    background: #0f172a;
-    color: white;
+    width: 100%; padding: 14px; margin: 10px 0; border-radius: 8px;
+    border: 1px solid #334155; background: #0f172a; color: white; box-sizing: border-box;
 }
-
 button {
-    width: 100%;
-    background: #3b82f6;
-    color: white;
-    border: none;
-    padding: 12px;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
+    width: 100%; background: #3b82f6; color: white; border: none; padding: 14px;
+    border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 10px;
 }
-
-button:hover { background: #2563eb; transform: translateY(-2px); }
-
+button:hover { background: #2563eb; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3); }
 .result-placeholder {
-    margin-top: 1.5rem;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    text-align: center;
-    background: #21374a;
+    margin-top: 1.5rem; padding: 1.2rem; border-radius: 10px; text-align: center;
+    background: #1e293b; border: 1px solid #334155; line-height: 1.6;
 }
