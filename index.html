@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>反詐騙偵測器 MVP (V3.2 商業化升級)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <style>
+        /* 全局設定 */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0e1e2c; /* 深藍色背景 */
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* 頂部標題與導航 */
+        header {
+            background-color: #1a3449; /* 更深的頂部藍色 */
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            color: #64b5f6; /* 主色調藍 */
+        }
+
+        header p {
+            margin-top: 5px;
+            color: #a0a0a0;
+        }
+
+        /* 內容容器 */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* 區塊標題 */
+        h2 {
+            font-size: 1.8em;
+            color: #90caf9;
+            border-bottom: 2px solid #2d4c67;
+            padding-bottom: 10px;
+            margin-top: 40px;
+            display: flex;
+            align-items: center;
+        }
+
+        h2 i {
+            margin-right: 10px;
+            color: #64b5f6;
+        }
+
+        /* 卡片容器樣式 */
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background-color: #1a3449; /* 卡片背景 */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .card h3 {
+            color: #ffcc80; /* 暖色強調 */
+            margin-top: 0;
+            border-bottom: 1px dashed #3a5a75;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* 表單元素 */
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #b3e5fc;
+        }
+
+        input[type="url"], 
+        input[type="email"], 
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #2d4c67;
+            border-radius: 6px;
+            box-sizing: border-box;
+            background-color: #0e1e2c;
+            color: #e0e0e0;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        input[type="url"]:focus, 
+        input[type="email"]:focus, 
+        input[type="text"]:focus,
+        select:focus {
+            border-color: #64b5f6;
+            outline: none;
+        }
+
+        /* 按鈕樣式 */
+        button {
+            background-color: #64b5f6;
+            color: #1a3449;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
+        button:hover {
+            background-color: #90caf9;
+            transform: translateY(-1px);
+        }
+
+        /* 結果顯示區 */
+        .result-display {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4);
+            display: none; /* 預設隱藏 */
+            animation: fadeIn 0.5s;
+        }
+        
+        /* 動畫效果 */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .result-tag {
+            display: inline-block;
+            background-color: #ffeb3b;
+            color: #1a3449;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+
+        /* 結帳區塊的選項 */
+        .payment-options {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .payment-options div {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #2d4c67;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+            text-align: center;
+        }
+
+        .payment-options input[type="radio"] {
+            display: none;
+        }
+
+        .payment-options input[type="radio"]:checked + label div {
+            background-color: #3d5a73;
+            border-color: #64b5f6;
+        }
+
+        /* 頁腳 */
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 50px;
+            border-top: 1px solid #2d4c67;
+            color: #a0a0a0;
+            background-color: #1a3449;
+        }
+    </style>
+    </head>
+<body>
+    <header>
+        <h1><i class="fa-solid fa-shield-halved"></i> 程式夥伴反詐騙中心</h1>
+        <p>Anti-Fraud Detector MVP - V3.2 商業化產品展示</p>
+    </header>
+
+    <div class="container">
+        
+        <h2><i class="fa-solid fa-magnifying-glass"></i> 網址詐騙掃描 (T2/T4)</h2>
+        <div class="card-container">
+            <div class="card">
+                <h3>即時偵測服務</h3>
+                <form id="scanForm">
+                    <label for="url_input">輸入可疑網址 (URL):</label>
+                    <input type="url" id="url_input" name="url_input" placeholder="例如: https://www.scam-site.com/login" required>
+                    <button type="submit"><i class="fa-solid fa-scan"></i> 開始掃描</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h3>掃描結果</h3>
+                <div id="scan_result" class="result-display" style="display: block; background-color: #3d5a73;">
+                    <i class="fa-solid fa-circle-info"></i> 掃描結果將在此顯示。請輸入完整網址並包含 http:// 或 https://
+                </div>
+            </div>
+        </div>
+
+        <h2><i class="fa-solid fa-bullhorn"></i> 詐騙網站通報 (T3)</h2>
+        <div class="card-container">
+            <div class="card">
+                <h3>協助打擊詐騙</h3>
+                <form id="reportForm">
+                    <label for="report_url">可疑詐騙網址:</label>
+                    <input type="url" id="report_url" name="report_url" placeholder="請輸入您想通報的網址" required>
+
+                    <label for="contact_email">您的聯絡信箱 (選填):</label>
+                    <input type="email" id="contact_email" name="contact_email" placeholder="用於接收通報確認或 T3 獎勵碼">
+
+                    <button type="submit"><i class="fa-solid fa-share-nodes"></i> 通報網址</button>
+                </form>
+            </div>
+            <div class="card">
+                <h3>通報結果 / T3 獎勵</h3>
+                <div id="report_result" class="result-display" style="display: block; background-color: #3d5a73;">
+                    <i class="fa-solid fa-award"></i> 通報成功後，您將在此獲得 Pro Tier 試用獎勵碼！
+                </div>
+            </div>
+        </div>
+        
+        <h2><i class="fa-solid fa-user-lock"></i> Pro Tier 會員專享：數據洩漏檢查 (P1/T5)</h2>
+        <div class="card-container">
+            <div class="card">
+                <h3>檢查個資是否洩漏</h3>
+                <form id="proCheckForm">
+                    <label for="pro_user_email">Pro 會員信箱 (模擬登入):</label>
+                    <input type="email" id="pro_user_email" name="pro_user_email" value="pro_user@example.com" placeholder="使用 pro_user@example.com 測試" required>
+
+                    <label for="target_input">檢查目標 (信箱/手機號碼):</label>
+                    <input type="text" id="target_input" name="target_input" value="test@scam.com" placeholder="例如: 1234567890 或 test@scam.com" required>
+
+                    <button type="submit"><i class="fa-solid fa-fingerprint"></i> 啟動檢查 (Pro 專享)</button>
+                </form>
+            </div>
+            <div class="card">
+                <h3>檢查結果</h3>
+                <div id="pro_check_result" class="result-display" style="display: block; background-color: #3d5a73;">
+                    <i class="fa-solid fa-circle-question"></i> 請使用 Pro 帳號登入並輸入目標資訊進行檢查。
+                </div>
+            </div>
+        </div>
+
+
+        <h2><i class="fa-solid fa-money-check-dollar"></i> 商業化升級：Pro Tier 結帳 (T6)</h2>
+        <div class="card-container">
+            <div class="card">
+                <h3>方案選擇與付款方式</h3>
+                <form id="checkoutForm">
+                    <label for="payment_amount">選擇訂閱方案:</label>
+                    <select id="payment_amount" name="payment_amount" required>
+                        <option value="">請選擇方案</option>
+                        <option value="990">NT$ 990 / 年 (最優)</option>
+                        <option value="99">NT$ 99 / 月</option>
+                    </select>
+
+                    <label>選擇付款方式:</label>
+                    <div class="payment-options">
+                        <input type="radio" id="paypal" name="payment_method" value="paypal" required checked>
+                        <label for="paypal">
+                            <div><i class="fa-brands fa-paypal"></i> PayPal</div>
+                        </label>
+                        
+                        <input type="radio" id="bank" name="payment_method" value="bank" required>
+                        <label for="bank">
+                            <div><i class="fa-solid fa-building-columns"></i> 銀行轉帳</div>
+                        </label>
+                    </div>
+
+                    <button type="submit"><i class="fa-solid fa-cart-shopping"></i> 模擬結帳</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h3>訂單資訊</h3>
+                <div id="order_result" class="result-display" style="display: block; background-color: #3d5a73; text-align: left;">
+                    <i class="fa-solid fa-receipt"></i> 訂單細節將在此顯示。
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <footer>
+        &copy; 2025 程式夥伴反詐騙中心 - 專案展示版。
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
