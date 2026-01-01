@@ -5,122 +5,120 @@
     <title>星燈防詐中心 - Global Command Center</title>
     <style>
         body { 
-            margin: 0; padding: 20px; color: white; 
+            margin: 0; padding: 0; color: white; 
             font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif; 
-            display: flex; flex-direction: column; align-items: center; 
-            min-height: 100vh;
-            /* 預設載入第一張背景 */
-            background: #000 url('bg1.jpg') no-repeat center center fixed; 
+            background: #000 url('image_487005.jpg') no-repeat center center fixed; 
             background-size: cover;
-            transition: background-image 1.5s ease-in-out;
+            display: flex; justify-content: center; align-items: center;
+            height: 100vh; overflow: hidden;
         }
         body::before {
             content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.7); z-index: -1;
+            background: rgba(0, 0, 0, 0.75); z-index: -1;
         }
 
-        /* 標題區：盾牌在「星」字旁邊 */
-        .header-group {
-            text-align: center;
-            margin-bottom: 45px;
-            margin-top: 20px;
+        /* 右側直列語言選單 */
+        .side-lang-bar {
+            position: fixed; right: 40px; top: 50%; transform: translateY(-50%);
+            display: flex; flex-direction: column; gap: 20px; text-align: right;
+            border-right: 1px solid rgba(255,255,255,0.3); padding-right: 20px;
         }
-        .title-row {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px; /* 盾牌與字的間距 */
+        .lang-btn {
+            cursor: pointer; font-size: 14px; color: #FFFFFF; font-weight: 300;
+            letter-spacing: 2px; transition: 0.3s; opacity: 0.6;
         }
-        .shield-img {
-            width: 50px; /* 調整盾牌大小以配合文字高度 */
-            height: auto;
-            filter: drop-shadow(0 0 10px rgba(57, 255, 20, 0.8));
+        .lang-btn:hover, .lang-btn.active { opacity: 1; font-weight: bold; color: #39FF14; }
+
+        /* 主視覺區 */
+        .main-display { text-align: center; width: 100%; max-width: 800px; }
+        
+        .header-group { display: flex; align-items: center; justify-content: center; gap: 25px; margin-bottom: 5px; }
+        .shield-icon { width: 70px; height: auto; filter: drop-shadow(0 0 15px rgba(57, 255, 20, 0.5)); }
+        
+        .white-title { 
+            font-size: 72px; font-weight: 900; color: #FFFFFF; 
+            margin: 0; letter-spacing: 8px;
+            text-shadow: 0 0 20px rgba(255,255,255,0.4);
         }
-        .main-white-title {
-            font-size: 60px;
-            font-weight: 900;
-            color: #FFFFFF;
-            text-shadow: 0 0 15px rgba(255,255,255,0.7);
-            margin: 0;
+        .sub-title-en { 
+            font-size: 18px; color: #FFFFFF; opacity: 0.8; 
+            letter-spacing: 6px; margin-top: 5px; text-transform: uppercase;
+        }
+
+        /* 掃描介面 */
+        .console-box { 
+            margin-top: 50px; background: rgba(255,255,255,0.05); 
+            padding: 40px; border-radius: 5px; border: 1px solid rgba(57, 255, 20, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        input { 
+            width: 80%; padding: 15px; background: transparent; border: none; 
+            border-bottom: 1px solid #39FF14; color: #fff; font-size: 18px; 
+            text-align: center; outline: none; margin-bottom: 30px;
+        }
+        .btn-action { 
+            background: transparent; color: #39FF14; border: 1px solid #39FF14; 
+            padding: 12px 40px; font-size: 18px; cursor: pointer; transition: 0.3s;
             letter-spacing: 2px;
         }
-        /* 英文字母排在中文正下方 */
-        .en-subtitle {
-            font-size: 16px;
-            font-weight: bold;
-            color: #39FF14;
-            letter-spacing: 4px;
-            margin-top: 10px;
-            text-transform: uppercase;
-        }
-
-        .lang-nav {
-            display: flex; gap: 10px; margin-bottom: 30px;
-            background: rgba(255,255,255,0.1); padding: 8px 15px;
-            border-radius: 25px; border: 1px solid rgba(57, 255, 20, 0.3);
-        }
-        .lang-btn { cursor: pointer; font-size: 13px; font-weight: bold; color: #fff; padding: 5px 10px; border-radius: 15px; }
-        .lang-btn.active { background: #39FF14; color: #000; }
-
-        .scan-container { 
-            max-width: 650px; width: 100%; border: 2px solid #39FF14; 
-            box-shadow: 0 0 25px rgba(57, 255, 20, 0.4); 
-            padding: 40px; text-align: center; border-radius: 20px; 
-            background: rgba(0,0,0,0.85); backdrop-filter: blur(10px);
-        }
+        .btn-action:hover { background: #39FF14; color: #000; box-shadow: 0 0 20px #39FF14; }
     </style>
 </head>
 <body>
 
-    <div class="lang-nav">
-        <span class="lang-btn active" onclick="changeLang('tw')">繁中</span>
-        <span class="lang-btn" onclick="changeLang('en')">EN</span>
-        <span class="lang-btn" onclick="changeLang('vn')">VN</span>
-        <span class="lang-btn" onclick="changeLang('id')">ID</span>
+    <div class="side-lang-bar">
+        <div class="lang-btn active" onclick="changeLang('tw')">繁體中文</div>
+        <div class="lang-btn" onclick="changeLang('cn')">简体中文</div>
+        <div class="lang-btn" onclick="changeLang('en')">ENGLISH</div>
+        <div class="lang-btn" onclick="changeLang('vn')">TIẾNG VIỆT</div>
+        <div class="lang-btn" onclick="changeLang('ph')">TAGALOG</div>
+        <div class="lang-btn" onclick="changeLang('id')">BAHASA</div>
+        <div class="lang-btn" onclick="changeLang('jp')">日本語</div>
+        <div class="lang-btn" onclick="changeLang('kr')">한국어</div>
     </div>
 
-    <div class="header-group">
-        <div class="title-row">
-            <img src="image_4811d4.png" class="shield-img" alt="Shield">
-            <h1 id="mainTitle" class="main-white-title">星燈防詐中心</h1>
+    <div class="main-display">
+        <div class="header-group">
+            <img src="image_4811d4.png" class="shield-icon" alt="Shield">
+            <h1 id="mainTitle" class="white-title">星燈防詐中心</h1>
         </div>
-        <div id="subTitle" class="en-subtitle">Global Anti-Fraud Defense System</div>
-    </div>
+        <div id="subTitle" class="sub-title-en">Global Anti-Fraud Defense System</div>
 
-    <div class="scan-container">
-        <input type="text" id="urlInput" placeholder="請輸入欲偵測之可疑網址..." style="width:90%; padding:15px; background:transparent; border:1px solid #39FF14; color:#fff; font-size:18px; text-align:center; border-radius:5px; outline:none; margin-bottom:20px;">
-        <button onclick="startScan()" style="background: #39FF14; color: #000; border: none; padding: 18px; font-weight: 900; cursor: pointer; border-radius: 8px; width: 100%; font-size: 22px;">啟動深度取證掃描</button>
-        <div id="scanResult" style="margin-top: 20px; color: #39FF14; font-weight: bold;"></div>
+        <div class="console-box">
+            <input type="text" id="urlInput" placeholder="READY TO SCAN URL...">
+            <br>
+            <button class="btn-action" onclick="startScan()">RUN ANALYTICS</button>
+            <div id="scanResult" style="margin-top: 20px; color: #39FF14; font-family: monospace;"></div>
+        </div>
     </div>
 
     <script>
-        // 背景自動更換邏輯 (請確保 GitHub 有 bg1.jpg ~ bg8.jpg)
-        let bgIndex = 1;
-        function rotateBackground() {
-            bgIndex = bgIndex >= 8 ? 1 : bgIndex + 1;
-            document.body.style.backgroundImage = `url('bg${bgIndex}.jpg')`;
-            console.log("Current BG: bg" + bgIndex);
-        }
-        // 設定 15 秒換一次，讓效果明顯
-        setInterval(rotateBackground, 15000);
+        const langData = {
+            tw: { title: "星燈防詐中心", sub: "Global Anti-Fraud Defense System" },
+            en: { title: "XINGDENG CENTER", sub: "Global Anti-Fraud Defense System" },
+            vn: { title: "TRUNG TÂM PHÒNG THỦ", sub: "Hệ thống Phòng thủ Toàn cầu" },
+            // ... 其餘語言類推
+        };
 
         function changeLang(lang) {
-            const titles = {
-                tw: "星燈防詐中心",
-                en: "XingDeng Defense",
-                vn: "Trung tâm Chống Lừa đảo",
-                id: "Pusat Anti-Penipuan"
-            };
-            document.getElementById('mainTitle').innerText = titles[lang];
+            const d = langData[lang] || langData['en'];
+            document.getElementById('mainTitle').innerText = d.title;
             document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
             event.target.classList.add('active');
         }
 
+        // 背景自動更換 (15秒)
+        let bgIndex = 1;
+        setInterval(() => {
+            bgIndex = bgIndex >= 8 ? 1 : bgIndex + 1;
+            document.body.style.backgroundImage = `url('bg${bgIndex}.jpg')`;
+        }, 15000);
+
         function startScan() {
-            const res = document.getElementById('scanResult');
-            res.innerHTML = "INITIALIZING SCAN...";
-            setTimeout(() => { res.innerHTML = "SEARCHING GLOBAL DATABASE... 45%"; }, 1000);
-            setTimeout(() => { res.innerHTML = "⚠️ THREAT DETECTED!"; }, 3000);
+            let res = document.getElementById('scanResult');
+            res.innerText = "INITIALIZING CORE...";
+            setTimeout(() => { res.innerText = "ACCESSING GLOBAL BLACKLIST..."; }, 1000);
+            setTimeout(() => { res.innerText = "CRITICAL THREAT DETECTED."; }, 3000);
         }
     </script>
 </body>
