@@ -1,27 +1,23 @@
 body {
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    /* 預設背景，防止圖片載入延遲時留白 */
+    background-color: #0f172a;
+    background-blend-mode: overlay;
+    transition: background-image 1.5s ease-in-out; /* 讓切換過程像電影般淡入淡出 */
     color: #f8fafc;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    margin: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
 }
-.lang-selector { position: absolute; top: 20px; right: 20px; }
-select { padding: 8px; border-radius: 6px; background: #1e293b; color: white; border: 1px solid #3b82f6; }
-header { text-align: center; padding: 2.5rem; border-bottom: 2px solid #3b82f6; width: 100%; margin-bottom: 2rem; }
-.container { width: 90%; max-width: 650px; }
+
+/* 保持卡片的透明磨砂質感 */
 .scan-box, .report-box {
-    background: rgba(30, 41, 59, 0.7); padding: 2.5rem; border-radius: 1.5rem;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4); border: 1px solid #334155; backdrop-filter: blur(10px);
-}
-input, textarea {
-    width: 100%; padding: 14px; margin: 10px 0; border-radius: 8px;
-    border: 1px solid #334155; background: #0f172a; color: white; box-sizing: border-box;
-}
-button {
-    width: 100%; background: #3b82f6; color: white; border: none; padding: 14px;
-    border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 10px;
-}
-button:hover { background: #2563eb; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3); }
-.result-placeholder {
-    margin-top: 1.5rem; padding: 1.2rem; border-radius: 10px; text-align: center;
-    background: #1e293b; border: 1px solid #334155; line-height: 1.6;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
 }
