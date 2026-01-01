@@ -1,101 +1,126 @@
+/* ---------------------------------------------------------------------- */
+/* 星燈 V4.2：霓虹科技美學版 */
+/* ---------------------------------------------------------------------- */
+
 body {
-    background-color: #0f172a; /* 墊底色 */
+    background-color: #050a14;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    background-repeat: no-repeat;
-    transition: background-image 1.5s ease-in-out;
-    
+    transition: background-image 2s ease-in-out;
     display: flex;
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    color: #f8fafc;
-    font-family: 'Segoe UI', system-ui, sans-serif;
+    color: #e2e8f0;
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
 }
 
 header {
     text-align: center;
-    padding: 3rem 1rem;
+    padding: 4rem 1rem;
     width: 100%;
-    background: rgba(15, 23, 42, 0.5);
+    background: linear-gradient(to bottom, rgba(10, 20, 40, 0.8), transparent);
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(59, 130, 246, 0.2);
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+h1 {
+    font-size: 2.8rem;
+    letter-spacing: 2px;
+    color: #60a5fa;
+    text-shadow: 0 0 15px rgba(96, 165, 250, 0.6);
 }
 
 .container {
     width: 90%;
-    max-width: 650px;
+    max-width: 680px;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-    margin: 0 auto; /* 確保內容水平置中 */
+    gap: 3rem;
+    margin-bottom: 80px;
 }
 
+/* 霓虹磨砂卡片 */
 .scan-box, .report-box {
-    background: rgba(30, 41, 59, 0.85);
-    backdrop-filter: blur(20px);
-    padding: 2.5rem;
-    border-radius: 20px;
-    border: 1px solid rgba(59, 130, 246, 0.2);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-    box-sizing: border-box; /* 防止 padding 撐破寬度 */
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(25px);
+    padding: 3rem;
+    border-radius: 24px;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(59, 130, 246, 0.1);
+    box-sizing: border-box;
+    transition: 0.4s;
 }
 
+.scan-box:hover, .report-box:hover {
+    border-color: rgba(96, 165, 250, 0.6);
+    box-shadow: 0 0 40px rgba(59, 130, 246, 0.25);
+}
+
+/* 輸入框美化 */
 input, textarea {
     width: 100%;
-    padding: 14px;
-    margin: 10px 0;
-    border-radius: 8px;
-    border: 1px solid #334155;
-    background: rgba(15, 23, 42, 0.9);
+    padding: 16px;
+    margin: 12px 0;
+    border-radius: 12px;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    background: rgba(10, 20, 40, 0.8);
     color: #fff;
+    font-size: 1rem;
     box-sizing: border-box;
-    display: block;
+    transition: 0.3s;
 }
 
-/* 掃描按鈕保持藍色 */
+input:focus {
+    border-color: #3b82f6;
+    background: rgba(10, 20, 40, 1);
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+    outline: none;
+}
+
+/* 藍色按鈕 - 掃描 */
 #btnScan {
-    background: linear-gradient(90deg, #2563eb, #3b82f6);
+    background: linear-gradient(135deg, #1d4ed8, #3b82f6);
     color: white;
     border: none;
-    padding: 15px;
-    border-radius: 8px;
-    font-weight: bold;
+    padding: 18px;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 1.1rem;
     cursor: pointer;
-    transition: 0.3s;
-    width: 100%;
-    margin-top: 10px;
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+    transition: 0.4s;
 }
 
-/* 提交通報按鈕改為紅色 [需求實現] */
+/* 紅色按鈕 - 通報 [強化版] */
 #btnReport {
-    background: linear-gradient(90deg, #dc2626, #ef4444);
+    background: linear-gradient(135deg, #b91c1c, #ef4444);
     color: white;
     border: none;
-    padding: 15px;
-    border-radius: 8px;
-    font-weight: bold;
+    padding: 18px;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 1.1rem;
     cursor: pointer;
-    transition: 0.3s;
-    width: 100%;
-    margin-top: 10px;
+    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
+    transition: 0.4s;
 }
 
 button:hover {
-    transform: translateY(-2px);
-    filter: brightness(1.1);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transform: translateY(-3px) scale(1.02);
+    filter: brightness(1.2);
 }
 
 .result-placeholder {
-    margin-top: 1.5rem;
-    padding: 1.2rem;
-    border-radius: 10px;
+    margin-top: 2rem;
+    padding: 1.5rem;
+    border-radius: 14px;
     text-align: center;
-    background: rgba(15, 23, 42, 0.6);
+    background: rgba(2, 6, 23, 0.6);
+    border: 1px dashed rgba(59, 130, 246, 0.4);
+    color: #94a3b8;
 }
 
-.lang-selector { position: absolute; top: 20px; right: 20px; z-index: 100; }
+.lang-selector { position: absolute; top: 30px; right: 30px; }
