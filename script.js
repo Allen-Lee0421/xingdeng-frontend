@@ -58,3 +58,37 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch { msg.innerText = "❌ 提交失敗"; }
     });
 });
+// --- 背景自動切換企劃 (每 30 分鐘變換一次) ---
+const bgImages = ['bg1.jpg', 'bg2.jpg', 'bg3.jpg', 'bg4.jpg', 'bg5.jpg', 'bg6.jpg'];
+let currentBgIndex = 0;
+
+function rotateBackground() {
+    // 取得當前時間點（小時+分鐘）來決定背景，確保使用者重整頁面時，看到的背景也是同步的
+    const now = new Date();
+    const halfHourSegments = (now.getHours() * 2) + (now.getMinutes() >= 30 ? 1 : 0);
+    currentBgIndex = halfHourSegments % bgImages.length;
+
+    document.body.style.backgroundImage = `linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.7)), url('${bgImages[currentBgIndex]}')`;
+    document.body.style.backgroundSize = 'cover';
+    document.body.style.backgroundPosition = 'center';
+    console.log(`[星燈系統] 已自動切換至背景: ${bgImages[currentBgIndex]}`);
+}
+// --- 背景自動切換企劃 (每 30 分鐘變換一次) ---
+const bgImages = ['bg1.jpg', 'bg2.jpg', 'bg3.jpg', 'bg4.jpg', 'bg5.jpg', 'bg6.jpg'];
+let currentBgIndex = 0;
+
+function rotateBackground() {
+    // 取得當前時間點（小時+分鐘）來決定背景，確保使用者重整頁面時，看到的背景也是同步的
+    const now = new Date();
+    const halfHourSegments = (now.getHours() * 2) + (now.getMinutes() >= 30 ? 1 : 0);
+    currentBgIndex = halfHourSegments % bgImages.length;
+
+    document.body.style.backgroundImage = `linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.7)), url('${bgImages[currentBgIndex]}')`;
+    document.body.style.backgroundSize = 'cover';
+    document.body.style.backgroundPosition = 'center';
+    console.log(`[星燈系統] 已自動切換至背景: ${bgImages[currentBgIndex]}`);
+}
+
+// 啟動定時監測 (每分鐘檢查一次是否需要換圖)
+setInterval(rotateBackground, 60000);
+rotateBackground(); // 初始化執行
