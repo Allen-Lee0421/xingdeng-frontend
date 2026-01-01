@@ -3,12 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>星燈防詐 - 全球守護 | XingDeng Anti-Fraud</title>
+    <title>星燈防詐中心 | XingDeng Anti-Fraud</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        .lang-selector { position: absolute; top: 10px; right: 20px; }
-        select { padding: 5px; border-radius: 5px; background: #2c3e50; color: white; border: 1px solid #3498db; }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <div class="lang-selector">
@@ -26,44 +23,35 @@
 
     <header>
         <h1 id="mainTitle">🛡️ 星燈防詐中心</h1>
-        <p id="subTitle">XingDeng Anti-Fraud - V3.3 全球化防護展示</p>
+        <p id="subTitle">V4.0 全球化防護與及時偵測系統</p>
     </header>
 
     <main class="container">
         <section class="scan-box">
             <h2 id="scanTitle">🔍 網址詐騙掃描</h2>
-            <div class="input-group">
-                <input type="text" id="urlInput" placeholder="https://example.com">
-                <button onclick="handleScan()" id="btnScan">開始掃描</button>
+            <form id="scanForm">
+                <div class="input-group">
+                    <input type="text" id="url_to_scan" placeholder="https://example.com" required>
+                    <button type="submit" id="btnScan">開始掃描</button>
+                </div>
+            </form>
+            <div id="scan_result" class="result-placeholder">
+                掃描結果將在此顯示
             </div>
-            <div id="resultArea" class="result-placeholder">
-                <p id="resultText">掃描結果將在此顯示</p>
-            </div>
+        </section>
+
+        <section class="report-box" style="margin-top: 2rem;">
+            <h2 id="reportTitle">📢 詐騙網址通報</h2>
+            <form id="reportForm">
+                <input type="text" id="link" placeholder="可疑網址 (http://...)" required>
+                <textarea id="details" placeholder="請描述詐騙手法..."></textarea>
+                <input type="text" id="contact" placeholder="聯絡方式 (選填)">
+                <button type="submit" id="btnReport">提交通報</button>
+            </form>
+            <div id="message" style="display:none; margin-top:10px;"></div>
         </section>
     </main>
 
-    <script>
-        const translations = {
-            "zh-TW": { title: "🛡️ 星燈防詐中心", sub: "V3.3 全球化防護展示", scan: "🔍 網址詐騙掃描", btn: "開始掃描", res: "掃描結果將在此顯示", placeholder: "輸入網址..." },
-            "zh-CN": { title: "🛡️ 星灯防诈中心", sub: "V3.3 全球化防护展示", scan: "🔍 网址诈骗扫描", btn: "开始扫描", res: "扫描结果將在此显示", placeholder: "输入网址..." },
-            "en": { title: "🛡️ XingDeng Security", sub: "V3.3 Global Protection", scan: "🔍 URL Fraud Scan", btn: "Start Scan", res: "Result will appear here", placeholder: "Enter URL..." },
-            "ja": { title: "🛡️ 星燈詐欺対策", sub: "V3.3 グローバル防衛", scan: "🔍 URLスキャン", btn: "スキャン開始", res: "結果はここに表示されます", placeholder: "URLを入力..." },
-            "ko": { title: "🛡️ 성등 보이스피싱 방지", sub: "V3.3 글로벌 보안", scan: "🔍 URL 사기 검사", btn: "검사 시작", res: "결과가 여기에 표시됩니다", placeholder: "URL 입력..." },
-            "vi": { title: "🛡️ Trung tâm Chống Lừa đảo", sub: "V3.3 Bảo vệ Toàn cầu", scan: "🔍 Quét URL Lừa đảo", btn: "Bắt đầu Quét", res: "Kết quả sẽ hiển thị ở đây", placeholder: "Nhập URL..." },
-            "id": { title: "🛡️ Pusat Anti-Penipuan", sub: "V3.3 Perlindungan Global", scan: "🔍 Pemindaian URL", btn: "Mulai Pindai", res: "Hasil akan muncul di sini", placeholder: "Masukkan URL..." },
-            "tl": { title: "🛡️ Sentro Laban sa Scam", sub: "V3.3 Global na Proteksyon", scan: "🔍 URL Scam Scan", btn: "Simulan ang Scan", res: "Lalabas ang resulta dito", placeholder: "Ilagay ang URL..." }
-        };
-
-        function changeLanguage() {
-            const lang = document.getElementById('langSelect').value;
-            document.getElementById('mainTitle').innerText = translations[lang].title;
-            document.getElementById('subTitle').innerText = translations[lang].sub;
-            document.getElementById('scanTitle').innerText = translations[lang].scan;
-            document.getElementById('btnScan').innerText = translations[lang].btn;
-            document.getElementById('resultText').innerText = translations[lang].res;
-            document.getElementById('urlInput').placeholder = translations[lang].placeholder;
-        }
-    </script>
     <script src="script.js"></script>
 </body>
 </html>
