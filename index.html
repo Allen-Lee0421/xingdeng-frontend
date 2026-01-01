@@ -1,60 +1,64 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>星燈防詐中心 | XingDeng Security</title>
-    <link rel="stylesheet" href="style.css">
+    <title>星燈防詐中心 - A.c Lee 專業顧問</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { background: #050505; color: white; font-family: 'Segoe UI', Arial, sans-serif; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        
+        /* 核心護盾容器 */
+        .container { 
+            max-width: 600px; width: 100%; 
+            border: 4px solid #39FF14; /* 亮綠色加粗邊框 */
+            box-shadow: 0 0 20px #39FF14, inset 0 0 10px #39FF14; /* 內外發光 */
+            padding: 30px; text-align: center; border-radius: 15px; background: rgba(0,0,0,0.9);
+        }
+
+        h1 { color: #39FF14; text-shadow: 0 0 10px #39FF14; }
+        .scan-box { margin: 20px 0; }
+        input { width: 80%; padding: 12px; border: 1px solid #39FF14; background: #000; color: #fff; border-radius: 5px; }
+        
+        /* 按鈕樣式 */
+        .btn-main { background: #39FF14; color: #000; border: none; padding: 12px 25px; font-weight: bold; cursor: pointer; margin-top: 10px; border-radius: 5px; }
+        .btn-main:hover { background: #fff; box-shadow: 0 0 20px #fff; }
+
+        /* 支付區塊樣式 */
+        .payment-section { margin-top: 40px; border-top: 1px solid #333; pt: 20px; }
+        .pay-card { background: rgba(255,255,255,0.05); padding: 15px; margin: 15px 0; border-left: 4px solid #39FF14; text-align: left; }
+    </style>
 </head>
 <body>
-    <div class="lang-selector">
-        <select id="langSelect" onchange="changeLanguage()">
-            <option value="zh-TW">繁體中文</option>
-            <option value="en">English</option>
-        </select>
-    </div>
 
-    <header>
-        <h1 id="mainTitle">🛡️ 星燈防詐中心</h1>
-        <p id="subTitle">V5.0 軍事級全球防護系統</p>
-    </header>
+    <div class="container">
+        <h1>🛡️ 星燈防詐中心</h1>
+        <p>由 A.c Lee 提供技術支持 - 全球詐騙網址即時偵測</p>
 
-    <main class="container">
         <div class="scan-box">
-            <h2 id="scanTitle">🔍 網址詐騙掃描</h2>
-            <form id="scanForm">
-                <input type="text" id="url_to_scan" placeholder="https://example.com" required>
-                <button type="submit" id="btnScan">啟動深度掃描</button>
-            </form>
-            <div id="scan_result" class="result-placeholder">系統待命中心...</div>
+            <input type="text" id="urlInput" placeholder="請輸入可疑網址 (URL)...">
+            <button class="btn-main" onclick="startScan()">立即啟動深度掃描</button>
+            <div id="scanResult" style="margin-top: 15px; min-height: 50px;"></div>
         </div>
 
-        <div class="report-box">
-            <h2 id="reportTitle">📢 詐騙網址通報</h2>
-            <form id="reportForm">
-                <input type="text" id="link" placeholder="可疑網址 (http://...)" required>
-                <textarea id="details" placeholder="請描述詐騙手法..."></textarea>
-                <input type="text" id="contact" placeholder="聯絡方式 (選填)">
-                <button type="submit" id="btnReport">提交通報</button>
-            </form>
-            <div id="message" class="result-placeholder" style="display:none;"></div>
-        </div>
+        <div class="payment-section">
+            <h2 style="color: #39FF14;">💎 升級防禦服務</h2>
+            
+            <div class="pay-card">
+                <h3>🔓 解鎖深度取證報告</h3>
+                <p>獲取網站 IP、地理位置及黑名單詳細紀錄。</p>
+                <button class="btn-main" onclick="showPayModal('Report', 30)">NT$ 30 / 次 (ATM)</button>
+            </div>
 
-        <div class="payment-box">
-            <h2 id="payTitle">💎 贊助與升級</h2>
-            <p>支持星燈防護系統持續運作</p>
-            <div class="pay-btn-group">
-                <button class="btn-paypal" onclick="window.open('https://paypal.me')">
-                    <i class="fab fa-paypal"></i> PayPal 贊助
-                </button>
-                <button class="btn-atm" onclick="alert('帳號：(822) 123-456789-0')">
-                    <i class="fas fa-university"></i> ATM 轉帳
-                </button>
+            <div class="pay-card">
+                <h3>🏢 企業自動化監測方案</h3>
+                <p>每週自動發送品牌商譽報告至您的信箱。</p>
+                <button class="btn-main" onclick="showPayModal('Enterprise', 1500)">NT$ 1,500 / 季 (ATM)</button>
             </div>
         </div>
-    </main>
+    </div>
 
-    <script src="script.js"></script>
+    <script>
+        // 我們待會在這裡寫邏輯
+    </script>
 </body>
 </html>
