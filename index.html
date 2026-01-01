@@ -3,9 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>星燈防詐中心 - 自主部署</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <title>星燈防詐中心</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -19,10 +17,14 @@
     }
     body {
       margin: 0;
-      background: radial-gradient(1200px 600px at 50% -200px, #09342a 0%, var(--bg) 45%, #000 100%);
-      color: var(--text);
-      font-family: 'Orbitron', system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans", "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      font-family: 'Orbitron', system-ui;
       min-height: 100vh;
+      background-color: #000;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      transition: background-image 1s ease-in-out;
       display: flex; align-items: center; justify-content: center;
     }
     .wrap {
@@ -33,31 +35,17 @@
       border-radius: 18px;
       padding: 28px;
       backdrop-filter: blur(4px);
+      color: var(--text);
     }
-    header {
-      display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;
-    }
-    .brand {
-      letter-spacing: 1px;
-    }
-    .brand h1 {
-      margin: 0;
-      font-size: 24px;
-      font-weight: 600;
-      color: var(--accent);
-      text-shadow: 0 0 12px rgba(22,255,137,0.25);
-    }
-    .badge {
-      font-size: 12px; color: var(--muted);
-    }
-    .lang {
-      display: flex; gap: 8px; flex-wrap: wrap;
-    }
+    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+    .brand h1 { margin: 0; font-size: 24px; font-weight: 600; color: var(--accent); text-shadow: 0 0 12px rgba(22,255,137,0.25); }
+    .badge { font-size: 12px; color: var(--muted); }
+    .lang { display: flex; gap: 8px; flex-wrap: wrap; }
     .lang button {
       background: transparent; border: 1px solid #1f3f38; color: var(--muted);
       padding: 6px 10px; border-radius: 10px; cursor: pointer;
     }
-    .lang button.active { border-color: var(--accent); color: var(--text) }
+    .lang button.active { border-color: var(--accent); color: var(--text); }
 
     .panel {
       background: var(--panel);
@@ -82,25 +70,18 @@
     }
     .row button:disabled { filter: grayscale(0.6); opacity: 0.6; cursor: not-allowed; }
 
-    .result {
-      margin-top: 14px; font-size: 14px; color: var(--muted);
-    }
+    .result { margin-top: 14px; font-size: 14px; color: var(--muted); }
     .result pre {
       white-space: pre-wrap; word-wrap: break-word; background: #0c1212; padding: 12px; border-radius: 10px; border: 1px solid #173730;
     }
 
-    .grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
-    }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
     .plan {
       border: 1px solid #20463e; border-radius: 12px; padding: 16px; background: #0f1414;
     }
     .plan h3 { margin: 0 0 6px 0; color: var(--text); }
     .plan .price { color: var(--accent); font-weight: 600; }
-
-    .pay {
-      margin-top: 10px; display: grid; gap: 8px;
-    }
+    .pay { margin-top: 10px; display: grid; gap: 8px; }
     .pay .StripeElement, .pay input[type="text"] {
       padding: 12px; border-radius: 10px; background: #0c1212; border: 1px solid #184136; color: var(--text);
     }
@@ -141,7 +122,7 @@
       <div id="scanResult" class="result"></div>
     </section>
 
-    <section class="grid" style="margin-top: 14px;">
+    <section class="grid">
       <div class="plan">
         <h3>個人深度報告</h3>
         <div class="price">NT$ 30 / 次</div>
@@ -175,122 +156,4 @@
 
   <script src="https://js.stripe.com/v3/"></script>
   <script>
-    const urlInput = document.getElementById('urlInput');
-    const scanBtn = document.getElementById('scanBtn');
-    const scanResult = document.getElementById('scanResult');
-
-    scanBtn.addEventListener('click', async () => {
-      const url = urlInput.value.trim();
-      scanBtn.disabled = true;
-      scanBtn.textContent = '掃描中...';
-      scanResult.innerHTML = '';
-      try {
-        const res = await fetch('/api/scan', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ url })
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || '掃描失敗');
-        scanResult.innerHTML = `
-          <div>掃描結果：</div>
-          <pre>${JSON.stringify(data, null, 2)}</pre>
-        `;
-      } catch (e) {
-        scanResult.innerHTML = `<div class="err">錯誤：${e.message}</div>`;
-      } finally {
-        scanBtn.disabled = false;
-        scanBtn.textContent = '啟動深度取證掃描';
-      }
-    });
-
-    // Stripe init
-    let stripe;
-    let elements;
-    fetch('/api/public-key')
-      .then(r => r.json())
-      .then(({ publishableKey }) => {
-        stripe = Stripe(publishableKey);
-        elements = stripe.elements();
-
-        const personalCard = elements.create('card', { hidePostalCode: true });
-        personalCard.mount('#card-personal');
-
-        const enterpriseCard = elements.create('card', { hidePostalCode: true });
-        enterpriseCard.mount('#card-enterprise');
-
-        document.getElementById('payPersonalBtn').addEventListener('click', () => payOneTime(personalCard));
-        document.getElementById('subscribeBtn').addEventListener('click', () => subscribeMonthly(enterpriseCard));
-      })
-      .catch(err => {
-        document.getElementById('personalError').textContent = '支付初始化失敗：' + err.message;
-        document.getElementById('enterpriseError').textContent = '支付初始化失敗：' + err.message;
-      });
-
-    async function payOneTime(cardElement) {
-      const personalStatus = document.getElementById('personalStatus');
-      const personalError = document.getElementById('personalError');
-      personalStatus.textContent = '建立支付意圖中...';
-      personalError.textContent = '';
-
-      try {
-        const res = await fetch('/api/create-payment-intent', { method: 'POST' });
-        const { clientSecret } = await res.json();
-
-        const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-          payment_method: { card: cardElement }
-        });
-
-        if (error) {
-          personalError.textContent = error.message;
-        } else if (paymentIntent && paymentIntent.status === 'succeeded') {
-          personalStatus.textContent = '付款成功！深度報告已解鎖（示範）。';
-        } else {
-          personalStatus.textContent = '付款狀態：' + (paymentIntent?.status || '未知');
-        }
-      } catch (e) {
-        personalError.textContent = '支付失敗：' + e.message;
-      }
-    }
-
-    async function subscribeMonthly(cardElement) {
-      const enterpriseStatus = document.getElementById('enterpriseStatus');
-      const enterpriseError = document.getElementById('enterpriseError');
-      enterpriseStatus.textContent = '建立訂閱中...';
-      enterpriseError.textContent = '';
-
-      try {
-        const email = document.getElementById('enterpriseEmail').value.trim();
-        const res = await fetch('/api/create-subscription', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email })
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || '建立訂閱失敗');
-
-        const { clientSecret, status } = data;
-
-        if (status === 'requires_confirmation') {
-          const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-            payment_method: { card: cardElement }
-          });
-          if (error) {
-            enterpriseError.textContent = error.message;
-            return;
-          }
-          if (paymentIntent.status === 'succeeded') {
-            enterpriseStatus.textContent = '企業訂閱啟動成功！';
-          } else {
-            enterpriseStatus.textContent = '付款狀態：' + paymentIntent.status;
-          }
-        } else {
-          enterpriseStatus.textContent = '企業訂閱狀態：' + status;
-        }
-      } catch (e) {
-        enterpriseError.textContent = '訂閱失敗：' + e.message;
-      }
-    }
-  </script>
-</body>
-</html>
+    const bgList = ['bg3.jpg','bg4.jpg','bg5.jpg','
