@@ -5,8 +5,29 @@
     <title>星燈防詐中心 - 系統自動化防禦系統</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { background: #050505; color: white; font-family: 'Segoe UI', Arial, sans-serif; display: flex; flex-direction: column; align-items: center; padding: 20px; }
-        .container { max-width: 600px; width: 100%; border: 4px solid #39FF14; box-shadow: 0 0 20px #39FF14, inset 0 0 10px #39FF14; padding: 30px; text-align: center; border-radius: 15px; background: rgba(0,0,0,0.9); position: relative; }
+        body { 
+            margin: 0;
+            padding: 20px;
+            color: white; 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            min-height: 100vh;
+            /* 設定初始背景 */
+            background: #050505 url('bg1.jpg') no-repeat center center fixed; 
+            background-size: cover;
+            transition: background-image 2s ease-in-out; /* 切換時有淡入淡出效果 */
+        }
+        /* 增加一個半透明黑罩，確保文字在任何背景下都清晰 */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: -1;
+        }
+        .container { max-width: 600px; width: 100%; border: 4px solid #39FF14; box-shadow: 0 0 20px #39FF14, inset 0 0 10px #39FF14; padding: 30px; text-align: center; border-radius: 15px; background: rgba(0,0,0,0.8); position: relative; margin-top: 50px; }
         h1 { color: #39FF14; text-shadow: 0 0 10px #39FF14; }
         .scan-box { margin: 20px 0; }
         input { width: 80%; padding: 12px; border: 1px solid #39FF14; background: #000; color: #fff; border-radius: 5px; margin-bottom: 10px; }
@@ -14,8 +35,7 @@
         .btn-main:hover { background: #fff; box-shadow: 0 0 20px #fff; }
         .payment-section { margin-top: 40px; border-top: 1px solid #333; padding-top: 20px; }
         .pay-card { background: rgba(255,255,255,0.05); padding: 15px; margin: 15px 0; border-left: 4px solid #39FF14; text-align: left; }
-        /* 隱形關鍵字樣式 */
-        .seo-tags { font-size: 10px; color: #111; margin-top: 50px; text-align: center; user-select: none; }
+        .seo-tags { font-size: 10px; color: #444; margin-top: 50px; text-align: center; user-select: none; }
     </style>
 </head>
 <body>
@@ -32,13 +52,11 @@
 
         <div class="payment-section">
             <h2 style="color: #39FF14;">💎 升級高級防禦</h2>
-            
             <div class="pay-card">
                 <h3>🔓 深度取證報告 (個人)</h3>
                 <p>解鎖伺服器位置、歷史黑名單紀錄。</p>
                 <button class="btn-main" onclick="openPaypal()">PayPal 支付 ($0.99)</button>
             </div>
-
             <div class="pay-card">
                 <h3>🏢 企業自動化方案</h3>
                 <p>每週自動商譽監測與員工資安週報。</p>
@@ -52,6 +70,21 @@
     </div>
 
     <script>
+        // 背景自動切換邏輯
+        let bgIndex = 1;
+        const totalBgs = 8;
+        const changeInterval = 30 * 60 * 1000; // 30 分鐘 (毫秒)
+
+        function changeBackground() {
+            bgIndex = bgIndex >= totalBgs ? 1 : bgIndex + 1;
+            document.body.style.backgroundImage = `url('bg${bgIndex}.jpg')`;
+            console.log("系統已自動更換背景至: bg" + bgIndex + ".jpg");
+        }
+
+        // 啟動定時器
+        setInterval(changeBackground, changeInterval);
+
+        // 原有功能邏輯
         function startScan() {
             const url = document.getElementById('urlInput').value;
             if(!url) return alert("請輸入網址");
