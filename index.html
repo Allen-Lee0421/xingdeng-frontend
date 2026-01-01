@@ -6,25 +6,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body { background: #050505; color: white; font-family: 'Segoe UI', Arial, sans-serif; display: flex; flex-direction: column; align-items: center; padding: 20px; }
-        
-        /* 核心護盾容器 */
-        .container { 
-            max-width: 600px; width: 100%; 
-            border: 4px solid #39FF14; /* 亮綠色加粗邊框 */
-            box-shadow: 0 0 20px #39FF14, inset 0 0 10px #39FF14; /* 內外發光 */
-            padding: 30px; text-align: center; border-radius: 15px; background: rgba(0,0,0,0.9);
-        }
-
+        .container { max-width: 600px; width: 100%; border: 4px solid #39FF14; box-shadow: 0 0 20px #39FF14, inset 0 0 10px #39FF14; padding: 30px; text-align: center; border-radius: 15px; background: rgba(0,0,0,0.9); }
         h1 { color: #39FF14; text-shadow: 0 0 10px #39FF14; }
         .scan-box { margin: 20px 0; }
-        input { width: 80%; padding: 12px; border: 1px solid #39FF14; background: #000; color: #fff; border-radius: 5px; }
-        
-        /* 按鈕樣式 */
-        .btn-main { background: #39FF14; color: #000; border: none; padding: 12px 25px; font-weight: bold; cursor: pointer; margin-top: 10px; border-radius: 5px; }
+        input { width: 80%; padding: 12px; border: 1px solid #39FF14; background: #000; color: #fff; border-radius: 5px; margin-bottom: 10px; }
+        .btn-main { background: #39FF14; color: #000; border: none; padding: 12px 25px; font-weight: bold; cursor: pointer; border-radius: 5px; width: 100%; max-width: 300px; }
         .btn-main:hover { background: #fff; box-shadow: 0 0 20px #fff; }
-
-        /* 支付區塊樣式 */
-        .payment-section { margin-top: 40px; border-top: 1px solid #333; pt: 20px; }
+        .payment-section { margin-top: 40px; border-top: 1px solid #333; padding-top: 20px; }
         .pay-card { background: rgba(255,255,255,0.05); padding: 15px; margin: 15px 0; border-left: 4px solid #39FF14; text-align: left; }
     </style>
 </head>
@@ -32,33 +20,67 @@
 
     <div class="container">
         <h1>🛡️ 星燈防詐中心</h1>
-        <p>由 A.c Lee 提供技術支持 - 全球詐騙網址即時偵測</p>
+        <p>專業顧問：A.c Lee | 技術支援：kcli0124@gmail.com</p>
 
         <div class="scan-box">
-            <input type="text" id="urlInput" placeholder="請輸入可疑網址 (URL)...">
-            <button class="btn-main" onclick="startScan()">立即啟動深度掃描</button>
-            <div id="scanResult" style="margin-top: 15px; min-height: 50px;"></div>
+            <input type="text" id="urlInput" placeholder="輸入網址開始軍事級掃描...">
+            <button class="btn-main" onclick="startScan()">立即啟動掃描</button>
+            <div id="scanResult" style="margin-top: 15px; color: yellow; font-weight: bold;"></div>
         </div>
 
         <div class="payment-section">
-            <h2 style="color: #39FF14;">💎 升級防禦服務</h2>
+            <h2 style="color: #39FF14;">💎 升級高級防禦</h2>
             
             <div class="pay-card">
-                <h3>🔓 解鎖深度取證報告</h3>
-                <p>獲取網站 IP、地理位置及黑名單詳細紀錄。</p>
-                <button class="btn-main" onclick="showPayModal('Report', 30)">NT$ 30 / 次 (ATM)</button>
+                <h3>🔓 深度取證報告 (個人)</h3>
+                <p>解鎖伺服器位置、歷史黑名單紀錄。</p>
+                <button class="btn-main" onclick="openPaypal()">PayPal 支付 ($0.99)</button>
             </div>
 
             <div class="pay-card">
-                <h3>🏢 企業自動化監測方案</h3>
-                <p>每週自動發送品牌商譽報告至您的信箱。</p>
-                <button class="btn-main" onclick="showPayModal('Enterprise', 1500)">NT$ 1,500 / 季 (ATM)</button>
+                <h3>🏢 企業自動化方案</h3>
+                <p>每週自動商譽監測與員工資安週報。</p>
+                <button class="btn-main" onclick="showAtmModal()">ATM 獲取授權 (NT$ 1,500)</button>
             </div>
         </div>
     </div>
 
     <script>
-        // 我們待會在這裡寫邏輯
+        function startScan() {
+            const res = document.getElementById('scanResult');
+            res.innerHTML = "正在對接全球資料庫... 0%";
+            let count = 0;
+            let interval = setInterval(() => {
+                count += 20;
+                res.innerHTML = "正在偵測惡意代碼... " + count + "%";
+                if(count >= 100) {
+                    clearInterval(interval);
+                    res.innerHTML = "<span style='color:red;'>⚠️ 警告：發現疑似釣魚特徵！請解鎖完整報告以獲取安全建議。</span>";
+                }
+            }, 500);
+        }
+
+        function openPaypal() {
+            window.open('https://paypal.me/TaiwanPayment', '_blank');
+        }
+
+        function showAtmModal() {
+            const modalHtml = `
+                <div id="atmModal" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); display:flex; justify-content:center; align-items:center; z-index:9999;">
+                    <div style="background:#000; border:2px solid #39FF14; padding:30px; width:85%; max-width:400px; color:#fff; font-family:monospace; box-shadow:0 0 30px #39FF14;">
+                        <h3 style="color:#39FF14; border-bottom:1px solid #39FF14; padding-bottom:10px;">🛡️ 轉帳資訊 (ATM)</h3>
+                        <p style="margin:20px 0 10px;">請匯款至以下帳戶以啟動服務：</p>
+                        <div style="background:#111; padding:15px; border:1px dashed #39FF14;">
+                            <p>銀行：<strong>826 樂天國際銀行</strong></p>
+                            <p>帳號：<strong>81201001535981</strong></p>
+                            <p>金額：<strong>NT$ 1,500</strong></p>
+                        </div>
+                        <p style="font-size:0.8rem; color:yellow; margin-top:15px;">匯款後請截圖傳至：kcli0124@gmail.com</p>
+                        <button onclick="document.getElementById('atmModal').remove()" style="width:100%; background:#39FF14; color:#000; border:none; padding:12px; font-weight:bold; cursor:pointer; margin-top:15px;">確認並關閉</button>
+                    </div>
+                </div>`;
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+        }
     </script>
 </body>
 </html>
