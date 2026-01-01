@@ -1,5 +1,5 @@
 body {
-    background-color: #0f172a; /* 當圖片還沒載入時的墊底色 */
+    background-color: #0f172a; /* 墊底色 */
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -31,7 +31,7 @@ header {
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    margin: 0 auto; /* 核心：確保容器在正中央 */
+    margin: 0 auto; /* 確保內容水平置中 */
 }
 
 .scan-box, .report-box {
@@ -41,25 +41,23 @@ header {
     border-radius: 20px;
     border: 1px solid rgba(59, 130, 246, 0.2);
     box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-    box-sizing: border-box;
+    box-sizing: border-box; /* 防止 padding 撐破寬度 */
 }
 
-input, textarea, button {
+input, textarea {
     width: 100%;
-    box-sizing: border-box;
-}
-
-/* 之前截圖中跑掉的輸入框樣式修正 */
-input {
     padding: 14px;
-    margin: 15px 0;
+    margin: 10px 0;
     border-radius: 8px;
     border: 1px solid #334155;
     background: rgba(15, 23, 42, 0.9);
     color: #fff;
+    box-sizing: border-box;
+    display: block;
 }
 
-button {
+/* 掃描按鈕保持藍色 */
+#btnScan {
     background: linear-gradient(90deg, #2563eb, #3b82f6);
     color: white;
     border: none;
@@ -68,6 +66,28 @@ button {
     font-weight: bold;
     cursor: pointer;
     transition: 0.3s;
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* 提交通報按鈕改為紅色 [需求實現] */
+#btnReport {
+    background: linear-gradient(90deg, #dc2626, #ef4444);
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    width: 100%;
+    margin-top: 10px;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .result-placeholder {
@@ -79,5 +99,3 @@ button {
 }
 
 .lang-selector { position: absolute; top: 20px; right: 20px; z-index: 100; }
-
-
