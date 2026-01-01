@@ -1,9 +1,9 @@
 /* ---------------------------------------------------------------------- */
-/* 星燈 V4.3：極光綠螢光強化版 - 消除單調感 */
+/* 星燈終極版：立體螢光綠邊框 + 全白文字 + 高對比按鍵 */
 /* ---------------------------------------------------------------------- */
 
 body {
-    background-color: #050a14;
+    background-color: #020617; /* 更深邃的底色 */
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -13,113 +13,108 @@ body {
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    color: #e2e8f0;
-    font-family: 'Segoe UI', system-ui, sans-serif;
+    /* 強制所有文字全白 */
+    color: #ffffff !important; 
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
 }
 
 header {
     text-align: center;
-    padding: 3.5rem 1rem;
+    padding: 3rem 1rem;
     width: 100%;
-    background: linear-gradient(to bottom, rgba(5, 10, 20, 0.9), transparent);
-    backdrop-filter: blur(10px);
-    margin-bottom: 2rem;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+    backdrop-filter: blur(8px);
 }
 
-h1 {
-    font-size: 2.8rem;
-    color: #00FF00; /* 標題同步改為亮綠色 */
-    text-shadow: 0 0 20px rgba(0, 255, 0, 0.6);
-    letter-spacing: 2px;
+/* 標題全白 + 螢光綠發光效果 */
+h1, h2, h3, p, span, label {
+    color: #ffffff !important;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
 }
 
 .container {
-    width: 90%;
-    max-width: 680px;
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-    margin-bottom: 80px;
+    width: 95%;
+    max-width: 700px;
+    margin: 20px auto;
 }
 
-/* 核心更動：極光綠螢光外框卡片 */
+/* 核心：立體凸出感 + 加粗亮綠邊框 */
 .scan-box, .report-box {
-    background: rgba(15, 23, 42, 0.8);
+    background: rgba(15, 23, 42, 0.9);
     backdrop-filter: blur(20px);
-    padding: 3rem;
-    border-radius: 24px;
+    padding: 2.5rem;
+    border-radius: 20px;
     
-    /* 極光綠外框與內發光 */
-    border: 2px solid #00FF00; 
-    box-shadow: 0 0 25px rgba(0, 255, 0, 0.3), inset 0 0 15px rgba(0, 255, 0, 0.1);
+    /* 立體加粗邊框設計 */
+    border: 4px solid #00FF00; 
+    box-shadow: 
+        0 0 30px rgba(0, 255, 0, 0.4),          /* 外部光暈 */
+        inset 0 0 15px rgba(255, 255, 255, 0.2), /* 內層高光(凸出感) */
+        inset 5px 5px 15px rgba(0, 0, 0, 0.8);   /* 內層陰影(立體感) */
     
+    margin-bottom: 2.5rem;
     box-sizing: border-box;
-    transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: 0.3s ease;
 }
 
-/* 滑鼠移上去時，綠光更亮（呼吸感） */
 .scan-box:hover, .report-box:hover {
-    box-shadow: 0 0 40px rgba(0, 255, 0, 0.5), inset 0 0 20px rgba(0, 255, 0, 0.2);
-    transform: translateY(-5px);
+    transform: scale(1.01);
+    box-shadow: 0 0 50px rgba(0, 255, 0, 0.6);
 }
 
 /* 輸入框科技化 */
 input, textarea {
     width: 100%;
     padding: 16px;
-    margin: 12px 0;
-    border-radius: 12px;
-    border: 1px solid rgba(0, 255, 0, 0.2);
-    background: rgba(5, 10, 20, 0.9);
-    color: #00FF00; /* 文字也帶綠色，更有駭客感 */
-    font-family: 'Courier New', monospace;
+    margin: 15px 0;
+    border-radius: 8px;
+    border: 2px solid rgba(0, 255, 0, 0.3);
+    background: rgba(0, 0, 0, 0.6);
+    color: #ffffff !important; /* 輸入文字也是白色 */
+    font-size: 1rem;
     box-sizing: border-box;
-    transition: 0.3s;
 }
 
-input:focus {
-    border-color: #00FF00;
-    box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
-    outline: none;
-}
-
-/* 藍色按鈕 - 掃描 */
+/* 按鈕：一藍一紅，字體全白 */
 #btnScan {
-    background: linear-gradient(135deg, #008000, #00FF00);
-    color: #000; /* 亮色背景配深色字較清楚 */
+    background: linear-gradient(135deg, #0055ff, #00aaff); /* 亮藍色 */
+    color: #ffffff !important;
     border: none;
     padding: 18px;
-    border-radius: 12px;
+    border-radius: 10px;
     font-weight: 900;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
-    transition: 0.4s;
+    width: 100%;
+    box-shadow: 0 4px 15px rgba(0, 85, 255, 0.5);
     text-transform: uppercase;
 }
 
-/* 紅色按鈕 - 通報 */
 #btnReport {
-    background: linear-gradient(135deg, #b91c1c, #ef4444);
-    color: white;
+    background: linear-gradient(135deg, #cc0000, #ff4444); /* 警示紅 */
+    color: #ffffff !important;
     border: none;
     padding: 18px;
-    border-radius: 12px;
-    font-weight: 800;
-    font-size: 1.1rem;
+    border-radius: 10px;
+    font-weight: 900;
+    font-size: 1.2rem;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
-    transition: 0.4s;
+    width: 100%;
+    box-shadow: 0 4px 15px rgba(204, 0, 0, 0.5);
+    text-transform: uppercase;
 }
 
 button:hover {
     filter: brightness(1.2);
-    transform: scale(1.02);
+    transform: translateY(-2px);
 }
 
+/* 掃描結果區 */
 .result-placeholder {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     padding: 1.5rem;
-    border-radius: 14px;
-    text-align: center;
-    background: rgba(2, 6, 23, 0.8
+    background: rgba(0,0,0,0.5);
+    border: 2px dashed #00FF00;
+    color: #ffffff !important;
+    font-weight: bold;
+}
