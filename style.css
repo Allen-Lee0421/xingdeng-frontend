@@ -1,23 +1,104 @@
+/* ---------------------------------------------------------------------- */
+/* 視覺風格 V4.1：動態背景相容與版面校正 */
+/* ---------------------------------------------------------------------- */
+
 body {
-    /* 預設背景，防止圖片載入延遲時留白 */
+    /* 核心背景設定 */
     background-color: #0f172a;
     background-blend-mode: overlay;
-    transition: background-image 1.5s ease-in-out; /* 讓切換過程像電影般淡入淡出 */
-    color: #f8fafc;
-    font-family: 'Segoe UI', sans-serif;
-    margin: 0;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    transition: background-image 1.5s ease-in-out; /* 背景淡入淡出動畫 */
+    
+    /* 強制置中設定 */
     display: flex;
     flex-direction: column;
+    justify-content: flex-start; /* 從頂部開始排列，但容器水平置中 */
     align-items: center;
+    
+    color: #f8fafc;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    margin: 0;
     min-height: 100vh;
+    padding-bottom: 50px;
 }
 
-/* 保持卡片的透明磨砂質感 */
+header {
+    text-align: center;
+    padding: 3rem 1rem;
+    width: 100%;
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+    margin-bottom: 2rem;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 90%;
+    max-width: 650px; /* 限制最大寬度，確保跨平台觀感一致 */
+    display: flex;
+    flex-direction: column;
+    gap: 2rem; /* 讓掃描與通報卡片之間有間隔 */
+    margin: 0 auto; /* 水平居中關鍵 */
+}
+
+/* 科技感透明卡片 */
 .scan-box, .report-box {
-    background: rgba(15, 23, 42, 0.85);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(59, 130, 246, 0.2);
-    border-radius: 20px;
+    background: rgba(30, 41, 59, 0.85);
+    backdrop-filter: blur(20px);
     padding: 2.5rem;
+    border-radius: 20px;
+    border: 1px solid rgba(59, 130, 246, 0.2);
     box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    width: 100%; /* 填滿 Container 寬度 */
+    box-sizing: border-box; /* 防止 Padding 撐破寬度 */
+}
+
+/* 輸入框優化：防止跑位 */
+input, textarea {
+    width: 100%;
+    padding: 14px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #334155;
+    background: rgba(15, 23, 42, 0.9);
+    color: #fff;
+    box-sizing: border-box;
+    display: block; /* 確保佔據整行 */
+}
+
+/* 按鈕美化 */
+button {
+    width: 100%;
+    background: linear-gradient(90deg, #2563eb, #3b82f6);
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+}
+
+.result-placeholder {
+    margin-top: 1.5rem;
+    padding: 1.2rem;
+    border-radius: 10px;
+    text-align: center;
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px dashed rgba(59, 130, 246, 0.3);
+}
+
+.lang-selector {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
 }
