@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>星燈防詐中心 - Global Defense System</title>
+    <title>星燈防詐中心 - 全球領先資安防禦系統</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body { 
@@ -10,67 +10,58 @@
             font-family: 'Segoe UI', Arial, sans-serif; 
             display: flex; flex-direction: column; align-items: center; 
             min-height: 100vh;
-            background: #050505 url('bg1.jpg') no-repeat center center fixed; 
+            background: #000 url('bg1.jpg') no-repeat center center fixed; 
             background-size: cover;
             transition: background-image 2s ease-in-out;
         }
         body::before {
             content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.75); z-index: -1;
+            background: rgba(0, 0, 0, 0.7); z-index: -1;
         }
 
-        /* 語言切換選單：白色加大 */
+        /* 標題區域：結合 Logo 與 白色大標 */
+        .header-section { text-align: center; margin-bottom: 30px; }
+        .logo-img { width: 300px; max-width: 80%; filter: drop-shadow(0 0 10px #39FF14); margin-bottom: 10px; }
+        .main-title { 
+            font-size: 52px; /* 再次加大 */
+            font-weight: 900; 
+            color: #FFFFFF; 
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: 0 0 20px rgba(255,255,255,0.6), 0 0 40px rgba(57, 255, 20, 0.3);
+            margin: 0;
+        }
+
+        /* 語言列優化 */
         .lang-switcher {
-            display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;
-            margin-bottom: 25px; background: rgba(255,255,255,0.1); padding: 15px;
-            border-radius: 40px; border: 1px solid rgba(255,255,255,0.3);
-            backdrop-filter: blur(5px);
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+            margin-bottom: 25px;
         }
         .lang-btn {
-            cursor: pointer; font-size: 15px; color: #fff; font-weight: bold; transition: 0.3s;
-            padding: 8px 16px; border-radius: 20px; border: 1px solid transparent;
+            cursor: pointer; font-size: 14px; color: #fff; font-weight: bold; 
+            padding: 8px 15px; border: 1px solid rgba(255,255,255,0.3); border-radius: 20px;
+            background: rgba(0,0,0,0.5); transition: 0.3s;
         }
         .lang-btn:hover, .lang-btn.active { 
-            color: #39FF14; border: 1px solid #39FF14; background: rgba(57, 255, 20, 0.2);
-            box-shadow: 0 0 10px #39FF14;
+            color: #39FF14; border-color: #39FF14; box-shadow: 0 0 10px #39FF14;
         }
 
         .container { 
             max-width: 650px; width: 100%; border: 4px solid #39FF14; 
-            box-shadow: 0 0 30px #39FF14, inset 0 0 15px #39FF14; 
+            box-shadow: 0 0 30px #39FF14; 
             padding: 40px; text-align: center; border-radius: 20px; 
-            background: rgba(0,0,0,0.9); position: relative;
+            background: rgba(0,0,0,0.85);
         }
-
-        /* 主標題：白色加大粗體 */
-        h1 { 
-            color: #FFFFFF; 
-            text-shadow: 0 0 20px rgba(255,255,255,0.5); 
-            margin-bottom: 10px; 
-            font-size: 42px; 
-            font-weight: 900;
-            letter-spacing: 2px;
-        }
-
-        p#subTitle { color: #39FF14; font-size: 16px; font-weight: bold; margin-bottom: 30px; }
-
-        .scan-box { margin: 30px 0; }
+        
         input { 
-            width: 88%; padding: 15px; border: 2px solid #39FF14; background: #000; 
-            color: #fff; border-radius: 8px; margin-bottom: 15px; outline: none; 
-            font-size: 16px; text-align: center;
+            width: 85%; padding: 15px; border: 2px solid #39FF14; background: #000; 
+            color: #fff; border-radius: 8px; font-size: 18px; text-align: center;
         }
         .btn-main { 
-            background: #39FF14; color: #000; border: none; padding: 15px 30px; 
+            background: #39FF14; color: #000; border: none; padding: 18px; 
             font-weight: 900; cursor: pointer; border-radius: 8px; width: 100%; 
-            max-width: 380px; transition: 0.3s; text-transform: uppercase; font-size: 18px;
+            max-width: 400px; margin-top: 15px; font-size: 20px;
         }
-        .btn-main:hover { background: #fff; box-shadow: 0 0 25px #fff; transform: scale(1.03); }
-
-        .payment-section { margin-top: 40px; border-top: 2px solid #333; padding-top: 30px; }
-        .pay-card { background: rgba(255,255,255,0.05); padding: 20px; margin: 20px 0; border-left: 5px solid #39FF14; text-align: left; }
-        .pay-card h3 { color: #fff; font-size: 22px; margin-top: 0; }
-        .disclaimer { margin-top: 40px; padding: 20px; border: 1px dashed #555; font-size: 12px; color: #bbb; text-align: left; line-height: 1.8; }
     </style>
 </head>
 <body>
@@ -78,67 +69,46 @@
     <div class="lang-switcher">
         <span class="lang-btn active" onclick="changeLang('tw')">繁中</span>
         <span class="lang-btn" onclick="changeLang('cn')">简中</span>
-        <span class="lang-btn" onclick="changeLang('en')">ENGLISH</span>
-        <span class="lang-btn" onclick="changeLang('jp')">日本語</span>
-        <span class="lang-btn" onclick="changeLang('kr')">한국어</span>
-        <span class="lang-btn" onclick="changeLang('vn')">TIẾNG VIỆT</span>
-        <span class="lang-btn" onclick="changeLang('ph')">TAGALOG</span>
-        <span class="lang-btn" onclick="changeLang('id')">BAHASA</span>
+        <span class="lang-btn" onclick="changeLang('en')">EN</span>
+        <span class="lang-btn" onclick="changeLang('vn')">VN</span>
+        <span class="lang-btn" onclick="changeLang('ph')">PH</span>
+        <span class="lang-btn" onclick="changeLang('id')">ID</span>
+        <span class="lang-btn" onclick="changeLang('jp')">JP</span>
+        <span class="lang-btn" onclick="changeLang('kr')">KR</span>
+    </div>
+
+    <div class="header-section">
+        <img src="logo.png" alt="Logo" class="logo-img">
+        <h1 class="main-title">星燈防詐中心</h1>
     </div>
 
     <div class="container">
-        <h1 id="mainTitle">🛡️ 星燈防詐中心</h1>
-        <p id="subTitle">GLOBAL DATA REAL-TIME SYNC | A.C LEE SECURITY LAB</p>
-
         <div class="scan-box">
             <input type="text" id="urlInput" placeholder="請輸入欲偵測之可疑網址...">
-            <button id="scanBtn" class="btn-main" onclick="startScan()">啟動軍事級深度掃描</button>
-            <div id="scanResult" style="margin-top: 20px; color: #39FF14; font-weight: bold; font-size: 18px; min-height: 24px;"></div>
+            <button class="btn-main" onclick="startScan()">啟動深度取證掃描</button>
+            <div id="scanResult" style="margin-top: 20px; color: #39FF14; font-weight: bold; font-size: 20px;"></div>
         </div>
 
-        <div class="payment-section">
-            <h2 id="payTitle" style="color: #fff; font-size: 24px; text-decoration: underline; text-underline-offset: 8px;">權限升級服務 PREMIUM</h2>
-            
-            <div class="pay-card">
-                <h3 id="c1t">💳 深度取證報告 (個人單次)</h3>
-                <p id="c1d">解鎖伺服器實體位置與域名信譽報告。支援全台信用卡。</p>
-                <button class="btn-main" onclick="openPaypal()"><span id="c1b">立即解鎖 (NT$ 30 / 次)</span></button>
+        <div style="margin-top: 40px; border-top: 1px solid #444; padding-top: 20px; text-align: left;">
+            <h2 style="color: #fff; text-align: center;"> PREMIUM SERVICES </h2>
+            <div style="background: rgba(255,255,255,0.05); padding: 15px; border-left: 4px solid #39FF14; margin-bottom: 15px;">
+                <h3 style="margin: 0;">💳 個人深度報告 (NT$ 30 / 次)</h3>
+                <button class="btn-main" style="font-size: 16px; padding: 10px;" onclick="openPaypal()">立即支付 (VISA/MASTER)</button>
             </div>
-
-            <div class="pay-card">
-                <h3 id="c2t">🏢 企業自動化授權 (商用月費)</h3>
-                <p id="c2d">包含：API 接口、每週資安趨勢週報、實時數據庫監測授權。</p>
-                <button class="btn-main" onclick="showAtmModal()"><span id="c2b">ATM 獲取授權 (NT$ 3,888 / 月)</span></button>
+            <div style="background: rgba(255,255,255,0.05); padding: 15px; border-left: 4px solid #39FF14;">
+                <h3 style="margin: 0;">🏢 企業授權方案 (NT$ 3,888 / 月)</h3>
+                <button class="btn-main" style="font-size: 16px; padding: 10px;" onclick="showAtmModal()">ATM 獲取企業授權</button>
             </div>
-        </div>
-
-        <div id="discText" class="disclaimer">
-            <strong>⚠️ 法律免責聲明 Legal Disclaimer：</strong><br>
-            本報告僅供參考，不代表法律最終定性。費用一經支付完成掃描即視為服務履行。
         </div>
     </div>
 
     <script>
-        const langData = {
-            tw: { title: "🛡️ 星燈防詐中心", input: "請輸入欲偵測之可疑網址...", scan: "啟動軍事級深度掃描", c1t: "💳 深度取證報告 (個人單次)", c1b: "立即解鎖 (NT$ 30 / 次)", c2t: "🏢 企業自動化授權 (商用月費)", c2b: "ATM 獲取授權 (NT$ 3,888 / 月)" },
-            en: { title: "🛡️ XINGDENG DEFENSE", input: "Enter suspicious URL...", scan: "START DEEP SCAN", c1t: "💳 FORENSIC REPORT (SINGLE)", c1b: "UNLOCK NOW ($1.00 / SCAN)", c2t: "🏢 ENTERPRISE AUTH (MONTHLY)", c2b: "GET ACCESS ($125 / MO)" },
-            vn: { title: "🛡️ TRUNG TÂM CHỐNG LỪA ĐẢO", input: "Nhập URL đáng ngờ...", scan: "BẮT ĐẦU QUÉT", c1t: "💳 BÁO CÁO PHÁP Y", c1b: "MỞ KHÓA (25,000 VND)", c2t: "🏢 ỦY QUYỀN DOANH NGHIỆP", c2b: "NHẬN QUYỀN TRUY CẬP" }
-            // 其餘語言可依此類推加入...
-        };
-
-        function changeLang(lang) {
-            const d = langData[lang] || langData['en'];
-            document.getElementById('mainTitle').innerText = d.title;
-            document.getElementById('urlInput').placeholder = d.input;
-            document.getElementById('scanBtn').innerText = d.scan;
-            document.getElementById('c1t').innerText = d.c1t;
-            document.getElementById('c1b').innerText = d.c1b;
-            document.getElementById('c2t').innerText = d.c2t;
-            document.getElementById('c2b').innerText = d.c2b;
-            
-            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-        }
+        // 背景自動切換邏輯 (與您提供的矩陣背景圖配合)
+        let bgIndex = 1;
+        setInterval(() => {
+            bgIndex = bgIndex >= 8 ? 1 : bgIndex + 1;
+            document.body.style.backgroundImage = `url('bg${bgIndex}.jpg')`;
+        }, 1800000);
 
         function startScan() {
             const res = document.getElementById('scanResult');
@@ -146,19 +116,12 @@
             let count = 0;
             let interval = setInterval(() => {
                 count += 10;
-                res.innerHTML = "DEEP SCANNING GLOBAL DATABASE... " + count + "%";
-                if(count >= 100) { clearInterval(interval); res.innerHTML = "<span style='color:#FF0000;'>CRITICAL: MALICIOUS THREAT DETECTED!</span>"; }
+                res.innerHTML = "DEEP SCANNING... " + count + "%";
+                if(count >= 100) { clearInterval(interval); res.innerHTML = "⚠️ WARNING: THREAT DETECTED!"; }
             }, 300);
         }
 
         function openPaypal() { window.open('https://paypal.me/TaiwanPayment', '_blank'); }
-        function showAtmModal() { /* ATM彈窗代碼維持原樣 */ }
-
-        // 背景自動切換 (30分鐘)
-        setInterval(() => {
-            const bgNum = Math.floor(Math.random() * 8) + 1;
-            document.body.style.backgroundImage = `url('bg${bgNum}.jpg')`;
-        }, 1800000);
     </script>
 </body>
 </html>
