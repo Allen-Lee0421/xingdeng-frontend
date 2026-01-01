@@ -2,126 +2,80 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>星燈防詐中心 - 全球領先資安防禦系統</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>星燈防詐中心 - Global Command Center</title>
     <style>
         body { 
             margin: 0; padding: 20px; color: white; 
-            font-family: 'Segoe UI', Arial, sans-serif; 
+            font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif; 
             display: flex; flex-direction: column; align-items: center; 
             min-height: 100vh;
-            background: #000 url('bg1.jpg') no-repeat center center fixed; 
+            /* 使用您上傳的背景圖 */
+            background: #000 url('image_487005.jpg') no-repeat center center fixed; 
             background-size: cover;
-            transition: background-image 2s ease-in-out;
         }
         body::before {
             content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.7); z-index: -1;
+            background: rgba(0, 0, 0, 0.6); z-index: -1;
         }
 
-        /* 標題區域：結合 Logo 與 白色大標 */
-        .header-section { text-align: center; margin-bottom: 30px; }
-        .logo-img { width: 300px; max-width: 80%; filter: drop-shadow(0 0 10px #39FF14); margin-bottom: 10px; }
+        /* 標題區域：白色加大粗體 */
+        .header-section { text-align: center; margin-bottom: 40px; margin-top: 20px; }
+        .main-logo { height: 60px; margin-bottom: 15px; filter: drop-shadow(0 0 10px #39FF14); }
         .main-title { 
-            font-size: 52px; /* 再次加大 */
+            font-size: 56px; /* 特大號字體 */
             font-weight: 900; 
             color: #FFFFFF; 
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            text-shadow: 0 0 20px rgba(255,255,255,0.6), 0 0 40px rgba(57, 255, 20, 0.3);
+            text-shadow: 0 0 20px rgba(255,255,255,0.8), 0 0 40px rgba(57, 255, 20, 0.4);
             margin: 0;
+            letter-spacing: 5px;
         }
 
-        /* 語言列優化 */
-        .lang-switcher {
-            display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
-            margin-bottom: 25px;
-        }
-        .lang-btn {
-            cursor: pointer; font-size: 14px; color: #fff; font-weight: bold; 
-            padding: 8px 15px; border: 1px solid rgba(255,255,255,0.3); border-radius: 20px;
-            background: rgba(0,0,0,0.5); transition: 0.3s;
-        }
-        .lang-btn:hover, .lang-btn.active { 
-            color: #39FF14; border-color: #39FF14; box-shadow: 0 0 10px #39FF14;
-        }
-
+        /* 容器設計 */
         .container { 
-            max-width: 650px; width: 100%; border: 4px solid #39FF14; 
-            box-shadow: 0 0 30px #39FF14; 
+            max-width: 650px; width: 100%; border: 2px solid #39FF14; 
+            box-shadow: 0 0 30px rgba(57, 255, 20, 0.5); 
             padding: 40px; text-align: center; border-radius: 20px; 
-            background: rgba(0,0,0,0.85);
+            background: rgba(0,0,0,0.85); backdrop-filter: blur(10px);
         }
-        
-        input { 
-            width: 85%; padding: 15px; border: 2px solid #39FF14; background: #000; 
-            color: #fff; border-radius: 8px; font-size: 18px; text-align: center;
+
+        /* 掃描按鈕：亮綠色強化 */
+        .btn-scan { 
+            background: #39FF14; color: #000; border: none; padding: 20px; 
+            font-weight: 900; cursor: pointer; border-radius: 10px; width: 100%; 
+            font-size: 24px; transition: 0.3s; box-shadow: 0 0 20px rgba(57, 255, 20, 0.4);
         }
-        .btn-main { 
-            background: #39FF14; color: #000; border: none; padding: 18px; 
-            font-weight: 900; cursor: pointer; border-radius: 8px; width: 100%; 
-            max-width: 400px; margin-top: 15px; font-size: 20px;
+        .btn-scan:hover { background: #fff; box-shadow: 0 0 30px #fff; transform: scale(1.02); }
+
+        .pay-card { 
+            background: rgba(255,255,255,0.07); padding: 20px; border-radius: 12px; 
+            border-left: 6px solid #39FF14; text-align: left; margin: 20px 0;
         }
     </style>
 </head>
 <body>
 
-    <div class="lang-switcher">
-        <span class="lang-btn active" onclick="changeLang('tw')">繁中</span>
-        <span class="lang-btn" onclick="changeLang('cn')">简中</span>
-        <span class="lang-btn" onclick="changeLang('en')">EN</span>
-        <span class="lang-btn" onclick="changeLang('vn')">VN</span>
-        <span class="lang-btn" onclick="changeLang('ph')">PH</span>
-        <span class="lang-btn" onclick="changeLang('id')">ID</span>
-        <span class="lang-btn" onclick="changeLang('jp')">JP</span>
-        <span class="lang-btn" onclick="changeLang('kr')">KR</span>
-    </div>
-
     <div class="header-section">
-        <img src="logo.png" alt="Logo" class="logo-img">
+        <img src="image_4811d4.png" class="main-logo" alt="Shield">
         <h1 class="main-title">星燈防詐中心</h1>
+        <p style="color:#39FF14; font-weight:bold; letter-spacing:2px; margin-top:10px;">GLOBAL DATA REAL-TIME SYNC</p>
     </div>
 
     <div class="container">
-        <div class="scan-box">
-            <input type="text" id="urlInput" placeholder="請輸入欲偵測之可疑網址...">
-            <button class="btn-main" onclick="startScan()">啟動深度取證掃描</button>
-            <div id="scanResult" style="margin-top: 20px; color: #39FF14; font-weight: bold; font-size: 20px;"></div>
-        </div>
+        <input type="text" placeholder="請輸入欲偵測之可疑網址..." style="width:90%; padding:15px; background:transparent; border:1px solid #39FF14; color:#fff; font-size:18px; text-align:center; border-radius:8px; margin-bottom:20px;">
+        <button class="btn-scan">啟動軍事級深度掃描</button>
 
-        <div style="margin-top: 40px; border-top: 1px solid #444; padding-top: 20px; text-align: left;">
-            <h2 style="color: #fff; text-align: center;"> PREMIUM SERVICES </h2>
-            <div style="background: rgba(255,255,255,0.05); padding: 15px; border-left: 4px solid #39FF14; margin-bottom: 15px;">
-                <h3 style="margin: 0;">💳 個人深度報告 (NT$ 30 / 次)</h3>
-                <button class="btn-main" style="font-size: 16px; padding: 10px;" onclick="openPaypal()">立即支付 (VISA/MASTER)</button>
+        <div style="margin-top:40px;">
+            <h2 style="color:#fff; border-bottom:1px solid #333; padding-bottom:10px;">PREMIUM SERVICES</h2>
+            <div class="pay-card">
+                <h3>💳 個人取證報告 (NT$ 30 / 次)</h3>
+                <button onclick="location.href='https://paypal.me/TaiwanPayment'" style="width:100%; background:#39FF14; border:none; padding:12px; font-weight:bold; cursor:pointer; border-radius:5px;">立即解鎖報告</button>
             </div>
-            <div style="background: rgba(255,255,255,0.05); padding: 15px; border-left: 4px solid #39FF14;">
-                <h3 style="margin: 0;">🏢 企業授權方案 (NT$ 3,888 / 月)</h3>
-                <button class="btn-main" style="font-size: 16px; padding: 10px;" onclick="showAtmModal()">ATM 獲取企業授權</button>
+            <div class="pay-card">
+                <h3>🏢 企業授權方案 (NT$ 3,888 / 月)</h3>
+                <button style="width:100%; background:#39FF14; border:none; padding:12px; font-weight:bold; cursor:pointer; border-radius:5px;">ATM 獲取企業授權</button>
             </div>
         </div>
     </div>
 
-    <script>
-        // 背景自動切換邏輯 (與您提供的矩陣背景圖配合)
-        let bgIndex = 1;
-        setInterval(() => {
-            bgIndex = bgIndex >= 8 ? 1 : bgIndex + 1;
-            document.body.style.backgroundImage = `url('bg${bgIndex}.jpg')`;
-        }, 1800000);
-
-        function startScan() {
-            const res = document.getElementById('scanResult');
-            res.innerHTML = "SYSTEM INITIALIZING...";
-            let count = 0;
-            let interval = setInterval(() => {
-                count += 10;
-                res.innerHTML = "DEEP SCANNING... " + count + "%";
-                if(count >= 100) { clearInterval(interval); res.innerHTML = "⚠️ WARNING: THREAT DETECTED!"; }
-            }, 300);
-        }
-
-        function openPaypal() { window.open('https://paypal.me/TaiwanPayment', '_blank'); }
-    </script>
 </body>
 </html>
