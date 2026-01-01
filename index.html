@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>星燈防詐中心 - Global Anti-Fraud Defense System</title>
+    <title>星燈防詐中心 - Global Defense System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body { 
@@ -16,132 +16,56 @@
         }
         body::before {
             content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.7); z-index: -1;
+            background: rgba(0, 0, 0, 0.75); z-index: -1;
         }
-        /* 國際化語言選單 */
+
+        /* 語言切換選單：白色加大 */
         .lang-switcher {
-            display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
-            margin-bottom: 20px; background: rgba(0,0,0,0.8); padding: 12px;
-            border-radius: 30px; border: 1px solid #39FF14; box-shadow: 0 0 10px rgba(57, 255, 20, 0.2);
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;
+            margin-bottom: 25px; background: rgba(255,255,255,0.1); padding: 15px;
+            border-radius: 40px; border: 1px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(5px);
         }
         .lang-btn {
-            cursor: pointer; font-size: 13px; color: #888; transition: 0.3s;
-            padding: 6px 12px; border-radius: 15px; border: 1px solid transparent;
+            cursor: pointer; font-size: 15px; color: #fff; font-weight: bold; transition: 0.3s;
+            padding: 8px 16px; border-radius: 20px; border: 1px solid transparent;
         }
         .lang-btn:hover, .lang-btn.active { 
-            color: #39FF14; border: 1px solid #39FF14; background: rgba(57, 255, 20, 0.1); 
+            color: #39FF14; border: 1px solid #39FF14; background: rgba(57, 255, 20, 0.2);
+            box-shadow: 0 0 10px #39FF14;
         }
 
         .container { 
-            max-width: 600px; width: 100%; border: 4px solid #39FF14; 
-            box-shadow: 0 0 20px #39FF14, inset 0 0 10px #39FF14; 
-            padding: 30px; text-align: center; border-radius: 15px; 
-            background: rgba(0,0,0,0.85); position: relative;
-        }
-        h1 { color: #39FF14; text-shadow: 0 0 10px #39FF14; margin-bottom: 5px; font-size: 28px; }
-        .scan-box { margin: 25px 0; }
-        input { width: 85%; padding: 12px; border: 1px solid #39FF14; background: #000; color: #fff; border-radius: 5px; margin-bottom: 10px; outline: none; font-family: monospace; }
-        .btn-main { background: #39FF14; color: #000; border: none; padding: 12px 25px; font-weight: bold; cursor: pointer; border-radius: 5px; width: 100%; max-width: 340px; transition: 0.3s; text-transform: uppercase; }
-        .btn-main:hover { background: #fff; box-shadow: 0 0 20px #fff; transform: scale(1.02); }
-        .payment-section { margin-top: 35px; border-top: 1px solid #333; padding-top: 20px; }
-        .pay-card { background: rgba(255,255,255,0.05); padding: 15px; margin: 15px 0; border-left: 4px solid #39FF14; text-align: left; }
-        .disclaimer { margin-top: 30px; padding: 15px; border-top: 1px dashed #444; font-size: 11px; color: #999; text-align: left; line-height: 1.6; }
-    </style>
-</head>
-<body>
-
-    <div class="lang-switcher">
-        <span class="lang-btn active" onclick="changeLang('tw')">繁中</span>
-        <span class="lang-btn" onclick="changeLang('cn')">简中</span>
-        <span class="lang-btn" onclick="changeLang('en')">EN</span>
-        <span class="lang-btn" onclick="changeLang('jp')">JP</span>
-        <span class="lang-btn" onclick="changeLang('kr')">KR</span>
-        <span class="lang-btn" onclick="changeLang('vn')">VN</span>
-        <span class="lang-btn" onclick="changeLang('ph')">PH</span>
-        <span class="lang-btn" onclick="changeLang('id')">ID</span>
-    </div>
-
-    <div class="container">
-        <h1 id="mainTitle">🛡️ 星燈防詐中心</h1>
-        <p id="subTitle" style="color: #ccc; font-size: 14px;">全球數據實時對接 | A.c Lee 資安實驗室</p>
-
-        <div class="scan-box">
-            <input type="text" id="urlInput" placeholder="請輸入欲偵測之可疑網址...">
-            <button id="scanBtn" class="btn-main" onclick="startScan()">啟動軍事級深度掃描</button>
-            <div id="scanResult" style="margin-top: 15px; color: yellow; font-weight: bold; min-height: 24px;"></div>
-        </div>
-
-        <div class="payment-section">
-            <h2 id="payTitle" style="color: #39FF14; font-size: 20px;">💎 權限升級服務</h2>
-            
-            <div class="pay-card">
-                <h3 id="c1t">💳 深度取證報告 (個人單次)</h3>
-                <p id="c1d">解鎖伺服器實體位置與域名信譽報告。支援信用卡付款。</p>
-                <button class="btn-main" onclick="openPaypal()"><span id="c1b">立即解鎖 (NT$ 30 / 次)</span></button>
-            </div>
-
-            <div class="pay-card">
-                <h3 id="c2t">🏢 企業自動化授權 (商用月費)</h3>
-                <p id="c2d">包含：API 接口、每週資安趨勢週報、實時數據監測。</p>
-                <button class="btn-main" onclick="showAtmModal()"><span id="c2b">ATM 獲取授權 (NT$ 3,888 / 月)</span></button>
-            </div>
-        </div>
-
-        <div id="discText" class="disclaimer">
-            <strong>⚠️ Legal Disclaimer：</strong><br>
-            Analysis results are for reference only. Service is considered rendered upon scanning.
-        </div>
-    </div>
-
-    <script>
-        const langData = {
-            tw: { title: "🛡️ 星燈防詐中心", sub: "全球數據實時對接 | A.c Lee 資安實驗室", input: "請輸入欲偵測之可疑網址...", scan: "啟動軍事級深度掃描", pay: "💎 權限升級服務", c1t: "💳 深度取證報告 (個人單次)", c1d: "解鎖伺服器實體位置與域名信譽報告。支援信用卡付款。", c1b: "立即解鎖 (NT$ 30 / 次)", c2t: "🏢 企業自動化授權 (商用月費)", c2d: "包含：API 接口、每週資安趨勢週報、實時數據監測。", c2b: "ATM 獲取授權 (NT$ 3,888 / 月)" },
-            cn: { title: "🛡️ 星灯防诈中心", sub: "全球数据实时对接 | A.c Lee 资安实验室", input: "请输入欲侦测之可疑网址...", scan: "启动军事级深度扫描", pay: "💎 权限升级服务", c1t: "💳 深度取证报告 (个人单次)", c1d: "解锁服务器实体位置与域名信誉报告。支持信用卡付款。", c1b: "立即解锁 (NT$ 30 / 次)", c2t: "🏢 企业自动化授权 (商用月费)", c2d: "包含：API 接口、每周资安趋势周报、实时数据监测。", c2b: "ATM 获取授权 (NT$ 3,888 / 月)" },
-            en: { title: "🛡️ XingDeng Anti-Fraud", sub: "Global Real-time Sync | A.c Lee Security Lab", input: "Enter suspicious URL...", scan: "Start Military-Grade Scan", pay: "💎 Premium Defense", c1t: "💳 Forensic Report (Single)", c1d: "Unlock server location & reputation. Supports Credit Cards.", c1b: "Unlock Now ($1.00 / Scan)", c2t: "🏢 Enterprise Auth (Monthly)", c2d: "Includes: API, Weekly Reports, 24/7 Monitoring.", c2b: "Get Enterprise Access" },
-            jp: { title: "🛡️ 星燈詐欺防止センター", sub: "グローバルデータ同期 | A.c Lee セキュリティラボ", input: "不審なURLを入力...", scan: "スキャンを開始", pay: "💎 プレミアムサービス", c1t: "💳 調査報告書 (個人用)", c1d: "サーバー所在地とドメインの評判を解除。", c1b: "今すぐ解除 (150 JPY / 回)", c2t: "🏢 法人自動化ライセンス", c2d: "API連携、週次レポート、リアルタイム監視。", c2b: "法人ライセンスを取得" },
-            kr: { title: "🛡️ 성등 사기 방지 센터", sub: "글로벌 데이터 동기화 | A.c Lee 보안 연구소", input: "의심스러운 URL 입력...", scan: "군사 등급 스캔 시작", pay: "💎 프리미엄 서비스", c1t: "💳 포렌식 보고서 (개인)", c1d: "서버 위치 및 도메인 평판 확인. 신용카드 지원.", c1b: "지금 잠금 해제 (₩1,300 / 회)", c2t: "🏢 기업 자동화 라이선스", c2d: "API, 주간 보고서, 실시간 모니터링 포함.", c2b: "기업 액세스 권한 획득" },
-            vn: { title: "🛡️ Trung tâm Chống Lừa đảo", sub: "Đồng bộ Dữ liệu Toàn cầu | Phòng Thí nghiệm A.c Lee", input: "Nhập URL đáng ngờ...", scan: "Bắt đầu Quét Chuyên sâu", pay: "💎 Dịch vụ Cao cấp", c1t: "💳 Báo cáo Pháp y (Cá nhân)", c1d: "Mở khóa vị trí máy chủ & uy tín tên miền.", c1b: "Mở khóa Ngay (25,000 VND)", c2t: "🏢 Ủy quyền Doanh nghiệp", c2d: "Bao gồm API, Báo cáo hàng tuần, Giám sát 24/7.", c2b: "Nhận quyền Truy cập" },
-            ph: { title: "🛡️ XingDeng Anti-Fraud", sub: "Global Data Sync | A.c Lee Security Lab", input: "Ilagay ang suspetsadong URL...", scan: "Simulan ang Deep Scan", pay: "💎 Premium Service", c1t: "💳 Forensic Report (Single)", c1d: "I-unlock ang lokasyon ng server at reputasyon.", c1b: "I-unlock Ngayon (PHP 55)", c2t: "🏢 Enterprise Auth", c2d: "Kasama ang API, Weekly Reports, 24/7 Monitoring.", c2b: "Kumuha ng Access" },
-            id: { title: "🛡️ Pusat Anti-Penipuan", sub: "Sinkronisasi Data Global | Lab Keamanan A.c Lee", input: "Masukkan URL mencurigakan...", scan: "Mulai Pemindaian Mendalam", pay: "💎 Layanan Premium", c1t: "💳 Laporan Forensik (Individu)", c1d: "Buka lokasi server & reputasi domain.", c1b: "Buka Sekarang (IDR 15,000)", c2t: "🏢 Lisensi Perusahaan", c2d: "Termasuk API, Laporan Mingguan, Pemantauan 24/7.", c2b: "Dapatkan Akses" }
-        };
-
-        function changeLang(lang) {
-            const d = langData[lang];
-            document.getElementById('mainTitle').innerText = d.title;
-            document.getElementById('subTitle').innerText = d.sub;
-            document.getElementById('urlInput').placeholder = d.input;
-            document.getElementById('scanBtn').innerText = d.scan;
-            document.getElementById('payTitle').innerText = d.pay;
-            document.getElementById('c1t').innerText = d.c1t;
-            document.getElementById('c1d').innerText = d.c1d;
-            document.getElementById('c1b').innerText = d.c1b;
-            document.getElementById('c2t').innerText = d.c2t;
-            document.getElementById('c2d').innerText = d.c2d;
-            document.getElementById('c2b').innerText = d.c2b;
-            
-            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            max-width: 650px; width: 100%; border: 4px solid #39FF14; 
+            box-shadow: 0 0 30px #39FF14, inset 0 0 15px #39FF14; 
+            padding: 40px; text-align: center; border-radius: 20px; 
+            background: rgba(0,0,0,0.9); position: relative;
         }
 
-        function startScan() {
-            const res = document.getElementById('scanResult');
-            res.innerHTML = "SYSTEM BOOTING... 0%";
-            let count = 0;
-            let interval = setInterval(() => {
-                count += 10;
-                res.innerHTML = "ANALYZING GLOBAL THREATS... " + count + "%";
-                if(count >= 100) { clearInterval(interval); res.innerHTML = "<span style='color:#ff4444;'>CRITICAL: HIGH RISK DETECTED!</span>"; }
-            }, 300);
+        /* 主標題：白色加大粗體 */
+        h1 { 
+            color: #FFFFFF; 
+            text-shadow: 0 0 20px rgba(255,255,255,0.5); 
+            margin-bottom: 10px; 
+            font-size: 42px; 
+            font-weight: 900;
+            letter-spacing: 2px;
         }
 
-        function openPaypal() { window.open('https://paypal.me/TaiwanPayment', '_blank'); }
-        function showAtmModal() { /* ATM彈窗代碼與之前相同 */ }
+        p#subTitle { color: #39FF14; font-size: 16px; font-weight: bold; margin-bottom: 30px; }
 
-        // 背景自動切換 (30分鐘)
-        setInterval(() => {
-            const bgNum = Math.floor(Math.random() * 8) + 1;
-            document.body.style.backgroundImage = `url('bg${bgNum}.jpg')`;
-        }, 1800000);
-    </script>
-</body>
-</html>
+        .scan-box { margin: 30px 0; }
+        input { 
+            width: 88%; padding: 15px; border: 2px solid #39FF14; background: #000; 
+            color: #fff; border-radius: 8px; margin-bottom: 15px; outline: none; 
+            font-size: 16px; text-align: center;
+        }
+        .btn-main { 
+            background: #39FF14; color: #000; border: none; padding: 15px 30px; 
+            font-weight: 900; cursor: pointer; border-radius: 8px; width: 100%; 
+            max-width: 380px; transition: 0.3s; text-transform: uppercase; font-size: 18px;
+        }
+        .btn-main:hover { background: #fff; box-shadow: 0 0 25px #fff; transform: scale(1.03); }
+
+        .payment-section { margin-top: 40px; border-top: 2px solid #333; padding-top: 30px; }
+        .pay-card { background: rgba(255,255,255,0.05); padding: 20px; margin: 20px 0; border-left: 5px solid #39
