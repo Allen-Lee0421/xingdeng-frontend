@@ -11,13 +11,7 @@
     <div class="lang-selector">
         <select id="langSelect" onchange="changeLanguage()">
             <option value="zh-TW">繁體中文</option>
-            <option value="zh-CN">简体中文</option>
             <option value="en">English</option>
-            <option value="ja">日本語</option>
-            <option value="ko">한국어</option>
-            <option value="vi">Tiếng Việt</option>
-            <option value="id">Bahasa Indonesia</option>
-            <option value="tl">Tagalog</option>
         </select>
     </div>
 
@@ -27,16 +21,16 @@
     </header>
 
     <main class="container">
-        <section class="scan-box">
+        <div class="scan-box">
             <h2 id="scanTitle">🔍 網址詐騙掃描</h2>
             <form id="scanForm">
                 <input type="text" id="url_to_scan" placeholder="https://example.com" required>
                 <button type="submit" id="btnScan">啟動深度掃描</button>
             </form>
             <div id="scan_result" class="result-placeholder">系統待命中心...</div>
-        </section>
+        </div>
 
-        <section class="report-box">
+        <div class="report-box">
             <h2 id="reportTitle">📢 詐騙網址通報</h2>
             <form id="reportForm">
                 <input type="text" id="link" placeholder="可疑網址 (http://...)" required>
@@ -45,22 +39,23 @@
                 <button type="submit" id="btnReport">提交通報</button>
             </form>
             <div id="message" class="result-placeholder" style="display:none;"></div>
-        </section>
+        </div>
 
-        <section class="payment-box">
+        <div class="payment-box">
             <h2 id="payTitle">💎 贊助與升級</h2>
             <p>支持星燈防護系統持續運作</p>
             <div class="pay-btn-group">
-                <button class="btn-paypal" onclick="window.open('https://www.paypal.me/yourname')">
+                <button class="btn-paypal" onclick="window.open('https://paypal.me')">
                     <i class="fab fa-paypal"></i> PayPal 贊助
                 </button>
-                <button class="btn-atm" onclick="alert('匯款帳號：(822) 123-456789-0')">
+                <button class="btn-atm" onclick="alert('帳號：(822) 123-456789-0')">
                     <i class="fas fa-university"></i> ATM 轉帳
                 </button>
             </div>
-        </section>
+        </div>
     </main>
 
     <script src="script.js"></script>
 </body>
 </html>
+
