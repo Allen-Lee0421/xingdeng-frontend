@@ -10,7 +10,7 @@
 <body>
     <div class="ticker-wrap">
         <div id="tickerText" class="ticker">
-            📢 [系統通報] 成功阻斷惡意釣魚攻擊... 🛡️ [企業方案] 歡迎對接 API 服務... 💎 [營收快訊] 今日已為用戶節省大量潛在損失...
+            📢 [即時通報] 成功阻斷來自 LINE 的惡意攻擊... 🛡️ [企業方案] 歡迎對接 API 服務... 💎 今日已節省潛在損失 NT$ 500,000...
         </div>
     </div>
 
@@ -45,41 +45,24 @@
 
         <div class="payment-box">
             <h2 id="payMainTitle" style="color: #00FF00 !important;"><i class="fas fa-gem"></i> 權限升級服務</h2>
-            
             <div class="plan-item">
-                <h3 id="planPersonalTitle">💳 深度取證報告 (個人單次)</h3>
-                <p id="planPersonalDesc">解鎖伺服器實體位置、域名信譽、支援全球信用卡。</p>
-                <button class="btn-pay-action" id="btnPayPersonal" onclick="alert('付款帳號：(822) 1234567890 \n金額：NT$ 30')">
+                <h3 id="planPersonalTitle">💳 深度取證報告 (個人)</h3>
+                <p id="planPersonalDesc">解鎖伺服器實體位置、域名信譽。</p>
+                <button class="btn-pay-action" id="btnPayPersonal" onclick="triggerPayment()">
                     立即解鎖報告 (NT$ 30 / 次)
                 </button>
             </div>
-
-            <hr style="border: 0.5px dashed #00FF00; margin: 25px 0;">
-
+            <hr style="border: 0.5px dashed #00FF00; margin: 20px 0;">
             <div class="plan-item">
-                <h3 id="planCorpTitle">🏢 企業級安全防禦 (月費制)</h3>
-                <p id="planCorpDesc">專屬 API 接口、多帳號授權、24/7 資安專家應急響應。</p>
-                <button class="btn-pay-corp" id="btnPayCorp" onclick="alert('企業商務洽詢 \n金額：NT$ 3888 / 月')">
+                <h3 id="planCorpTitle">🏢 企業級安全防禦</h3>
+                <p id="planCorpDesc">專屬 API 接口、24/7 專家應急響應。</p>
+                <button class="btn-pay-corp" id="btnPayCorp" onclick="alert('請聯繫 LINE 客服洽詢企業方案\n月費：NT$ 3888')">
                     啟動企業訂閱 (NT$ 3888 / 月)
                 </button>
             </div>
         </div>
-
-        <div class="share-area">
-            <p id="shareText">🆘 發現可疑網址？發布預警拯救親友</p>
-            <button class="btn-line" id="btnLineShare" onclick="shareToLine()">
-                <i class="fab fa-line"></i> 一鍵發布風險通報至 LINE
-            </button>
-        </div>
     </main>
-
-    <p class="disclaimer" id="footerDisclaimer">
-        ⚠️ 法律免責聲明 Legal Disclaimer：<br>
-        1. 本中心掃描結果基於大數據分析，僅供參考。<br>
-        2. 本服務不保證 100% 之絕對準確率。單次費用一經支付即視為服務已履行。
-    </p>
 
     <script src="script.js"></script>
 </body>
 </html>
-
