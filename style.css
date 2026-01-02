@@ -1,4 +1,4 @@
-/* 全域與背景設定 */
+/* 全域設定 */
 body {
     background-color: #000000;
     margin: 0;
@@ -20,35 +20,55 @@ body {
 .ticker { display: inline-block; white-space: nowrap; animation: ticker 30s linear infinite; color: #00FF00; font-weight: bold; }
 @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-/* 標題 */
-header h1 { font-size: 2.5rem; text-shadow: 0 0 20px #00FF00; margin-bottom: 5px; }
-header p { color: #00FF00 !important; font-size: 0.9rem; letter-spacing: 2px; }
+/* 加大版語言選擇器 [重點修正] */
+.lang-selector {
+    margin-top: 20px;
+    text-align: right;
+    width: 95%;
+    max-width: 600px;
+}
+.lang-selector select {
+    background: #111;
+    color: #00FF00;
+    border: 2px solid #00FF00;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
+}
 
-/* 容器框 */
+header h1 { font-size: 2.2rem; text-shadow: 0 0 20px #00FF00; text-align: center; margin: 30px 0 10px; }
+header p { color: #00FF00 !important; font-size: 0.85rem; text-align: center; letter-spacing: 1px; }
+
+/* 容器框 [立體綠框] */
 .scan-box, .payment-box {
     background: #000;
     border: 2px solid #00FF00;
     border-radius: 15px;
     padding: 30px;
     margin-bottom: 25px;
-    box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
 }
+
+/* 所有文字強制全白 */
+h1, h2, h3, p, span, div { color: #ffffff !important; }
 
 /* 輸入框 */
 input {
-    width: 100%; padding: 15px; background: transparent; border: 1px solid #333;
-    color: #fff !important; border-radius: 5px; margin-bottom: 15px;
+    width: 100%; padding: 15px; background: #111; border: 1px solid #333;
+    color: #fff !important; border-radius: 8px; margin-bottom: 15px; box-sizing: border-box;
 }
 
 /* 按鈕樣式 */
-button { border: none; cursor: pointer; transition: 0.3s; font-weight: bold; }
+button { border: none; cursor: pointer; transition: 0.3s; font-weight: bold; color: #ffffff !important; }
 
 #btnScan {
-    background: #00FF00; color: #000 !important; width: 100%; padding: 20px;
-    border-radius: 10px; font-size: 1.2rem;
+    background: #00FF00; color: #000 !important; width: 100%; padding: 18px;
+    border-radius: 10px; font-size: 1.2rem; margin-top: 10px;
 }
 
-/* 支付按鈕 [營收關鍵] */
 .btn-pay-action {
     background: #00FF00; color: #000 !important; width: 100%; padding: 15px;
     border-radius: 30px; margin: 15px 0; font-size: 1.1rem;
@@ -59,14 +79,10 @@ button { border: none; cursor: pointer; transition: 0.3s; font-weight: bold; }
     width: 100%; padding: 15px; border-radius: 10px; font-size: 1.1rem;
 }
 
-.btn-pay-corp:hover { background: #00FF00; color: #000 !important; }
-
-.pay-icons { text-align: center; font-size: 1.5rem; color: #666; gap: 10px; display: flex; justify-content: center; }
-
-/* LINE 分享 */
 .btn-line {
-    background: #00FF00; color: #000 !important; padding: 15px 30px;
-    border-radius: 30px; width: 100%;
+    background: #00b900; color: #fff !important; padding: 15px;
+    border-radius: 30px; width: 100%; font-size: 1.1rem; margin-top: 10px;
 }
 
-.disclaimer { font-size: 0.75rem; color: #666; text-align: center; padding: 20px; }
+.disclaimer { font-size: 0.75rem; color: #666 !important; text-align: center; padding: 20px; }
+
