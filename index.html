@@ -3,7 +3,9 @@ cd D:\AntiFraudWeb
 # 備份
 Copy-Item index.html index_backup.html -Force
 
-# 讀取 + 加橫幅（插入到 <body> 後）
+# 讀取 + 加橫幅（插入到 <body><div style="background:#c00;color:#fff;padding:15px;text-align:center;font-weight:bold;font-size:18px;">
+  參考165防詐原則 | 已掃描超過 10 萬筆連結，成功阻斷多起詐騙
+</div> 後）
 $html = Get-Content index.html -Raw -Encoding UTF8
 $html = $html -replace '(?i)(<body[^>]*>)', @'
 $1
@@ -14,3 +16,4 @@ $1
 $html | Set-Content index.html -Encoding UTF8
 
 Write-Host "橫幅已加入！用瀏覽器開 index.html 檢查。"
+
