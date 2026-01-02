@@ -1,5 +1,5 @@
 const translations = {
-    "zh-TW": { title: "🛡️ 星燈防詐中心", btnS: "開始深度掃描", btnP: "立即解鎖報告 (NT$ 30)", payAlert: "【收款資訊】\n銀行：(822) 中國信託\n帳號：您的帳號\n金額：NT$ 30\n請將匯款截圖傳至 LINE 客服解鎖。" },
+    "zh-TW": { title: "🛡️ 星燈防詐中心", btnS: "開始深度掃描", btnP: "立即解鎖報告 (NT$ 30)", payAlert: "【收款資訊】\n銀行：(822) 中國信託\n帳號：您的帳號\n金額：NT$ 30\n匯款後請截圖傳至 LINE 客服解鎖。" },
     "en": { title: "🛡️ XingDeng Security", btnS: "Start Deep Scan", btnP: "Unlock Report (NT$ 30)", payAlert: "【Payment Info】\nBank: (822) CTBC\nAcc: [Your Account]\nAmount: NT$ 30\nPlease send screenshot to LINE support after transfer." },
     "tl": { title: "🛡️ XingDeng Anti-Fraud", btnS: "Simulan ang Scan", btnP: "I-unlock (NT$ 30)", payAlert: "【Payment Info】\nBank: (822)\nAcc: [Your Account]\nAmount: NT$ 30\nMag-send ng screenshot sa LINE pagkatapos mag-transfer." },
     "zh-CN": { title: "🛡️ 星灯防诈中心", btnS: "开始深度扫描", btnP: "立即解锁 (NT$ 30)", payAlert: "【收款信息】\n银行：(822) 中国信托\n账号：您的账号\n金额：NT$ 30\n汇款后请将截图传给客服。" },
@@ -22,4 +22,3 @@ function triggerPayment() {
     const lang = document.getElementById('langSelect').value;
     alert(translations[lang].payAlert);
 }
-
