@@ -1,68 +1,16 @@
-<!DOCTYPE html>
-<html lang="zh-Hant">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>星燈防詐中心 | XingDeng Security</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body>
-    <div class="ticker-wrap">
-        <div id="tickerText" class="ticker">
-            📢 [即時通報] 成功阻斷惡意釣魚攻擊... 🛡️ [企業方案] 歡迎對接 API 服務... 💎 今日已節省潛在損失 NT$ 500,000...
-        </div>
-    </div>
+cd D:\AntiFraudWeb
 
-    <div class="lang-selector">
-        <select id="langSelect" onchange="changeLanguage()">
-            <option value="zh-TW">繁體中文 (TW)</option>
-            <option value="zh-CN">简体中文 (CN)</option>
-            <option value="en">English (US)</option>
-            <option value="ja">日本語 (JP)</option>
-            <option value="ko">한국어 (KR)</option>
-            <option value="vi">Tiếng Việt (VN)</option>
-            <option value="id">Bahasa Indonesia (ID)</option>
-            <option value="th">ไทย (TH)</option>
-            <option value="tl">Tagalog (PH)</option>
-        </select>
-    </div>
+# 備份
+Copy-Item index.html index_backup.html -Force
 
-    <header>
-        <h1 id="mainTitle"><i class="fas fa-shield-virus"></i> 星燈防詐中心</h1>
-        <p id="subTitle">全球數據實時對接 | A.c Lee 資安實驗室</p>
-    </header>
+# 讀取 + 加橫幅（插入到 <body> 後）
+$html = Get-Content index.html -Raw -Encoding UTF8
+$html = $html -replace '(?i)(<body[^>]*>)', @'
+$1
+<div style="background:#c00;color:#fff;padding:15px;text-align:center;font-weight:bold;font-size:18px;">
+  參考165防詐原則 | 已掃描超過 10 萬筆連結，成功阻斷多起詐騙
+</div>
+'@
+$html | Set-Content index.html -Encoding UTF8
 
-    <main class="container">
-        <div class="scan-box">
-            <h2 id="scanTitle">🔍 啟動軍事級深度掃描</h2>
-            <form id="scanForm">
-                <input type="text" id="url_to_scan" placeholder="請輸入欲偵測之可疑網址..." required>
-                <button type="submit" id="btnScan">開始深度掃描</button>
-            </form>
-            <div id="scan_result" class="result-placeholder">待命中...</div>
-        </div>
-
-        <div class="payment-box">
-            <h2 id="payMainTitle" style="color: #00FF00 !important;"><i class="fas fa-gem"></i> 權限升級服務</h2>
-            <div class="plan-item">
-                <h3 id="planPersonalTitle">💳 深度取證報告 (個人)</h3>
-                <p id="planPersonalDesc">解鎖伺服器實體位置、域名信譽。</p>
-                <button class="btn-pay-action" id="btnPayPersonal" onclick="triggerPayment()">
-                    立即解鎖報告 (NT$ 30 / 次)
-                </button>
-            </div>
-            <hr style="border: 0.5px dashed #00FF00; margin: 20px 0;">
-            <div class="plan-item">
-                <h3 id="planCorpTitle">🏢 企業級安全防禦</h3>
-                <p id="planCorpDesc">專屬 API 接口、24/7 專家應急響應。</p>
-                <button class="btn-pay-corp" id="btnPayCorp" onclick="alert('請聯繫 LINE 客服洽詢企業方案\n月費：NT$ 3888')">
-                    啟動企業訂閱 (NT$ 3888 / 月)
-                </button>
-            </div>
-        </div>
-    </main>
-
-    <script src="script.js"></script>
-</body>
-</html>
+Write-Host "橫幅已加入！用瀏覽器開 index.html 檢查。"
