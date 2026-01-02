@@ -1,19 +1,92 @@
-cd D:\AntiFraudWeb
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>星燈防詐中心 | XingDeng Security</title>
+  <style>
+    body { margin:0; font-family:Arial,sans-serif; background:#000; color:#fff; }
+    .container { max-width:900px; margin:0 auto; padding:20px; }
+    input { width:100%; max-width:600px; padding:15px; font-size:18px; border-radius:8px; border:2px solid #0f0; background:#111; color:#fff; }
+    button { padding:15px 30px; font-size:20px; border:none; border-radius:8px; cursor:pointer; }
+    .scan-btn { background:#0f0; color:#000; }
+    .upgrade-btn { background:#ffd700; color:#000; font-weight:bold; width:100%; padding:20px; font-size:22px; border-radius:10px; margin:15px 0; }
+    .banner { background:#c00; color:#fff; padding:15px; text-align:center; font-weight:bold; font-size:18px; }
+    .share { text-align:center; margin:30px 0; }
+  </style>
+</head>
+<body>
 
-# 備份
-Copy-Item index.html index_backup.html -Force
+  <!-- 信任橫幅 -->
+  <div class="banner">
+    參考165防詐原則 | 已掃描超過 10 萬筆連結，成功阻斷多起詐騙
+  </div>
 
-# 讀取 + 加橫幅（插入到 <body><div style="background:#c00;color:#fff;padding:15px;text-align:center;font-weight:bold;font-size:18px;">
-  參考165防詐原則 | 已掃描超過 10 萬筆連結，成功阻斷多起詐騙
-</div> 後）
-$html = Get-Content index.html -Raw -Encoding UTF8
-$html = $html -replace '(?i)(<body[^>]*>)', @'
-$1
-<div style="background:#c00;color:#fff;padding:15px;text-align:center;font-weight:bold;font-size:18px;">
-  參考165防詐原則 | 已掃描超過 10 萬筆連結，成功阻斷多起詐騙
-</div>
-'@
-$html | Set-Content index.html -Encoding UTF8
+  <div class="container">
+    <h1 style="text-align:center;color:#0f0;">星燈防詐中心</h1>
+    <p style="text-align:center;color:#aaa;">全球數據實時對接 | A.c Lee 資安實驗室</p>
 
-Write-Host "橫幅已加入！用瀏覽器開 index.html 檢查。"
+    <!-- 掃描區（放大 + 免費誘因） -->
+    <div style="text-align:center;padding:40px;background:#111;border-radius:12px;margin:20px auto;max-width:800px;">
+      <h2 style="color:#0f0;margin-bottom:20px;">免費試掃 3 次，立刻偵測詐騙！</h2>
+      <input type="text" placeholder="貼上可疑網址或訊息..." id="scanInput">
+      <button class="scan-btn" onclick="startScan()">開始深度掃描</button>
+    </div>
 
+    <!-- 付費升級區（更醒目 + 價值說明） -->
+    <div style="margin:40px 0;">
+      <h3 style="color:#ff0;">權限升級服務</h3>
+      <p style="color:#ccc;">為什麼升級？完整報告含 IP 位置、域名風險評分、伺服器來源，保護你不被騙！</p>
+
+      <div style="margin:20px 0;">
+        <h4>深度取證報告 (個人)</h4>
+        <p>解鎖伺服器實體位置、域名信譽</p>
+        <button class="upgrade-btn" onclick="upgradePersonal()">立即解鎖完整報告 (NT$30 / 次)</button>
+      </div>
+
+      <div style="margin:20px 0;">
+        <h4>企業級安全防護</h4>
+        <p>專屬 API 接口、24/7 專家應急</p>
+        <button class="upgrade-btn" onclick="upgradeEnterprise()">啟動企業訂閱 (NT$3888 / 月)</button>
+      </div>
+    </div>
+
+    <!-- 分享機制 -->
+    <div class="share">
+      <p>掃到可疑？分享給家人朋友一起防！</p>
+      <button style="background:#00f;color:#fff;padding:12px 25px;border:none;border-radius:8px;font-size:18px;cursor:pointer;" 
+              onclick="shareResult()">分享到 Line / FB</button>
+    </div>
+  </div>
+
+  <script>
+    function startScan() {
+      alert("掃描功能正在開發中，請稍後再試！");
+      // 未來放真實掃描邏輯
+    }
+
+    function upgradePersonal() {
+      alert("即將跳轉支付頁面 (NT$30 / 次) - 測試中");
+      // 未來放金流連結
+    }
+
+    function upgradeEnterprise() {
+      alert("企業訂閱申請 (NT$3888 / 月) - 測試中");
+      // 未來放表單或支付
+    }
+
+    function shareResult() {
+      if (navigator.share) {
+        navigator.share({
+          title: '星燈防詐警報',
+          text: '這可能是詐騙，快用星燈防詐中心檢查！',
+          url: window.location.href
+        }).catch(err => console.log('分享失敗', err));
+      } else {
+        alert("您的瀏覽器不支援分享，請手動複製連結");
+      }
+    }
+  </script>
+
+</body>
+</html>
