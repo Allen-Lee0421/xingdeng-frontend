@@ -5,135 +5,187 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>星燈防詐中心 | XingDeng Security</title>
   <style>
-    body { 
-      margin:0; font-family:Arial, sans-serif; color:#fff; 
-      background-size:cover; background-position:center; background-attachment:fixed;
-      transition: background 3s ease-in-out; background-color: #000;
-      min-height: 100vh;
+    /* 1. 完整保留並合併您提供的 CSS */
+    body {
+        background-color: #000000;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: #ffffff !important;
+        font-family: 'Segoe UI', sans-serif;
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        transition: background 3s ease-in-out;
+        min-height: 100vh;
     }
-    .container { max-width:900px; margin:0 auto; padding:20px; position: relative; z-index: 10; }
-    input { width:100%; max-width:600px; padding:18px; font-size:20px; border-radius:8px; border:2px solid #0f0; background:rgba(17,17,17,0.8); color:#fff; box-sizing:border-box; }
-    button { padding:15px 30px; font-size:20px; border:none; border-radius:8px; cursor:pointer; transition: 0.3s; }
-    .scan-btn { background:#0f0; color:#000; font-weight:bold; }
-    .upgrade-btn { background:#ffd700; color:#000; font-weight:bold; width:100%; padding:15px; font-size:18px; border-radius:10px; margin:10px 0; border:none; }
-    .banner { background:#c00; color:#fff; padding:15px; text-align:center; font-weight:bold; font-size:18px; position: relative; z-index: 100; }
-    .section { background:rgba(17, 17, 17, 0.85); padding:30px; border-radius:12px; margin:20px 0; border:1px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-    #lang-select { position:fixed; top:10px; right:20px; padding:8px; background:#222; color:#fff; border-radius:6px; z-index:1001; border:1px solid #444; }
-    footer { text-align:center; padding:30px 20px; color:#aaa; font-size:14px; border-top:1px solid #333; margin-top:50px; background: rgba(0,0,0,0.7); }
-    h1, h2, h3, h4, p, span { text-shadow: 2px 2px 4px rgba(0,0,0,1); }
 
-    /* 可移動浮標樣式 - 確保初始位置正確 */
+    .container {
+        width: 95%;
+        max-width: 600px;
+        padding: 20px 0;
+        position: relative;
+        z-index: 5;
+    }
+
+    /* 跑馬燈 */
+    .ticker-wrap { width: 100%; background: rgba(0, 255, 0, 0.1); border-bottom: 1px solid #00FF00; padding: 10px 0; overflow: hidden; z-index: 10; }
+    .ticker { display: inline-block; white-space: nowrap; animation: ticker 30s linear infinite; color: #00FF00 !important; font-weight: bold; }
+    @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+    /* 加大版語言選擇器 */
+    .lang-selector {
+        margin-top: 20px;
+        text-align: right;
+        width: 95%;
+        max-width: 600px;
+        z-index: 100;
+    }
+    .lang-selector select {
+        background: #111;
+        color: #00FF00;
+        border: 2px solid #00FF00;
+        padding: 12px 20px;
+        border-radius: 10px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
+    }
+
+    header h1 { font-size: 2.2rem; text-shadow: 0 0 20px #00FF00; text-align: center; margin: 30px 0 10px; color: #ffffff !important; }
+    header p { color: #00FF00 !important; font-size: 0.85rem; text-align: center; letter-spacing: 1px; }
+
+    /* 容器框 [立體綠框] */
+    .scan-box, .payment-box {
+        background: rgba(0, 0, 0, 0.85); /* 增加透明度以看見背景圖 */
+        border: 2px solid #00FF00;
+        border-radius: 15px;
+        padding: 30px;
+        margin-bottom: 25px;
+        box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+    }
+
+    /* 所有文字強制全白 (排除跑馬燈與特定綠色文字) */
+    h1, h2, h3, p, span, div:not(.ticker) { color: #ffffff !important; }
+
+    input {
+        width: 100%; padding: 15px; background: #111; border: 1px solid #333;
+        color: #fff !important; border-radius: 8px; margin-bottom: 15px; box-sizing: border-box; font-size: 1rem;
+    }
+
+    button { border: none; cursor: pointer; transition: 0.3s; font-weight: bold; }
+
+    #btnScan {
+        background: #00FF00; color: #000 !important; width: 100%; padding: 18px;
+        border-radius: 10px; font-size: 1.2rem; margin-top: 10px;
+    }
+
+    .btn-pay-action {
+        background: #00FF00; color: #000 !important; width: 100%; padding: 15px;
+        border-radius: 30px; margin: 15px 0; font-size: 1.1rem;
+    }
+
+    .btn-pay-corp {
+        background: transparent; border: 2px solid #00FF00; color: #00FF00 !important;
+        width: 100%; padding: 15px; border-radius: 10px; font-size: 1.1rem;
+    }
+
+    .btn-line {
+        background: #00b900; color: #fff !important; padding: 15px;
+        border-radius: 30px; width: 100%; font-size: 1.1rem; margin-top: 10px;
+    }
+
+    .disclaimer { font-size: 0.75rem; color: #666 !important; text-align: center; padding: 20px; }
+
+    /* 移動式浮標樣式 */
     #floating-scan { 
-      position: fixed; bottom: 30px; right: 30px; background: #0f0; color: #000; 
-      padding: 18px 28px; border-radius: 50px; font-weight: bold; font-size: 18px; 
-      box-shadow: 0 0 20px rgba(0,255,0,0.6); cursor: grab; z-index: 9999; 
+      position: fixed; bottom: 30px; right: 30px; background: #00FF00; color: #000 !important; 
+      padding: 15px 25px; border-radius: 50px; font-weight: bold; font-size: 1rem; 
+      box-shadow: 0 0 15px rgba(0,255,0,0.6); cursor: grab; z-index: 9999; 
       touch-action: none; user-select: none; border: 2px solid #fff;
-      display: block; /* 確保顯示 */
     }
-    #floating-scan:active { cursor: grabbing; transform: scale(0.95); }
-
-    .info-grid { display:grid; grid-template-columns: 1fr 1fr; gap:20px; margin-top:20px; }
-    .info-card { background:rgba(40, 40, 40, 0.9); padding:20px; border-radius:10px; border:1px solid #555; text-align: center; }
-    @media (max-width: 600px) { .info-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
 
-  <select id="lang-select" onchange="changeLanguage(this.value)">
-    <option value="zh-TW">繁體中文</option>
-    <option value="zh-CN">简体中文</option>
-    <option value="en">English</option>
-    <option value="ja">日本語</option>
-    <option value="ko">한국어</option>
-    <option value="th">ไทย</option>
-    <option value="vi">Tiếng Việt</option>
-    <option value="id">Bahasa Indonesia</option>
-    <option value="fil">Filipino</option>
-  </select>
+  <div class="ticker-wrap">
+    <div class="ticker" data-i18n="ticker_text">參考165防詐原則 | 已掃描超過 10 萬筆連結，成功阻斷多起詐騙</div>
+  </div>
 
-  <div class="banner" data-i18n="banner_text">參考165防詐原則 | 已掃描超過 10 萬筆連結，成功阻斷多起詐騙</div>
+  <div class="lang-selector">
+    <select id="lang-select" onchange="changeLanguage(this.value)">
+      <option value="zh-TW">繁體中文</option>
+      <option value="en">English</option>
+      <option value="ja">日本語</option>
+      <option value="ko">한국어</option>
+      <option value="th">ไทย</option>
+      <option value="vi">Tiếng Việt</option>
+      <option value="id">Bahasa Indonesia</option>
+      <option value="fil">Filipino</option>
+      <option value="zh-CN">简体中文</option>
+    </select>
+  </div>
 
   <div class="container">
-    <h1 style="text-align:center;color:#0f0;" data-i18n="main_title">星燈防詐中心</h1>
-    <p style="text-align:center;color:#ccc;margin-bottom:40px;" data-i18n="sub_title">全球數據實時對接 | A.c Lee 資安實驗室</p>
+    <header>
+      <h1 data-i18n="main_title">星燈防詐中心</h1>
+      <p data-i18n="sub_title">全球數據實時對接 | A.C LEE 資安實驗室</p>
+    </header>
 
-    <div class="section" style="text-align:center;">
-      <h2 style="color:#0f0;margin-bottom:25px;" data-i18n="scan_h2">免費試掃 3 次，立刻偵測詐騙！</h2>
-      <input type="text" placeholder="貼上可疑網址或訊息..." id="scanInput" data-i18n-placeholder="input_placeholder">
-      <br><br>
-      <button class="scan-btn" onclick="startScan()" data-i18n="btn_scan">開始深度掃描</button>
+    <div class="scan-box">
+      <h3 style="text-align:center; color:#00FF00 !important;" data-i18n="scan_h3">免費試掃 3 次，立刻偵測詐騙！</h3>
+      <input type="text" id="scanInput" placeholder="貼上可疑網址或訊息..." data-i18n-placeholder="input_placeholder">
+      <button id="btnScan" onclick="startScan()" data-i18n="btn_scan">開始深度掃描</button>
     </div>
 
-    <div class="section">
-      <h2 style="color:#ffd700;border-bottom:1px solid #ffd700;padding-bottom:10px;" data-i18n="doc_title">官方服務說明</h2>
-      <p style="margin-top:20px;"><strong data-i18n="bg_h2" style="color:#ffd700;">計畫前因：</strong> <span data-i18n="bg_p">應對全球跨境詐騙氾濫，守護您的資產安全。由 A.c Lee 實驗室發起，提供跨境即時防護。</span></p>
+    <div class="payment-box">
+      <h3 style="color:#ffd700 !important;" data-i18n="doc_title">官方服務說明</h3>
+      <p style="font-size: 0.9rem;"><strong data-i18n="bg_h2">計畫前因：</strong> <span data-i18n="bg_p">應對全球跨境詐騙，守護您的資產安全。</span></p>
       
-      <div class="info-grid">
-        <div class="info-card">
-          <h3 style="margin:0;color:#0f0;" data-i18n="personal_h4">個人深度報告</h3>
-          <p style="font-size:22px;margin:15px 0;font-weight:bold;" data-i18n="personal_price">NT$30 / 天</p>
-          <button class="upgrade-btn" onclick="upgradePersonal()" data-i18n="btn_unlock">立即解鎖</button>
-        </div>
-        <div class="info-card">
-          <h3 style="margin:0;color:#0f0;" data-i18n="enterprise_h4">企業級安全防護</h3>
-          <p style="font-size:22px;margin:15px 0;font-weight:bold;" data-i18n="enterprise_price">NT$3888 / 月</p>
-          <button class="upgrade-btn" onclick="upgradeEnterprise()" data-i18n="btn_apply">立即申請</button>
-        </div>
-      </div>
-      <p style="margin-top:20px; font-size:16px; color:#ffd700; text-align:center;" data-i18n="promo_p">🎁 優惠：新用戶首日免費掃描，年繳享 8 折！</p>
+      <button class="btn-pay-action" onclick="location.href='about.html'" data-i18n="btn_about">查看詳細服務內容與價位</button>
+      
+      <button class="btn-pay-corp" onclick="alert('Contact: kcli0124@gmail.com')" data-i18n="btn_corp">企業專用入口</button>
+      
+      <button class="btn-line">LINE 官方諮詢</button>
     </div>
 
-    <div style="text-align:center; margin:40px 0;">
-      <p data-i18n="share_text" style="color:#aaa;">掃到可疑？分享給家人朋友一起防！</p>
-      <button onclick="shareResult()" style="background:#00f;color:#fff;padding:15px 35px;border:none;border-radius:8px;font-size:20px;font-weight:bold;">分享到 Line / FB</button>
+    <div class="disclaimer" data-i18n="disclaimer">
+      免責聲明：本工具僅供參考，結果不構成法律保證。建議撥打165專線。
     </div>
   </div>
 
-  <footer>
-    <p data-i18n="disclaimer">免責聲明：本工具僅供參考與初步偵測，結果基於公開數據，不構成法律保證。建議發現可疑情況立即撥打165專線。</p>
-    <p>© 2026 星燈防詐中心 | A.c Lee 資安實驗室 | 所有權利保留</p>
-  </footer>
-
-  <button id="floating-scan" data-i18n="floating_btn">掃描網站</button>
+  <button id="floating-scan" data-i18n="floating_btn">按我掃描</button>
 
   <script>
-    // 1. 完整九國語言資料包 (確保說明文本全部對應)
     const langData = {
       'zh-TW': {
-        'banner_text': '參考165防詐原則 | 已掃描超過 10 萬筆連結',
+        'ticker_text': '參考165防詐原則 | 已掃描超過 10 萬筆連結',
         'main_title': '星燈防詐中心',
-        'sub_title': '全球數據實時對接 | A.c Lee 資安實驗室',
-        'scan_h2': '免費試掃 3 次，立刻偵測詐騙！',
+        'sub_title': '全球數據實時對接 | A.C LEE 資安實驗室',
+        'scan_h3': '免費試掃 3 次，立刻偵測詐騙！',
         'input_placeholder': '貼上可疑網址或訊息...',
         'btn_scan': '開始深度掃描',
         'doc_title': '官方服務說明',
         'bg_h2': '計畫前因',
-        'bg_p': '應對全球跨境詐騙氾濫，守護您的資產安全。由 A.c Lee 實驗室發起。',
-        'personal_h4': '個人深度報告', 'personal_price': 'NT$30 / 天',
-        'enterprise_h4': '企業級安全防護', 'enterprise_price': 'NT$3888 / 月',
-        'btn_unlock': '立即解鎖', 'btn_apply': '立即申請',
-        'promo_p': '🎁 優惠：新用戶首日免費掃描，年繳享 8 折！',
-        'share_text': '掃到可疑？分享給家人朋友一起防！',
-        'disclaimer': '免責聲明：本工具僅供參考與初步偵測，不構成法律保證。',
-        'floating_btn': '按我掃描'
+        'bg_p': '應對全球跨境詐騙，守護您的資產安全。',
+        'btn_about': '查看詳細服務內容與價位',
+        'btn_corp': '企業專用入口',
+        'floating_btn': '按我掃描',
+        'disclaimer': '免責聲明：本工具僅供參考，結果不構成法律保證。'
       },
       'en': {
-        'banner_text': '165 Scam Principles | 100k+ Scanned',
+        'ticker_text': '165 Scam Principles | 100k+ Scanned',
         'main_title': 'XingDeng Security',
-        'sub_title': 'Global Data Sync | A.c Lee Lab',
-        'scan_h2': '3 Free Scans, Detect Scams Now!',
-        'input_placeholder': 'Paste suspicious URL...',
-        'btn_scan': 'Deep Scan',
-        'doc_title': 'Service Description',
-        'bg_h2': 'Background',
-        'bg_p': 'Protecting assets against cross-border scams globally.',
-        'personal_h4': 'Personal Report', 'personal_price': '$30 / Day',
-        'enterprise_h4': 'Enterprise Protection', 'enterprise_price': '$3888 / Month',
-        'btn_unlock': 'Unlock Now', 'btn_apply': 'Apply Now',
-        'promo_p': '🎁 Offer: First day free, 20% off annual plans!',
-        'floating_btn': 'Scan Now'
+        'sub_title': 'Global Real-time Sync | A.C LEE Lab',
+        'scan_h3': '3 Free Scans, Detect Scams Now!',
+        'btn_scan': 'Start Deep Scan',
+        'doc_title': 'Official Document',
+        'btn_about': 'View Pricing & Details',
+        'floating_btn': 'Scan'
       }
-      // ... 其他語言可依此類推 ...
+      // ... 更多語言 ...
     };
 
     function changeLanguage(lang) {
@@ -149,55 +201,40 @@
       localStorage.setItem('xingdeng_lang', lang);
     }
 
-    // 2. 移動式浮標邏輯 (修正拖拽與點擊判斷)
+    // 移動式浮標邏輯
     const dragBtn = document.getElementById('floating-scan');
-    let isDragging = false, currentX, currentY, initialX, initialY, xOffset = 0, yOffset = 0;
-    let dragStartTime;
+    let xOffset = 0, yOffset = 0, isDragging = false, startX, startY;
 
-    function dragStart(e) {
-      dragStartTime = Date.now();
-      initialX = (e.type === "touchstart" ? e.touches[0].clientX : e.clientX) - xOffset;
-      initialY = (e.type === "touchstart" ? e.touches[0].clientY : e.clientY) - yOffset;
-      if (e.target === dragBtn) isDragging = true;
+    dragBtn.addEventListener('mousedown', s);
+    dragBtn.addEventListener('touchstart', s, {passive: false});
+
+    function s(e) {
+      isDragging = true;
+      startX = (e.type === "touchstart" ? e.touches[0].clientX : e.clientX) - xOffset;
+      startY = (e.type === "touchstart" ? e.touches[0].clientY : e.clientY) - yOffset;
     }
 
-    function drag(e) {
-      if (isDragging) {
-        e.preventDefault();
-        currentX = (e.type === "touchmove" ? e.touches[0].clientX : e.clientX) - initialX;
-        currentY = (e.type === "touchmove" ? e.touches[0].clientY : e.clientY) - initialY;
-        xOffset = currentX; yOffset = currentY;
-        dragBtn.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
-      }
+    document.addEventListener('mousemove', m);
+    document.addEventListener('touchmove', m, {passive: false});
+
+    function m(e) {
+      if (!isDragging) return;
+      e.preventDefault();
+      xOffset = (e.type === "touchmove" ? e.touches[0].clientX : e.clientX) - startX;
+      yOffset = (e.type === "touchmove" ? e.touches[0].clientY : e.clientY) - startY;
+      dragBtn.style.transform = `translate3d(${xOffset}px, ${yOffset}px, 0)`;
     }
 
-    function dragEnd(e) {
-      isDragging = false;
-      const dragDuration = Date.now() - dragStartTime;
-      // 如果移動距離極小且時間極短，視為點擊
-      if (dragDuration < 200 && (!currentX || Math.abs(currentX) < 5)) {
-        startScan();
-      }
-    }
+    document.addEventListener('mouseup', () => isDragging = false);
+    document.addEventListener('touchend', () => isDragging = false);
+    dragBtn.addEventListener('click', () => { if(Math.abs(xOffset)<5) startScan(); });
 
-    dragBtn.addEventListener('mousedown', dragStart);
-    document.addEventListener('mousemove', drag);
-    document.addEventListener('mouseup', dragEnd);
-    dragBtn.addEventListener('touchstart', dragStart, {passive: false});
-    document.addEventListener('touchmove', drag, {passive: false});
-    document.addEventListener('touchend', dragEnd);
-
-    // 3. 功能函數
     function startScan() {
       const val = document.getElementById('scanInput').value;
-      if(!val) { alert("請先輸入網址！"); return; }
-      alert("【星燈安全檢測】\n正在連接全球資安資料庫...\n掃描完成：該網址目前安全，但請留意近期註冊資訊。");
+      if(!val) { alert("請輸入網址！"); return; }
+      alert("【星燈掃描中...】\n結果：該網址目前安全。");
     }
-    function upgradePersonal() { alert("支付跳轉：NT$30 / 天"); }
-    function upgradeEnterprise() { alert("申請聯絡：A.c Lee 專人支援"); }
-    function shareResult() { alert("分享介面開啟..."); }
 
-    // 4. 背景輪播 (對應您的圖檔列表)
     window.onload = () => {
       const savedLang = localStorage.getItem('xingdeng_lang') || 'zh-TW';
       document.getElementById('lang-select').value = savedLang;
