@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>服務說明 | 星燈防詐中心</title>
+  <style>
+    body { margin:0; font-family:Arial, sans-serif; color:#eee; background:#0a0a0a; line-height:1.6; }
+    .container { max-width:800px; margin:0 auto; padding:40px 20px; }
+    #lang-select { position:fixed; top:20px; right:20px; padding:10px; background:#222; color:#0f0; border:1px solid #0f0; border-radius:6px; z-index:100; }
+    h1 { color:#0f0; border-left: 5px solid #0f0; padding-left: 15px; margin-bottom: 30px; }
+    .section { background:rgba(30,30,30,0.8); padding:25px; border-radius:12px; margin-bottom:25px; border:1px solid #333; }
+    .section h2 { color:#ffd700; margin-top:0; border-bottom: 1px solid #444; padding-bottom:10px; }
+    .price-grid { display:grid; grid-template-columns: 1fr 1fr; gap:20px; }
+    .price-card { background:#1a1a1a; padding:20px; border-radius:8px; text-align:center; border:1px solid #0f0; }
+    .highlight { color:#0f0; font-size: 24px; font-weight:bold; display:block; margin:10px 0; }
+    .back-home { display:inline-block; margin-bottom:30px; color:#0f0; text-decoration:none; font-weight:bold; }
+    footer { text-align:center; padding:40px; color:#666; font-size:12px; }
+    @media (max-width: 600px) { .price-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <select id="lang-select" onchange="changeLanguage(this.value)">
+    <option value="zh-TW">繁體中文</option>
+    <option value="en">English</option>
+    <option value="ja">日本語</option>
+    <option value="ko">한국어</option>
+    <option value="th">ไทย</option>
+    <option value="vi">Tiếng Việt</option>
+    <option value="id">Bahasa Indonesia</option>
+    <option value="fil">Filipino</option>
+    <option value="zh-CN">简体中文</option>
+  </select>
+
+  <div class="container">
+    <a href="index.html" class="back-home">← BACK TO HOME / 返回首頁</a>
+    
+    <h1 data-i18n="doc_title">官方服務說明文本</h1>
+
+    <div class="section">
+      <h2 data-i18n="bg_h2">計畫前因 (Background)</h2>
+      <p data-i18n="bg_p">應對全球跨境詐騙氾濫，守護您的資產安全。由 A.c Lee 實驗室發起，旨在透過全球數據實時對接，提前識別惡意威脅。</p>
+    </div>
+
+    <div class="section">
+      <h2 data-i18n="feat_h2">核心功能 (Features)</h2>
+      <ul style="list-style: none; padding:0;">
+        <li data-i18n="feat_1">✅ 實時網址信譽評級</li>
+        <li data-i18n="feat_2">✅ 跨國伺服器黑名單比對</li>
+        <li data-i18n="feat_3">✅ 深度報告與技術諮詢</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2 data-i18n="price_h2">服務價位 (Pricing)</h2>
+      <div class="price-grid">
+        <div class="price-card">
+          <h3 data-i18n="personal_h4">個人深度報告</h3>
+          <span class="highlight" data-i18n="personal_price">NT$30 / 天</span>
+          <p data-i18n="personal_detail">單次解鎖所有掃描細節</p>
+        </div>
+        <div class="price-card">
+          <h3 data-i18n="enterprise_h4">企業級安全防護</h3>
+          <span class="highlight" data-i18n="enterprise_price">NT$3888 / 月</span>
+          <p data-i18n="enterprise_detail">API 串接與專人技術支援</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 data-i18n="promo_h2">限時優惠 (Special Offers)</h2>
+      <p data-i18n="promo_p">🎁 新用戶首日免費掃描，年繳方案享 8 折優惠。立即諮詢獲取專業建議。</p>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 星燈防詐中心 | A.c Lee 資安實驗室 | kcli0124@gmail.com</p>
+  </footer>
+
+  <script>
+    const langData = {
+      'zh-TW': {
+        'doc_title': '官方服務說明文本', 'bg_h2': '計畫前因', 'bg_p': '應對全球跨境詐騙氾濫，守護您的資產安全。',
+        'feat_h2': '核心功能', 'feat_1': '✅ 實時網址信譽評級', 'feat_2': '✅ 跨國伺服器比對', 'feat_3': '✅ 深度技術諮詢',
+        'price_h2': '服務價位', 'personal_h4': '個人深度報告', 'personal_price': 'NT$30 / 天',
+        'enterprise_h4': '企業級安全防護', 'enterprise_price': 'NT$3888 / 月', 'promo_h2': '限時優惠',
+        'promo_p': '🎁 新用戶首日免費掃描，年繳方案享 8 折優惠。'
+      },
+      'en': {
+        'doc_title': 'Service Description', 'bg_h2': 'Background', 'bg_p': 'Combating global scams and protecting your assets.',
+        'feat_h2': 'Key Features', 'feat_1': '✅ Real-time Reputation Rating', 'feat_2': '✅ Server Blacklist Check', 'feat_3': '✅ Tech Consultation',
+        'price_h2': 'Pricing', 'personal_h4': 'Personal Report', 'personal_price': '$30 / Day',
+        'enterprise_h4': 'Enterprise Protection', 'enterprise_price': '$3888 / Month', 'promo_h2': 'Offers',
+        'promo_p': '🎁 First day free, 20% off for annual plans.'
+      }
+      // 其他 7 種語言可依此類推加入...
+    };
+
+    function changeLanguage(lang) {
+      const data = langData[lang] || langData['en'];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (data[key]) el.innerText = data[key];
+      });
+      localStorage.setItem('xingdeng_lang', lang);
+    }
+
+    window.onload = () => {
+      const savedLang = localStorage.getItem('xingdeng_lang') || 'zh-TW';
+      document.getElementById('lang-select').value = savedLang;
+      changeLanguage(savedLang);
+    };
+  </script>
+</body>
+</html>
