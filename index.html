@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>星燈防詐中心 | XingDeng Security</title>
   <style>
-    /* 1. 完整保留並合併您提供的 CSS */
+    /* 1. 基礎架構與背景 */
     body {
         background-color: #000000;
         margin: 0;
@@ -29,9 +29,23 @@
         z-index: 5;
     }
 
-    /* 跑馬燈 */
-    .ticker-wrap { width: 100%; background: rgba(0, 255, 0, 0.1); border-bottom: 1px solid #00FF00; padding: 10px 0; overflow: hidden; z-index: 10; }
-    .ticker { display: inline-block; white-space: nowrap; animation: ticker 30s linear infinite; color: #00FF00 !important; font-weight: bold; }
+    /* 修正：最上排紅底白字跑馬燈 */
+    .ticker-wrap { 
+        width: 100%; 
+        background: #CC0000; /* 紅色背景 */
+        border-bottom: 2px solid #990000; 
+        padding: 12px 0; 
+        overflow: hidden; 
+        z-index: 100; 
+    }
+    .ticker { 
+        display: inline-block; 
+        white-space: nowrap; 
+        animation: ticker 30s linear infinite; 
+        color: #FFFFFF !important; /* 白色文字 */
+        font-weight: bold; 
+        font-size: 1rem;
+    }
     @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
     /* 加大版語言選擇器 */
@@ -40,7 +54,7 @@
         text-align: right;
         width: 95%;
         max-width: 600px;
-        z-index: 100;
+        z-index: 101;
     }
     .lang-selector select {
         background: #111;
@@ -57,9 +71,9 @@
     header h1 { font-size: 2.2rem; text-shadow: 0 0 20px #00FF00; text-align: center; margin: 30px 0 10px; color: #ffffff !important; }
     header p { color: #00FF00 !important; font-size: 0.85rem; text-align: center; letter-spacing: 1px; }
 
-    /* 容器框 [立體綠框] */
+    /* 容器框 [立體綠框 - 完全保留原樣] */
     .scan-box, .payment-box {
-        background: rgba(0, 0, 0, 0.85); /* 增加透明度以看見背景圖 */
+        background: rgba(0, 0, 0, 0.85); 
         border: 2px solid #00FF00;
         border-radius: 15px;
         padding: 30px;
@@ -67,8 +81,8 @@
         box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
     }
 
-    /* 所有文字強制全白 (排除跑馬燈與特定綠色文字) */
-    h1, h2, h3, p, span, div:not(.ticker) { color: #ffffff !important; }
+    /* 強制文字全白 */
+    h1, h2, h3, p, span, div:not(.ticker):not(header p):not(.btn-pay-corp) { color: #ffffff !important; }
 
     input {
         width: 100%; padding: 15px; background: #111; border: 1px solid #333;
@@ -103,7 +117,7 @@
     #floating-scan { 
       position: fixed; bottom: 30px; right: 30px; background: #00FF00; color: #000 !important; 
       padding: 15px 25px; border-radius: 50px; font-weight: bold; font-size: 1rem; 
-      box-shadow: 0 0 15px rgba(0,255,0,0.6); cursor: grab; z-index: 9999; 
+      box-shadow: 0 0 20px rgba(0,255,0,0.6); cursor: grab; z-index: 9999; 
       touch-action: none; user-select: none; border: 2px solid #fff;
     }
   </style>
@@ -117,6 +131,7 @@
   <div class="lang-selector">
     <select id="lang-select" onchange="changeLanguage(this.value)">
       <option value="zh-TW">繁體中文</option>
+      <option value="zh-CN">简体中文</option>
       <option value="en">English</option>
       <option value="ja">日本語</option>
       <option value="ko">한국어</option>
@@ -124,7 +139,6 @@
       <option value="vi">Tiếng Việt</option>
       <option value="id">Bahasa Indonesia</option>
       <option value="fil">Filipino</option>
-      <option value="zh-CN">简体中文</option>
     </select>
   </div>
 
@@ -145,9 +159,7 @@
       <p style="font-size: 0.9rem;"><strong data-i18n="bg_h2">計畫前因：</strong> <span data-i18n="bg_p">應對全球跨境詐騙，守護您的資產安全。</span></p>
       
       <button class="btn-pay-action" onclick="location.href='about.html'" data-i18n="btn_about">查看詳細服務內容與價位</button>
-      
       <button class="btn-pay-corp" onclick="alert('Contact: kcli0124@gmail.com')" data-i18n="btn_corp">企業專用入口</button>
-      
       <button class="btn-line">LINE 官方諮詢</button>
     </div>
 
@@ -161,7 +173,7 @@
   <script>
     const langData = {
       'zh-TW': {
-        'ticker_text': '參考165防詐原則 | 已掃描超過 10 萬筆連結',
+        'ticker_text': '參考165防詐原則 | 已掃描超過 10 萬筆連結，成功阻斷多起詐騙',
         'main_title': '星燈防詐中心',
         'sub_title': '全球數據實時對接 | A.C LEE 資安實驗室',
         'scan_h3': '免費試掃 3 次，立刻偵測詐騙！',
@@ -176,16 +188,15 @@
         'disclaimer': '免責聲明：本工具僅供參考，結果不構成法律保證。'
       },
       'en': {
-        'ticker_text': '165 Scam Principles | 100k+ Scanned',
+        'ticker_text': '165 Scam Principles | 100k+ Links Scanned Successfully',
         'main_title': 'XingDeng Security',
         'sub_title': 'Global Real-time Sync | A.C LEE Lab',
         'scan_h3': '3 Free Scans, Detect Scams Now!',
         'btn_scan': 'Start Deep Scan',
-        'doc_title': 'Official Document',
+        'doc_title': 'Service Description',
         'btn_about': 'View Pricing & Details',
         'floating_btn': 'Scan'
       }
-      // ... 更多語言 ...
     };
 
     function changeLanguage(lang) {
@@ -201,53 +212,25 @@
       localStorage.setItem('xingdeng_lang', lang);
     }
 
-    // 移動式浮標邏輯
     const dragBtn = document.getElementById('floating-scan');
     let xOffset = 0, yOffset = 0, isDragging = false, startX, startY;
 
-    dragBtn.addEventListener('mousedown', s);
-    dragBtn.addEventListener('touchstart', s, {passive: false});
-
-    function s(e) {
+    function dragStart(e) {
       isDragging = true;
       startX = (e.type === "touchstart" ? e.touches[0].clientX : e.clientX) - xOffset;
       startY = (e.type === "touchstart" ? e.touches[0].clientY : e.clientY) - yOffset;
     }
 
-    document.addEventListener('mousemove', m);
-    document.addEventListener('touchmove', m, {passive: false});
-
-    function m(e) {
+    function drag(e) {
       if (!isDragging) return;
-      e.preventDefault();
+      if(e.type === "touchmove") e.preventDefault();
       xOffset = (e.type === "touchmove" ? e.touches[0].clientX : e.clientX) - startX;
       yOffset = (e.type === "touchmove" ? e.touches[0].clientY : e.clientY) - startY;
       dragBtn.style.transform = `translate3d(${xOffset}px, ${yOffset}px, 0)`;
     }
 
-    document.addEventListener('mouseup', () => isDragging = false);
-    document.addEventListener('touchend', () => isDragging = false);
-    dragBtn.addEventListener('click', () => { if(Math.abs(xOffset)<5) startScan(); });
+    function dragEnd() { isDragging = false; }
 
-    function startScan() {
-      const val = document.getElementById('scanInput').value;
-      if(!val) { alert("請輸入網址！"); return; }
-      alert("【星燈掃描中...】\n結果：該網址目前安全。");
-    }
+    dragBtn.addEventListener('mousedown', dragStart);
+    dragBtn.
 
-    window.onload = () => {
-      const savedLang = localStorage.getItem('xingdeng_lang') || 'zh-TW';
-      document.getElementById('lang-select').value = savedLang;
-      changeLanguage(savedLang);
-
-      const bgs = ['bg3.jpg', 'bg4.jpg', 'bg5.jpg', 'bg6.jpg', 'bg7.jpg', 'bg8.jpg', 'image_487005.jpg'];
-      let i = 0;
-      setInterval(() => {
-        i = (i + 1) % bgs.length;
-        document.body.style.backgroundImage = `url('${bgs[i]}')`;
-      }, 90000);
-      document.body.style.backgroundImage = `url('${bgs[0]}')`;
-    };
-  </script>
-</body>
-</html>
