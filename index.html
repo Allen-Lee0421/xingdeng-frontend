@@ -6,153 +6,244 @@
   <title>星燈防詐中心 | XingDeng Security</title>
   <style>
     body { 
-      margin:0; font-family:Arial,sans-serif; color:#eee; 
+      margin:0; font-family:Arial, sans-serif; color:#fff; 
       background-size:cover; background-position:center; background-attachment:fixed;
       transition: background 3s ease-in-out;
     }
     .container { max-width:900px; margin:0 auto; padding:20px; }
-    h1, h2, h3, h4 { color:#fff; }
-    p, label, span { color:#ddd; }
-    input { width:100%; max-width:600px; padding:18px; font-size:20px; border-radius:8px; border:2px solid #0f0; background:#111; color:#eee; box-sizing:border-box; }
+    input { width:100%; max-width:600px; padding:18px; font-size:20px; border-radius:8px; border:2px solid #0f0; background:#111; color:#fff; box-sizing:border-box; }
     button { padding:15px 30px; font-size:20px; border:none; border-radius:8px; cursor:pointer; }
     .scan-btn { background:#0f0; color:#000; }
     .upgrade-btn { background:#ffd700; color:#000; font-weight:bold; width:100%; padding:20px; font-size:22px; border-radius:10px; margin:15px 0; }
     .banner { background:#c00; color:#fff; padding:15px; text-align:center; font-weight:bold; font-size:18px; }
-    .share { text-align:center; margin:40px 0; }
-    #lang-select { position:fixed; top:10px; right:20px; padding:8px; background:#222; color:#eee; border-radius:6px; z-index:100; }
-
-    /* 懸浮掃描按鈕 */
-    .floating-scan {
-      position:fixed; bottom:30px; right:30px; z-index:999;
-      width:80px; height:80px; border-radius:50%;
-      background:linear-gradient(135deg, #0f0, #00cc00);
-      box-shadow:0 0 0 0 rgba(0,255,0,0.7);
-      animation:pulse 2s infinite, subtle-shake 3s infinite;
-      display:flex; align-items:center; justify-content:center;
-      color:#000; font-size:40px; font-weight:bold; cursor:pointer;
-      border:3px solid #fff;
-      text-decoration:none;
-    }
-    .floating-scan:hover { transform:scale(1.1); }
-
-    @keyframes pulse {
-      0% { box-shadow:0 0 0 0 rgba(0,255,0,0.7); }
-      70% { box-shadow:0 0 0 20px rgba(0,255,0,0); }
-      100% { box-shadow:0 0 0 0 rgba(0,255,0,0); }
-    }
-    @keyframes subtle-shake {
-      0%,100% { transform:translate(0,0); }
-      25% { transform:translate(2px,2px); }
-      50% { transform:translate(-2px,-2px); }
-      75% { transform:translate(2px,-2px); }
-    }
-
-    footer { text-align:center; padding:30px 20px; color:#aaa; font-size:14px; border-top:1px solid #333; margin-top:50px; line-height:1.6; }
+    .share { text-align:center; margin:30px 0; }
+    #lang-select { position:fixed; top:10px; right:20px; padding:8px; background:#222; color:#fff; border-radius:6px; z-index:100; }
+    footer { text-align:center; padding:30px 20px; color:#888; font-size:14px; border-top:1px solid #333; margin-top:50px; line-height:1.6; }
+    h1, h2, h3, h4, p, button { text-shadow: 0 0 5px rgba(0,0,0,0.8); color: #eee; } 
+    #floating-scan { position:fixed; bottom:20px; right:20px; background:#0f0; color:#000; padding:15px 25px; border-radius:50px; font-weight:bold; font-size:18px; box-shadow:0 4px 15px rgba(0,255,0,0.5); cursor:pointer; z-index:100; animation: pulse 2s infinite; }
+    @keyframes pulse { 0% { transform: scale(1); box-shadow:0 0 0 0 rgba(0,255,0,0.7); } 70% { transform: scale(1.05); box-shadow:0 0 0 10px rgba(0,255,0,0); } 100% { transform: scale(1); box-shadow:0 0 0 0 rgba(0,255,0,0); } }
   </style>
 </head>
 <body style="background-image:url('bg3.jpg');">
 
-  <!-- 語言切換 -->
   <select id="lang-select" onchange="changeLanguage(this.value)">
     <option value="zh-TW">繁體中文</option>
     <option value="zh-CN">简体中文</option>
     <option value="en">English</option>
+    <option value="ja">日本語</option>
+    <option value="ko">한국어</option>
+    <option value="th">ไทย</option>
+    <option value="vi">Tiếng Việt</option>
+    <option value="id">Bahasa Indonesia</option>
+    <option value="fil">Filipino</option>
   </select>
 
-  <!-- 信任橫幅 -->
-  <div class="banner">
+  <div class="banner" data-i18n="banner_text">
     參考165防詐原則 | 已掃描超過 10 萬筆連結，成功阻斷多起詐騙
   </div>
 
   <div class="container">
-    <h1 style="text-align:center;">星燈防詐中心</h1>
-    <p style="text-align:center;color:#ccc;">全球數據實時對接 | A.c Lee 資安實驗室</p>
+    <h1 style="text-align:center;color:#0f0;" data-i18n="main_title">星燈防詐中心</h1>
+    <p style="text-align:center;color:#aaa;" data-i18n="sub_title">全球數據實時對接 | A.c Lee 資安實驗室</p>
 
-    <!-- 掃描區 -->
     <div style="text-align:center;padding:40px;background:#111;border-radius:12px;margin:20px auto;max-width:800px;">
-      <h2 style="color:#0f0;margin-bottom:20px;">免費試掃 3 次，立刻偵測詐騙！</h2>
-      <input type="text" placeholder="貼上可疑網址或訊息..." id="scanInput">
-      <button class="scan-btn" onclick="startScan()">開始深度掃描</button>
+      <h2 style="color:#0f0;margin-bottom:20px;" data-i18n="scan_h2">免費試掃 3 次，立刻偵測詐騙！</h2>
+      <input type="text" placeholder="貼上可疑網址或訊息..." id="scanInput" data-i18n-placeholder="input_placeholder">
+      <button class="scan-btn" onclick="startScan()" data-i18n="btn_scan">開始深度掃描</button>
     </div>
 
-    <!-- 付費升級 -->
     <div style="margin:40px 0;">
-      <h3 style="color:#ff0;">權限升級服務</h3>
-      <p style="color:#ccc;">為什麼升級？完整報告含 IP 位置、域名風險評分、伺服器來源，保護你不被騙！</p>
+      <h3 style="color:#ff0;" data-i18n="upgrade_title">權限升級服務</h3>
+      <p style="color:#ccc;" data-i18n="upgrade_desc">為什麼升級？完整報告含 IP 位置、域名風險評分、伺服器來源，保護你不被騙！</p>
 
       <div style="margin:20px 0;">
-        <h4>個人方案</h4>
-        <p>深度取證報告 (個人)</p>
-        <p style="font-size:24px;font-weight:bold;color:#fff;">NT$30 / 天</p>
-        <button class="upgrade-btn" onclick="upgradePersonal()">立即解鎖 (NT$30 / 天)</button>
+        <h4 data-i18n="personal_h4">深度取證報告 (個人)</h4>
+        <p data-i18n="personal_p">解鎖伺服器實體位置、域名信譽</p>
+        <button class="upgrade-btn" onclick="upgradePersonal()" data-i18n="btn_personal">立即解鎖完整報告 (NT$30 / 天)</button>
       </div>
 
       <div style="margin:20px 0;">
-        <h4>企業級安全防護</h4>
-        <p>專屬 API 接口、24/7 專家應急</p>
-        <button class="upgrade-btn" onclick="upgradeEnterprise()">啟動企業訂閱 (NT$3888 / 月)</button>
+        <h4 data-i18n="enterprise_h4">企業級安全防護</h4>
+        <p data-i18n="enterprise_p">專屬 API 接口、24/7 專家應急</p>
+        <button class="upgrade-btn" onclick="upgradeEnterprise()" data-i18n="btn_enterprise">啟動企業訂閱 (NT$3888 / 月)</button>
       </div>
     </div>
 
-    <!-- 分享 -->
     <div class="share">
-      <p>掃到可疑？分享給家人朋友一起防！</p>
-      <button onclick="shareResult()" style="background:#00f;color:#fff;padding:12px 25px;border:none;border-radius:8px;font-size:18px;">分享到 Line / FB</button>
+      <p data-i18n="share_text">掃到可疑？分享給家人朋友一起防！</p>
+      <button onclick="shareResult()" style="background:#00f;color:#fff;padding:12px 25px;border:none;border-radius:8px;font-size:18px;" data-i18n="btn_share">分享到 Line / FB</button>
     </div>
   </div>
 
-  <!-- 懸浮掃描按鈕 -->
-  <a href="#scanInput" class="floating-scan" title="立即掃描">
-    🔍
-  </a>
-
-  <!-- 免責聲明 -->
   <footer>
-    <p>免責聲明：本工具僅供參考與初步偵測之用，掃描結果基於公開數據與演算法，不構成任何法律、財務或資安保證。誤判或遺漏風險由使用者自行承擔。建議發現可疑情況時，立即撥打165反詐騙專線或向警方報案。本站不儲存任何使用者輸入資料，掃描完成後即刪除。使用本服務即表示同意上述條款。</p>
+    <p data-i18n="disclaimer">免責聲明：本工具僅供參考與初步偵測之用，掃描結果基於公開數據與演算法，不構成任何法律、財務或資安保證。誤判或遺漏風險由使用者自行承擔。建議發現可疑情況時，立即撥打165反詐騙專線或向警方報案。本站不儲存任何使用者輸入資料，掃描完成後即刪除。使用本服務即表示同意上述條款。</p>
     <p>© 2026 星燈防詐中心 | A.c Lee 資安實驗室 | 所有權利保留</p>
   </footer>
 
-  <!-- 多語言 JS -->
+  <button id="floating-scan" onclick="document.getElementById('scanInput').scrollIntoView({behavior:'smooth'})" data-i18n="floating_btn">掃描網站</button>
+
   <script>
     const langData = {
-      'zh-TW': { /* 原內容 */ },
-      'zh-CN': { /* 簡體內容 */ },
-      'en': { /* 英文內容 */ }
-      // 其他語言可後補
+      'zh-TW': {
+        'banner_text': '參考165防詐原則 | 已掃描超過 10 萬筆連結，成功阻斷多起詐騙',
+        'main_title': '星燈防詐中心',
+        'sub_title': '全球數據實時對接 | A.c Lee 資安實驗室',
+        'scan_h2': '免費試掃 3 次，立刻偵測詐騙！',
+        'input_placeholder': '貼上可疑網址或訊息...',
+        'btn_scan': '開始深度掃描',
+        'upgrade_title': '權限升級服務',
+        'upgrade_desc': '為什麼升級？完整報告含 IP 位置、域名風險評分、伺服器來源，保護你不被騙！',
+        'personal_h4': '深度取證報告 (個人)',
+        'personal_p': '解鎖伺服器實體位置、域名信譽',
+        'btn_personal': '立即解鎖完整報告 (NT$30 / 天)',
+        'enterprise_h4': '企業級安全防護',
+        'enterprise_p': '專屬 API 接口、24/7 專家應急',
+        'btn_enterprise': '啟動企業訂閱 (NT$3888 / 月)',
+        'share_text': '掃到可疑？分享給家人朋友一起防！',
+        'btn_share': '分享到 Line / FB',
+        'disclaimer': '免責聲明：本工具僅供參考與初步偵測之用...使用本服務即表示同意上述條款。',
+        'floating_btn': '掃描網站'
+      },
+      'ja': {
+        'banner_text': '165詐欺防止原則に準拠 | 10万件以上のリンクをスキャン済み',
+        'main_title': '星燈詐欺対策センター',
+        'sub_title': 'グローバルデータ同期 | A.c Lee セキュリティラボ',
+        'scan_h2': '3回無料スキャン、すぐに詐欺を検知！',
+        'input_placeholder': '疑わしいURLやメッセージを貼り付け...',
+        'btn_scan': 'ディープスキャン開始',
+        'upgrade_title': 'アップグレードサービス',
+        'upgrade_desc': '詳細レポートにはIP、ドメイン評価、サーバー情報が含まれます。',
+        'personal_h4': '詳細フォレンジック（個人）',
+        'personal_p': 'サーバー位置、ドメインの評判を解禁',
+        'btn_personal': 'レポートを解禁 (NT$30 / 日)',
+        'enterprise_h4': '企業向けセキュリティ',
+        'enterprise_p': '専用API、24時間365日の専門家対応',
+        'btn_enterprise': '企業プランを起動 (NT$3888 / 月)',
+        'share_text': '疑わしいですか？家族や友人と共有しましょう！',
+        'btn_share': 'Line / FB で共有',
+        'disclaimer': '免責事項：本ツールは参照用です。スキャン結果は法的な保証を構成しません。',
+        'floating_btn': 'スキャン'
+      },
+      'ko': {
+        'banner_text': '165 사기 방지 원칙 참고 | 10만 건 이상의 링크 스캔 완료',
+        'main_title': '성등 사기 방지 센터',
+        'sub_title': '글로벌 데이터 실시간 연동 | A.c Lee 보안 연구소',
+        'scan_h2': '3회 무료 스캔, 즉시 사기 탐지!',
+        'input_placeholder': '의심스러운 URL이나 메시지 붙여넣기...',
+        'btn_scan': '심층 스캔 시작',
+        'upgrade_title': '권한 업그레이드 서비스',
+        'upgrade_desc': 'IP 위치, 도메인 위험 점수 등 상세 보고서 제공.',
+        'personal_h4': '심층 포렌식 보고서 (개인)',
+        'personal_p': '서버 물리적 위치, 도메인 신뢰도 잠금 해제',
+        'btn_personal': '전체 보고서 잠금 해제 (NT$30 / 일)',
+        'enterprise_h4': '기업용 보안 보호',
+        'enterprise_p': '전용 API 연동, 24/7 전문가 응대',
+        'btn_enterprise': '기업 구독 시작 (NT$3888 / 월)',
+        'share_text': '의심스러우신가요? 가족과 친구에게 공유하세요!',
+        'btn_share': 'Line / FB 공유하기',
+        'disclaimer': '면책 고지: 본 도구는 참고용이며 법적 보증을 구성하지 않습니다.',
+        'floating_btn': '사이트 스캔'
+      },
+      'th': {
+        'banner_text': 'อ้างอิงหลักการป้องกันการฉ้อโกง 165 | สแกนแล้วกว่า 100,000 รายการ',
+        'main_title': 'ศูนย์ป้องกันการฉ้อโกง XingDeng',
+        'sub_title': 'เชื่อมต่อข้อมูลทั่วโลกแบบเรียลไทม์ | A.c Lee Security Lab',
+        'scan_h2': 'สแกนฟรี 3 ครั้ง ตรวจจับการฉ้อโกงทันที!',
+        'input_placeholder': 'วางลิงก์หรือข้อความที่น่าสงสัย...',
+        'btn_scan': 'เริ่มสแกนเชิงลึก',
+        'upgrade_title': 'บริการอัปเกรดสิทธิ์',
+        'upgrade_desc': 'รายงานฉบับเต็มประกอบด้วยตำแหน่ง IP, คะแนนความเสี่ยงโดเมน',
+        'personal_h4': 'รายงานนิติวิทยาศาสตร์เชิงลึก (ส่วนบุคคล)',
+        'personal_p': 'ปลดล็อกตำแหน่งเซิร์ฟเวอร์และชื่อเสียงโดเมน',
+        'btn_personal': 'ปลดล็อกรายงาน (NT$30 / วัน)',
+        'enterprise_h4': 'การป้องกันระดับองค์กร',
+        'enterprise_p': 'API เฉพาะส่วน, ผู้เชี่ยวชาญดูแล 24/7',
+        'btn_enterprise': 'สมัครสมาชิกองค์กร (NT$3888 / เดือน)',
+        'share_text': 'พบสิ่งน่าสงสัย? แชร์ให้ครอบครัวและเพื่อน!',
+        'btn_share': 'แชร์ไปที่ Line / FB',
+        'disclaimer': 'คำสงวนสิทธิ์: เครื่องมือนี้ใช้สำหรับอ้างอิงเท่านั้น ไม่มีการรับประกันทางกฎหมาย',
+        'floating_btn': 'สแกนเว็บไซต์'
+      },
+      'vi': {
+        'banner_text': 'Tham khảo nguyên tắc 165 | Đã quét hơn 100.000 liên kết',
+        'main_title': 'Trung tâm Chống lừa đảo XingDeng',
+        'sub_title': 'Kết nối dữ liệu thời gian thực | A.c Lee Security Lab',
+        'scan_h2': 'Quét thử miễn phí 3 lần, phát hiện lừa đảo ngay!',
+        'input_placeholder': 'Dán liên kết hoặc tin nhắn nghi ngờ...',
+        'btn_scan': 'Bắt đầu quét chuyên sâu',
+        'upgrade_title': 'Dịch vụ nâng cấp quyền hạn',
+        'upgrade_desc': 'Báo cáo đầy đủ bao gồm vị trí IP, điểm rủi ro tên miền.',
+        'personal_h4': 'Báo cáo pháp y chuyên sâu (Cá nhân)',
+        'personal_p': 'Mở khóa vị trí máy chủ, uy tín tên miền',
+        'btn_personal': 'Mở khóa báo cáo (NT$30 / ngày)',
+        'enterprise_h4': 'Bảo mật cấp doanh nghiệp',
+        'enterprise_p': 'Giao diện API riêng, chuyên gia hỗ trợ 24/7',
+        'btn_enterprise': 'Đăng ký doanh nghiệp (NT$3888 / tháng)',
+        'share_text': 'Thấy nghi ngờ? Chia sẻ với người thân và bạn bè!',
+        'btn_share': 'Chia sẻ lên Line / FB',
+        'disclaimer': 'Miễn trừ trách nhiệm: Công cụ này chỉ mang tính tham khảo, không đảm bảo pháp lý.',
+        'floating_btn': 'Quét trang web'
+      },
+      'id': {
+        'banner_text': 'Referensi Prinsip Anti-Penipuan 165 | 100rb+ Tautan Dipindai',
+        'main_title': 'Pusat Keamanan XingDeng',
+        'sub_title': 'Sinkronisasi Data Global | A.c Lee Security Lab',
+        'scan_h2': 'Coba 3x Gratis, Deteksi Penipuan Sekarang!',
+        'input_placeholder': 'Tempel URL atau pesan mencurigakan...',
+        'btn_scan': 'Mulai Pemindaian Mendalam',
+        'upgrade_title': 'Layanan Peningkatan Hak Akses',
+        'upgrade_desc': 'Laporan lengkap mencakup lokasi IP, skor risiko domain.',
+        'personal_h4': 'Laporan Forensik Mendalam (Pribadi)',
+        'personal_p': 'Buka lokasi server & reputasi domain',
+        'btn_personal': 'Buka Laporan (NT$30 / hari)',
+        'enterprise_h4': 'Perlindungan Kelas Perusahaan',
+        'enterprise_p': 'Antarmuka API Eksklusif, Ahli 24/7',
+        'btn_enterprise': 'Langganan Perusahaan (NT$3888 / bulan)',
+        'share_text': 'Mencurigakan? Bagikan ke keluarga & teman!',
+        'btn_share': 'Bagikan ke Line / FB',
+        'disclaimer': 'Penafian: Alat ini hanya untuk referensi, bukan jaminan hukum.',
+        'floating_btn': 'Pindai Situs'
+      }
     };
 
     function changeLanguage(lang) {
-      // 簡化版，可擴充
-      document.documentElement.lang = lang;
+      const data = langData[lang] || langData['zh-TW'];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (data[key]) el.innerText = data[key];
+      });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (data[key]) el.placeholder = data[key];
+      });
+      localStorage.setItem('xingdeng_lang', lang);
     }
-    changeLanguage('zh-TW');
+
+    window.onload = () => {
+      const savedLang = localStorage.getItem('xingdeng_lang') || 'zh-TW';
+      document.getElementById('lang-select').value = savedLang;
+      changeLanguage(savedLang);
+    };
   </script>
 
-  <!-- 背景輪播 90秒 -->
   <script>
-    const backgrounds = ['bg3.jpg','bg4.jpg','bg5.jpg','bg6.jpg','bg7.jpg','bg8.jpg','image_487005.jpg'];
-    let i = 0;
-    function rotateBg() {
-      document.body.style.backgroundImage = `url('${backgrounds[i]}')`;
-      i = (i + 1) % backgrounds.length;
+    const backgrounds = ['bg3.jpg', 'bg4.jpg', 'bg5.jpg', 'bg6.jpg', 'bg7.jpg', 'bg8.jpg', 'image_487005.jpg'];
+    let current = 0;
+    function rotateBackground() {
+      document.body.style.backgroundImage = `url('${backgrounds[current]}')`;
+      current = (current + 1) % backgrounds.length;
     }
-    setInterval(rotateBg, 90000);
-    rotateBg();
+    setInterval(rotateBackground, 90000);
+    rotateBackground();
   </script>
 
-  <!-- 功能 -->
   <script>
-    function startScan() { alert("掃描功能開發中"); }
-    function upgradePersonal() { alert("NT$30/天 跳轉支付 - 測試中"); }
-    function upgradeEnterprise() { alert("NT$3888/月 企業訂閱 - 測試中"); }
-    function shareResult() {
-      if (navigator.share) {
-        navigator.share({title:'星燈防詐警報',text:'這可能是詐騙，快檢查！',url:window.location.href});
-      } else {
-        alert("請手動分享連結");
-      }
-    }
+    function startScan() { alert("Scanning logic is being implemented..."); }
+    function upgradePersonal() { alert("Payment Gateway: NT$30 / Day"); }
+    function upgradeEnterprise() { alert("Corporate Subscription: NT$3888 / Month"); }
+    function shareResult() { alert("Share function triggered"); }
   </script>
 
 </body>
 </html>
+
