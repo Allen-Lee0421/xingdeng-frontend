@@ -1,55 +1,51 @@
 body {
-    margin: 0;
-    font-family: "Microsoft JhengHei", serif;
-    background: url('bg3.jpg') no-repeat center center fixed;
-    background-size: cover;
-    color: #f0f0f0;
-    transition: background 1.5s ease-in-out;
+  font-family: "Microsoft JhengHei", sans-serif;
+  background: #0b0c10;
+  color: #fff;
+  text-align: center;
+  margin: 0;
+  padding: 0;
 }
 
-.overlay {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.6); /* 確保序言文字清晰 */
-    z-index: -1;
+.strategy-grid {
+  display: flex;
+  gap: 20px;
+  margin: 30px;
 }
 
-.container {
-    max-width: 800px;
-    margin: 50px auto;
-    padding: 30px;
-    border: 1px solid #d4af37;
-    background: rgba(15, 15, 15, 0.8);
-    border-radius: 15px;
-    text-align: center;
+.strategy-card {
+  flex: 1;
+  background: rgba(30,30,40,0.8);
+  padding: 25px;
+  border-radius: 12px;
+  border: 1px solid rgba(212,175,55,0.4);
+  transition: transform 0.3s ease;
 }
 
-.preface-text {
-    font-size: 1rem;
-    line-height: 1.8;
-    text-align: justify;
-    padding: 20px;
-    border-top: 1px solid #333;
-    border-bottom: 1px solid #333;
-    margin: 20px 0;
+.strategy-card:hover {
+  transform: translateY(-5px);
+  border-color: #d4af37;
 }
 
-.primary-btn {
-    background: #d4af37;
-    color: #000;
-    padding: 15px 30px;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1.1rem;
+.action-btn {
+  border: none;
+  padding: 12px 25px;
+  font-size: 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 15px;
+  width: 100%;
 }
 
-.secondary-btn {
-    background: transparent;
-    color: #d4af37;
-    border: 1px solid #d4af37;
-    padding: 10px 20px;
-    margin-top: 10px;
-    cursor: pointer;
+.analyze-btn { background-color: #4caf50; color: white; }
+.scan-btn { background-color: #2e7d32; color: white; }
+.pay-btn { background-color: #d4af37; color: black; margin-top:20px; padding:10px 20px; border:none; border-radius:8px; cursor:pointer; }
+
+.status-box {
+  margin-top: 20px;
+  padding: 15px;
+  background: rgba(0,0,0,0.6);
+  border-radius: 8px;
+  min-height: 40px;
 }
