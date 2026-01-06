@@ -5,85 +5,72 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>易鑒星科 · 命理顧問 | 星燈防詐中心</title>
   <style>
-    /* 矩陣視覺風格 */
-    body { margin:0; font-family:'Microsoft JhengHei', sans-serif; color:#fff; background:#0a0a0c; background-attachment:fixed; }
+    body { margin:0; font-family:'Microsoft JhengHei', sans-serif; color:#fff; background:#0a0a0c; }
     .container { max-width:1000px; margin:0 auto; padding:30px; }
     .banner { background: linear-gradient(90deg, #800, #c00); padding:15px; text-align:center; font-weight:bold; }
-    .preface-box { background:rgba(20,20,30,0.8); padding:25px; border-left:4px solid #d4af37; margin:30px 0; line-height:1.8; font-size:0.95rem; }
+    .preface-box { background:rgba(20,20,30,0.8); padding:25px; border-left:4px solid #d4af37; margin:30px 0; line-height:1.8; }
     
-    /* 雙軌戰術卡片佈局 */
+    /* 雙框戰術矩陣 */
     .strategy-grid { display:flex; gap:25px; margin:40px 0; }
     .card { flex:1; background:rgba(30,30,45,0.9); padding:30px; border-radius:15px; border:1px solid rgba(212,175,55,0.3); text-align:center; transition:0.3s; }
     .card:hover { transform:translateY(-10px); border-color:#d4af37; box-shadow:0 0 20px rgba(212,175,55,0.2); }
-    .card h2 { color:#d4af37; }
     
-    /* 病毒行銷：發光按鈕 */
-    .btn { padding:12px 35px; border-radius:30px; border:none; cursor:pointer; font-weight:bold; font-size:1.1rem; transition:0.2s; margin-top:15px; }
+    /* 矩陣終端視覺 (對齊截圖 1a790d) */
+    #matrix-output { display:none; background:#000; color:#0f0; padding:20px; font-family:monospace; border-radius:10px; border:2px solid #0f0; margin-top:20px; line-height:1.6; }
+    
+    .btn { padding:12px 35px; border-radius:30px; border:none; cursor:pointer; font-weight:bold; font-size:1.1rem; margin-top:15px; }
     .btn-analyze { background:#4caf50; color:white; }
     .btn-scan { background:#2e7d32; color:white; box-shadow:0 0 15px rgba(46,125,50,0.5); }
-    
-    /* 矩陣演算輸出區 */
-    #matrix-output { display:none; background:#000; color:#0f0; padding:20px; font-family:monospace; border-radius:10px; border:1px solid #0f0; margin-top:20px; min-height:100px; line-height:1.5; white-space: pre-wrap; }
     footer { text-align:center; padding:40px; color:#666; font-size:0.8rem; border-top:1px solid #222; }
   </style>
 </head>
 <body>
-
   <div class="banner">🛡️ 易鑒星科：數位盾牌與因果演算中心 | 已啟動 165 防詐對比協定</div>
-
   <div class="container">
-    <h1 style="text-align:center; color:#d4af37; font-size:2.5rem; letter-spacing:8px;">易 鑒 星 科</h1>
-
+    <h1 style="text-align:center; color:#d4af37; letter-spacing:8px;">易 鑒 星 科</h1>
     <div class="preface-box">
       <h3 style="margin-top:0; color:#d4af37;">易鑒星科 · 序言</h3>
-      自上古伏羲觀象而立卦，文王演繹六十四卦，孔子撰《十翼》以定大道... 本網「易鑒星科」正是承接此脈絡：以易為根，以兵法為骨，以謀略為翼，融奇門、六壬、姓名之學，結合科學之精密。於古今交融之中，洞察天地人事，掌握人生之機，為世人揭示隱而未顯的方向。
+      <p>自上古伏羲觀象而立卦... 融合奇門、六壬、姓名之學，結合科學之精密，掌握人生之機。</p>
     </div>
 
     <div class="strategy-grid">
       <div class="card">
         <h2>☯️ 觀象演繹</h2>
-        <p>連通 D 槽 Docker 核心，啟動奇門遁甲與五行因果矩陣運算。</p>
+        <p>連通 D 槽 Docker 核心，執行奇門矩陣運算。</p>
         <button class="btn btn-analyze" onclick="runLogic('analyze')">開始推演</button>
       </div>
       <div class="card">
         <h2>🛡️ 防詐掃描</h2>
-        <p>病毒行銷防禦：立即比對數位足跡，阻斷惡意鏈結與高風險訊息。</p>
+        <p>病毒行銷防禦：比對 165 資料庫，阻斷風險連結。</p>
         <button class="btn btn-scan" onclick="runLogic('scan')">啟動掃描</button>
       </div>
     </div>
-
     <div id="matrix-output">系統待命中...</div>
   </div>
-
-  <footer>
-    © 2026 易鑒星科 · A.c Lee | 免責聲明：演算結果僅供初步參考，正式報案請撥 165。
-  </footer>
+  <footer>© 2026 易鑒星科 · A.c Lee | 所有權利保留</footer>
 
   <script>
-    // 總監回來後，請將此處換成您新的 ngrok 網址
-    const API_URL = "https://你的最新地址.ngrok-free.app";
+    const API_URL = "https://你的ngrok地址.ngrok-free.app";
 
     async function runLogic(type) {
       const output = document.getElementById('matrix-output');
       output.style.display = "block";
-      
       if (type === 'analyze') {
-        output.innerText = "> 正在連通本機 Docker 核心...\n> 啟動 server.js 因果橋接協定...\n> 讀取 D:\\EdisonStar\\yidengxingke.db 資料庫...\n> 正在執行奇門遁甲矩陣運算...";
-        
+        output.innerHTML = "> 正在連通本機 Docker 核心...<br>> 啟動 server.js 因果橋接協定...<br>> 讀取 D:\\EdisonStar\\yidengxingke.db 資料庫...<br>> 正在執行奇門遁甲矩陣運算...";
         try {
           const res = await fetch(`${API_URL}/analyze`, { method: 'POST' });
           const data = await res.json();
-          output.innerText += `\n> [演算成功]：結果已鎖定。您的命運參數已更新。`;
+          output.innerHTML += `<br>> [演算成功]：天機已定。`;
         } catch (e) {
-          output.innerText += `\n> [❌ 連線異常]：請確認您的 ngrok.exe 正在執行中且網址正確。`;
+          output.innerHTML += `<br>> [❌ 連線異常]：請確認 ngrok 正在執行中。`;
         }
       } else {
-        const input = prompt("請輸入要偵測的網址或訊息內容：");
-        if(input) {
-          output.innerText = `> 正在啟動病毒式防禦掃描...\n> 掃描內容：${input}\n> 比對全球詐騙指紋與 165 資料庫...`;
+        const url = prompt("請輸入可疑連結：");
+        if(url) {
+          output.innerHTML = `> 正在比對全球詐騙指紋...<br>> 偵測內容：${url}`;
           setTimeout(() => {
-            alert("【易鑒星科警報】偵測到高度詐騙風險！此內容符合典型的惡意連結特徵。");
-            output.innerText += "\n> [🛡️ 防禦完成]：已成功標記並阻斷該來源。";
+            alert("⚠️ 易鑒星科警報：該連結具備高度詐騙風險！");
+            output.innerHTML += "<br>> [🛡️ 防禦完成]：已成功阻斷威脅。";
           }, 1500);
         }
       }
