@@ -9,7 +9,8 @@ async function startAnalysis() {
   try {
     const response = await fetch(`${API_BASE_URL}/analyze`, {
       method: 'POST',
-      mode: 'cors'
+      mode: 'cors',
+      headers: { 'ngrok-skip-browser-warning': 'true' }
     });
     if (!response.ok) throw new Error("API 回應異常");
     const data = await response.json();
@@ -30,7 +31,8 @@ async function startFraudScan() {
   try {
     const response = await fetch(`${API_BASE_URL}/scan`, {
       method: 'POST',
-      mode: 'cors'
+      mode: 'cors',
+      headers: { 'ngrok-skip-browser-warning': 'true' }
     });
     if (!response.ok) throw new Error("API 回應異常");
     const data = await response.json();
@@ -53,7 +55,8 @@ async function verifyAPI() {
   try {
     const res = await fetch(`${API_BASE_URL}/analyze`, {
       method: 'POST',
-      mode: 'cors'
+      mode: 'cors',
+      headers: { 'ngrok-skip-browser-warning': 'true' }
     });
     if (res.ok) {
       console.log("✅ API 對齊成功");
