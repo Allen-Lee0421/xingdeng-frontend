@@ -1,32 +1,33 @@
 /* */
 body {
-    background: url('bg3.jpg') no-repeat center center fixed !important;
+    background: url('bg3.jpg') no-repeat center center fixed !important; /* 恢復諸葛孔明背景 */
     background-size: cover !important;
-    color: #fff;
+    color: #ffffff;
     font-family: 'Microsoft JhengHei', sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 0;
     padding-top: 50px;
 }
 
-/* 雙框橫向排列布局 */
+/* 雙框戰略排版 */
 .strategy-grid {
     display: flex;
     gap: 30px;
-    width: 90%;
-    max-width: 1000px;
-    margin: 40px 0;
+    width: 95%;
+    max-width: 1100px;
+    margin: 40px auto;
 }
 
 .strategy-card {
     flex: 1;
-    background: rgba(30, 30, 40, 0.9); /* 半透明暗色底 */
+    background: rgba(40, 44, 52, 0.9); /* 深色半透明背景 */
     padding: 30px;
-    border: 1px solid #d4af37;
+    border: 1px solid #d4af37; /* 金色邊框線 */
     border-radius: 15px;
     text-align: center;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 .status-box {
@@ -35,8 +36,9 @@ body {
     padding: 20px;
     background: rgba(0, 0, 0, 0.7);
     border-left: 5px solid #d4af37;
-    margin-top: 20px;
-    font-size: 1.2rem;
+    margin: 20px auto;
+    font-size: 1.1rem;
+    color: #d4af37;
 }
 
 button {
@@ -44,10 +46,8 @@ button {
     background: #d4af37;
     color: #000;
     border: none;
-    padding: 10px 20px;
+    padding: 12px 24px;
     font-weight: bold;
     border-radius: 5px;
-    transition: 0.3s;
+    margin-top: 15px;
 }
-
-button:hover { background: #fff; }
