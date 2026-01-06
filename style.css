@@ -1,31 +1,28 @@
-/* 易鑒星科 · 視覺終極對齊 */
+/* */
 body {
-    /* 使用您 GitHub 儲存庫的原始圖片路徑，徹底破除快取導致的白底 */
+    /* 強制使用原始路徑載入背景圖 */
     background: url('https://raw.githubusercontent.com/xingdeng-frontend/main/bg3.jpg') no-repeat center center fixed !important;
     background-size: cover !important;
-    background-color: #000000 !important; /* 圖檔載入前維持黑色，保護氣場 */
+    background-color: #000000 !important; /* 圖還沒出來前，絕對要是黑色的 */
     color: #ffffff;
-    font-family: 'Microsoft JhengHei', sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-top: 50px;
 }
 
-/* 針對您提供的 HTML 容器進行橫向布局優化 */
+/* 恢復雙框橫向排列布局 */
 .strategy-grid {
-    display: flex; /* 恢復雙框橫向排列 */
+    display: flex; 
     gap: 30px;
-    width: 95%;
-    max-width: 1000px;
+    width: 90%;
     margin: 40px auto;
 }
 
 .strategy-card {
     flex: 1;
-    background: rgba(15, 15, 25, 0.85); /* 半透明暗色底，透出背景圖 */
+    background: rgba(20, 20, 35, 0.9); /* 暗色透明質感 */
     padding: 30px;
-    border: 1px solid #d4af37; /* 品牌金色邊框 */
-    border-radius: 15px;
-    text-align: center;
+    border: 1px solid #d4af37;
+    border-radius: 12px;
 }
