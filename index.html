@@ -1,2 +1,31 @@
-<link rel="stylesheet" href="style.css?v=20260106_SUCCESS">
-<script src="script.js?v=20260106_SUCCESS" defer></script>
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>易鑒星科 · 命理顧問</title>
+  <link rel="stylesheet" href="style.css?v=20260106">
+  <script src="script.js?v=20260106" defer></script>
+</head>
+<body>
+  <h1 id="mainTitle">易鑒星科 · 命理顧問</h1>
+  
+  <main class="strategy-grid">
+    <div class="strategy-card">
+      <h3>觀象演繹 · 開始推演</h3>
+      <p class="card-desc">結合易經、奇門、六壬、姓名學演算，為您洞察天機。</p>
+      <button class="action-btn analyze-btn" onclick="startAnalysis()">開始推演</button>
+    </div>
+
+    <div class="strategy-card">
+      <h3 style="color:#ff4d4d;">防詐掃描 · 保護荷包</h3>
+      <p class="card-desc">比對全球詐騙指紋與 165 資料庫。</p>
+      <button class="action-btn scan-btn" onclick="startFraudScan()">啟動掃描</button>
+    </div>
+  </main>
+
+  <div class="result-display">
+    <div id="statusOutput" class="status-box">系統待命中...</div>
+    <button class="pay-btn" onclick="triggerPayment()">解鎖天機報告 (NT$ 30)</button>
+  </div>
+</body>
+</html>
