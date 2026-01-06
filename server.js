@@ -9,7 +9,7 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'ngrok-skip-browser-warning']
 }));
 
-// 全域 header 壓制：加入 ngrok-skip-browser-warning
+// 全域 header 壓制
 app.use((req, res, next) => {
   res.setHeader('ngrok-skip-browser-warning', 'true');
   next();
