@@ -1,36 +1,159 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>易鑒星科 · 命理顧問</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>易鑑星科 · 命理顧問 | 星燈防詐中心</title>
+  <style>
+    body { 
+      margin:0; font-family:'Microsoft JhengHei', Arial, sans-serif; color:#fff; 
+      background-size:cover; background-position:center; background-attachment:fixed;
+      transition: background 4s ease-in-out;
+    }
+    .container { max-width:1000px; margin:0 auto; padding:30px; }
+    h1, h2, h3, h4, p, button { text-shadow: 0 0 6px rgba(0,0,0,0.9); color: #f0f0f0; }
+    .banner { background: linear-gradient(to right, #c00, #800); color:#fff; padding:18px; text-align:center; font-weight:bold; font-size:20px; margin-bottom:20px; border-radius:0 0 12px 12px; }
+    .card-container { display:flex; justify-content:center; gap:30px; flex-wrap:wrap; margin:40px 0; }
+    .card { width:320px; background:rgba(20,20,40,0.7); border-radius:16px; padding:30px; text-align:center; box-shadow:0 8px 32px rgba(0,0,0,0.5); backdrop-filter:blur(10px); transition:transform 0.3s; }
+    .card:hover { transform:scale(1.05); }
+    .card h2 { color:#ffeb3b; margin-bottom:20px; }
+    .card button { background:#4caf50; color:white; padding:15px 30px; font-size:18px; border:none; border-radius:30px; cursor:pointer; margin-top:20px; }
+    .upgrade-btn { background:#ff9800; color:white; width:100%; padding:20px; font-size:22px; border-radius:12px; margin:15px 0; font-weight:bold; }
+    #lang-select { position:fixed; top:15px; right:20px; padding:10px; background:#1e1e3f; color:white; border-radius:8px; z-index:100; }
+    footer { text-align:center; padding:40px 20px; color:#aaa; font-size:14px; border-top:1px solid #333; margin-top:60px; line-height:1.8; }
+    /* 懸浮掃描按鈕（脈衝發光 + 顫抖） */
+    #floating-scan { 
+      position:fixed; bottom:30px; right:30px; background:#0f0; color:#000; padding:18px 30px; border-radius:50px; font-weight:bold; font-size:20px; 
+      box-shadow:0 0 20px rgba(0,255,0,0.7), 0 0 40px rgba(0,255,0,0.5); cursor:pointer; z-index:999; 
+      animation: pulse-glow 2s infinite alternate, slight-shake 3s infinite;
+    }
+    @keyframes pulse-glow { 0% { box-shadow:0 0 20px rgba(0,255,0,0.7); } 100% { box-shadow:0 0 40px rgba(0,255,0,1); } }
+    @keyframes slight-shake { 0%,100% { transform:translateX(0); } 25% { transform:translateX(-3px); } 75% { transform:translateX(3px); } }
+    /* 序言與術數介紹專用樣式 */
+    .preface, .techniques { background:rgba(0,0,0,0.6); border-radius:12px; padding:30px; margin:30px 0; line-height:1.9; }
+    .preface h2, .techniques h2 { color:#ffeb3b; text-align:center; }
+  </style>
 </head>
-<body>
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="lang-selector">
-            <select id="langSelect" onchange="changeLanguage()">
-                <option value="zh-TW">繁體中文</option>
-                <option value="en">English</option>
-            </select>
-        </div>
+<body style="background-image:url('bg3.jpg');">
 
-        <header>
-            <h1 id="mainTitle">易鑒星科 · 命理顧問</h1>
-            <div id="preface" class="preface-text">
-                自上古伏羲觀象而立卦，文王演繹六十四卦，孔子撰《十翼》以定大道... 本網「易鑒星科」正是承接此脈絡：以易為根，以兵法為骨，以謀略為翼，融奇門、六壬、姓名之學，結合科學之精密。
-            </div>
-        </header>
+  <!-- 語言切換 -->
+  <select id="lang-select" onchange="changeLanguage(this.value)">
+    <option value="zh-TW">繁體中文</option>
+    <option value="zh-CN">简体中文</option>
+    <option value="en">English</option>
+  </select>
 
-        <main>
-            <div class="action-box">
-                <button id="btnScan" class="primary-btn" onclick="startAnalysis()">觀象演繹 · 開始推演</button>
-                <button id="btnPayPersonal" class="secondary-btn" onclick="triggerPayment()">解鎖天機報告 (NT$ 30)</button>
-            </div>
-            <div id="statusOutput" class="status-message"></div>
-        </main>
+  <!-- 信任橫幅 -->
+  <div class="banner">
+    參考165防詐原則 | 已掃描超過 10 萬筆連結，成功阻斷多起詐騙
+  </div>
+
+  <div class="container">
+    <h1 style="text-align:center;color:#ffeb3b;margin-bottom:40px;">易鑑星科 · 命理顧問</h1>
+
+    <!-- 序言 -->
+    <div class="preface">
+      <h2>序言</h2>
+      <p>自上古伏羲觀象而立卦，文王演繹六十四卦，孔子撰《十翼》以定大道，天地陰陽之理遂藏於易經之中；春秋之際，孫武以兵法揭示「兵者，詭道也」，將變化之理化為制勝之謀；三國之世，孔明承易理而融兵法，善用奇門遁甲，洞察天時地利人和，決勝千里之外；六壬神課以因果推演人事，姓名之學以字音五行定性格與命運，皆為先祖智慧之延伸。今日之世，科學演算與邏輯推理已能將隱秘的推演化為精密的模型，將模糊的直覺轉化為清晰的答案。本網「易鑑星科」正是承接此脈絡：以易為根，以兵法為骨，以謀略為翼，融奇門、六壬、姓名之學，結合科學之精密，歷經三千餘波折、萬次沙場推演，終於橫空出世。於古今交融之中，洞察天地人事，掌握人生之機，為世人揭示隱而未顯的方向。</p>
     </div>
-    <script src="script.js"></script>
+
+    <!-- 術數介紹 -->
+    <div class="techniques">
+      <h2>術數介紹</h2>
+      <h3>易經</h3>
+      <p>簡介：易經是中國最古老的智慧書，核心在於「變」與「不變」。它透過卦象來解釋人生的起伏，幫助人看清局勢、找到方向。</p>
+      <h4>適用範圍</h4>
+      <ul>
+        <li>人生重大選擇：工作、婚姻、搬遷等</li>
+        <li>事業發展：判斷趨勢，掌握時機</li>
+        <li>家宅環境：了解居住地的吉凶</li>
+        <li>人際關係：看合作是否合適</li>
+      </ul>
+      <h3>奇門遁甲</h3>
+      <p>簡介：奇門遁甲被稱為「帝王之學」，古人用來排兵布陣、掌握先機。它透過時間、方位和格局，幫助人找到最佳策略。</p>
+      <h4>適用範圍</h4>
+      <ul>
+        <li>商業決策：分析競爭，制定策略</li>
+        <li>出行選擇：挑選吉利的方向與時機</li>
+        <li>專案推進：判斷何時行動最有利</li>
+        <li>競爭應對：洞察對手，掌握優勢</li>
+      </ul>
+      <h3>六壬神課</h3>
+      <p>簡介：六壬神課是一種古老的推演方法，能從事件的起因推測未來的走向。它常用來分析人事變化與事情的成敗。</p>
+      <h4>適用範圍</h4>
+      <ul>
+        <li>官運仕途：判斷升遷或人事變動</li>
+        <li>訴訟糾紛：推測勝負與後果</li>
+        <li>財務安全：分析資金流向與風險</li>
+        <li>家族婚姻：看吉凶，調整安排</li>
+      </ul>
+      <h3>姓名學</h3>
+      <p>簡介：姓名不只是符號，它蘊含五行與音義的力量，會影響一個人的性格、運勢與人際互動。</p>
+      <h4>適用範圍</h4>
+      <ul>
+        <li>個人分析：了解性格與潛能</li>
+        <li>事業人際：看名字是否帶來助力</li>
+        <li>新生取名：為孩子挑選合適的名字</li>
+        <li>品牌命名：塑造企業形象與磁場</li>
+      </ul>
+    </div>
+
+    <!-- 雙入口卡片 -->
+    <div class="card-container">
+      <div class="card">
+        <h2>觀象演經 · 開始推演</h2>
+        <p>易經、奇門、六壬、姓名學運算，為您洞察天機、指引方向。</p>
+        <button onclick="location.href='/mingli'">開始推演</button>
+      </div>
+      <div class="card">
+        <h2>防詐掃描 · 保護荷包</h2>
+        <p>免費試掃 3 次，立即偵測可疑網址/訊息/Line。</p>
+        <button onclick="location.href='/scan'">啟動掃描</button>
+      </div>
+    </div>
+
+    <!-- 付費升級 -->
+    <div style="margin:60px 0; text-align:center;">
+      <h3 style="color:#ff9800;">解鎖完整功能</h3>
+      <p style="color:#ddd;">個人版：NT$30 / 天（無限掃描 + 完整命理解卦報告）</p>
+      <button class="upgrade-btn" onclick="alert('跳轉支付 NT$30 / 天 - 測試中')">立即解鎖 (NT$30 / 天)</button>
+    </div>
+  </div>
+
+  <!-- 免責聲明 -->
+  <footer>
+    <p>免責聲明：本網站命理運算與防詐掃描僅供參考與娛樂/初步偵測之用，不構成任何法律、財務、投資或資安保證。結果基於傳統典籍與公開數據，不保證100%準確。使用者應自行判斷與驗證，發現可疑情況請撥165或報警。本站不儲存個人輸入資料，使用即表示同意條款。</p>
+    <p>© 2026 易鑑星科 · 星燈防詐中心 | 所有權利保留</p>
+  </footer>
+
+  <!-- 懸浮掃描按鈕 -->
+  <button id="floating-scan" onclick="document.querySelector('#scanInput')?.scrollIntoView({behavior:'smooth'}) || location.href='/scan'">掃描網站</button>
+
+  <!-- 背景輪播（按你分配） -->
+  <script>
+    const backgrounds = [
+      'bg3.jpg', // 星空觀象圖 - 首頁
+      'bg4.jpg', // 揮劍校場圖 - 決策頁
+      'bg5.jpg', // 撫琴沉思圖 - 關於我們
+      'bg6.jpg', // 閱指圖引圖 - 姓名/奇門
+      'bg7.jpg'  // 背影遠眺圖 - 結尾
+    ];
+    let current = 0;
+    function rotateBackground() {
+      document.body.style.backgroundImage = `url('${backgrounds[current]}')`;
+      current = (current + 1) % backgrounds.length;
+    }
+    setInterval(rotateBackground, 90000);
+    rotateBackground();
+  </script>
+
+  <!-- 其他 JS -->
+  <script>
+    function changeLanguage(lang) { document.documentElement.lang = lang; }
+    changeLanguage('zh-TW');
+    function shareResult() { if (navigator.share) navigator.share({title:'星燈防詐警報',text:'這可能是詐騙，快檢查！',url:window.location.href}); else alert('請手動複製連結'); }
+    function startScan() { alert("掃描功能開發中，請稍後！"); }
+  </script>
+
 </body>
 </html>
