@@ -1,7 +1,6 @@
-// 1. API 隧道地址鎖定
 const API_BASE_URL = "https://mariyah-unexplanatory-regan.ngrok-free.dev";
 
-// 2. 命理推演函式
+// 命理推演函式
 async function startAnalysis() {
   const status = document.getElementById('statusOutput');
   status.style.color = "#d4af37";
@@ -23,7 +22,7 @@ async function startAnalysis() {
   }
 }
 
-// 3. 防詐掃描函式
+// 防詐掃描函式
 async function startFraudScan() {
   const status = document.getElementById('statusOutput');
   status.style.color = "#d4af37";
@@ -45,12 +44,12 @@ async function startFraudScan() {
   }
 }
 
-// 4. 付款提示函式
+// 付款提示函式
 function triggerPayment() {
   alert("【易鑒星科 · 結緣資訊】\n銀行：(822) 中國信託\n帳號：您的帳號\n金額：NT$ 30\n完成後請截圖傳至 LINE 客服。");
 }
 
-// 5. API 自動檢測模組
+// 自動檢測 API
 async function verifyAPI() {
   try {
     const res = await fetch(`${API_BASE_URL}/analyze`, {
@@ -69,5 +68,4 @@ async function verifyAPI() {
   }
 }
 
-// 頁面載入時自動檢測
 window.onload = verifyAPI;
