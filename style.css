@@ -1,28 +1,54 @@
-/* */
+/* 強制背景圖顯示，解決白底問題 */
 body {
-    /* 強制使用原始路徑載入背景圖 */
-    background: url('https://raw.githubusercontent.com/xingdeng-frontend/main/bg3.jpg') no-repeat center center fixed !important;
-    background-size: cover !important;
-    background-color: #000000 !important; /* 圖還沒出來前，絕對要是黑色的 */
-    color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 50px;
+  font-family: "Microsoft JhengHei", sans-serif !important;
+  background: url("bg3.jpg") no-repeat center center fixed !important;
+  background-size: cover !important;
+  color: #fff !important;
+  text-align: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
-/* 恢復雙框橫向排列布局 */
+/* 雙框佈局 */
 .strategy-grid {
-    display: flex; 
-    gap: 30px;
-    width: 90%;
-    margin: 40px auto;
+  display: flex !important;
+  gap: 20px !important;
+  margin: 30px !important;
 }
 
 .strategy-card {
-    flex: 1;
-    background: rgba(20, 20, 35, 0.9); /* 暗色透明質感 */
-    padding: 30px;
-    border: 1px solid #d4af37;
-    border-radius: 12px;
+  flex: 1 !important;
+  background: rgba(30,30,40,0.85) !important;
+  padding: 25px !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(212,175,55,0.6) !important;
+  transition: transform 0.3s ease !important;
+}
+
+.strategy-card:hover {
+  transform: translateY(-5px) !important;
+  border-color: #d4af37 !important;
+}
+
+.action-btn {
+  border: none !important;
+  padding: 12px 25px !important;
+  font-size: 1rem !important;
+  border-radius: 20px !important;
+  cursor: pointer !important;
+  font-weight: bold !important;
+  margin-top: 15px !important;
+  width: 100% !important;
+}
+
+.analyze-btn { background-color: #4caf50 !important; color: white !important; }
+.scan-btn { background-color: #2e7d32 !important; color: white !important; }
+.pay-btn { background-color: #d4af37 !important; color: black !important; margin-top:20px !important; padding:10px 20px !important; border:none !important; border-radius:8px !important; cursor:pointer !important; }
+
+.status-box {
+  margin-top: 20px !important;
+  padding: 15px !important;
+  background: rgba(0,0,0,0.6) !important;
+  border-radius: 8px !important;
+  min-height: 40px !important;
 }
