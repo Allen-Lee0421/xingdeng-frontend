@@ -1,14 +1,31 @@
-/* 確保雙框在暗色背景下清晰見 */
-.strategy-card {
-    background: rgba(45, 45, 55, 0.9) !important;
-    border: 1px solid #d4af37;
+
+/* 強制恢復氣場背景 */
+body {
+    background: url('bg3.jpg') no-repeat center center fixed !important;
+    background-size: cover !important;
     color: #fff;
+    font-family: 'Microsoft JhengHei', sans-serif;
 }
 
-/* 強化報錯提示的可見度 */
+.strategy-grid {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
+
+.strategy-card {
+    flex: 1;
+    background: rgba(30, 30, 40, 0.9); /* 強化半透明底 */
+    padding: 25px;
+    border: 1px solid #d4af37;
+    border-radius: 12px;
+    text-align: center;
+}
+
 .status-box {
+    margin: 20px;
+    padding: 15px;
     background: rgba(0, 0, 0, 0.7);
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 10px;
+    border-left: 4px solid #d4af37;
+    color: #ff4d4d; /* 預設連線異常色 */
 }
