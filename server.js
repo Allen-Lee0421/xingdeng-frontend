@@ -1,70 +1,22 @@
-// 1. API 隧道地址鎖定
-const API_BASE_URL = "https://mariyah-unexplanatory-regan.ngrok-free.dev";
+const express = require('express');
+const cors = require('cors');
+const app = express();
 
-// 2. 命理推演函式
-async function startAnalysis() {
-  const status = document.getElementById('statusOutput');
-  status.style.color = "#d4af37";
-  status.innerText = "正在連通本機 Docker 引擎進行因果推演...";
-  try {
-    const response = await fetch(`${API_BASE_URL}/analyze`, {
-      method: 'POST',
-      mode: 'cors'
-    });
-    if (!response.ok) throw new Error("API 回應異常");
-    const data = await response.json();
-    status.style.color = "#0f0";
-    status.innerText = `推演完成：${data.result}`;
-  } catch (error) {
-    console.error(error);
-    status.style.color = "red";
-    status.innerText = "❌ 連線異常，請確認 ngrok 隧道是否保持 Online 並更新 API_BASE_URL。";
-  }
-}
+app.use(cors());
+app.use(express.json());
 
-// 3. 防詐掃描函式
-async function startFraudScan() {
-  const status = document.getElementById('statusOutput');
-  status.style.color = "#d4af37";
-  status.innerText = "正在比對全球詐騙指紋資料庫...";
-  try {
-    const response = await fetch(`${API_BASE_URL}/scan`, {
-      method: 'POST',
-      mode: 'cors'
-    });
-    if (!response.ok) throw new Error("API 回應異常");
-    const data = await response.json();
-    status.style.color = "#0f0";
-    status.innerText = `掃描完成：${data.result}`;
-  } catch (error) {
-    console.error(error);
-    status.style.color = "red";
-    status.innerText = "❌ 防詐掃描失敗，請確認 ngrok 隧道是否保持 Online 並更新 API_BASE_URL。";
-  }
-}
+// 對應前端 startAnalysis()
+app.post('/analyze', (req, res) => {
+  console.log("收到命理推演請求...");
+  res.json({ result: "天機顯現，大吉大利！Docker 與 ngrok 運作正常。" });
+});
 
-// 4. 付款提示函式
-function triggerPayment() {
-  alert("【易鑒星科 · 結緣資訊】\n銀行：(822) 中國信託\n帳號：您的帳號\n金額：NT$ 30\n完成後請截圖傳至 LINE 客服。");
-}
+// 對應前端 startFraudScan()
+app.post('/scan', (req, res) => {
+  console.log("收到防詐掃描請求...");
+  res.json({ result: "環境純淨，無詐騙威脅。" });
+});
 
-// 5. API 自動檢測模組
-async function verifyAPI() {
-  try {
-    const res = await fetch(`${API_BASE_URL}/analyze`, {
-      method: 'POST',
-      mode: 'cors'
-    });
-    if (res.ok) {
-      console.log("✅ API 對齊成功");
-    } else {
-      console.warn("⚠️ API 回應異常，請檢查 server.js 路由");
-    }
-  } catch (error) {
-    console.error(error);
-    console.error("❌ 無法連線 API，請更新 script.js 中的 API_BASE_URL");
-  }
-}
-
-// 頁面載入時自動檢測
-window.onload = verifyAPI;
+app.listen(3000, '0.0.0.0', () => {
+  console.log('易鑒星科伺服器已在端口 3000 點火啟動！');
+});
