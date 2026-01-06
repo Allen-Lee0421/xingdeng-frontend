@@ -14,7 +14,7 @@ async function startAnalysis() {
         status.innerText = `推演完成：${data.result}`;
     } catch {
         status.style.color = "red";
-        status.innerText = "❌ 連線異常，請確認 Docker 是否啟動。"; //
+        status.innerText = "❌ 連線異常，請確認 Docker 容器是否顯示 Running。"; //
     }
 }
 
@@ -30,11 +30,11 @@ async function startScan() {
         status.innerText = `掃描完成：${data.result}`;
     } catch {
         status.style.color = "red";
-        status.innerText = "❌ 防詐掃描失敗，請檢查 API 隧道。";
+        status.innerText = "❌ 防詐掃描失敗，請檢查 Docker 啟動狀態。";
     }
 }
 
-// 4. 付款提示函式
+// 4. 付款與結緣提示
 function triggerPayment() {
-    alert("【易鑒星科 · 結緣資訊】\n銀行：(822) 中國信託\n金額：NT$ 30\n完成後請截圖傳至 LINE 客服。");
+    alert("【易鑒星科 · 結緣資訊】\n銀行：(822) 中國信託\n金額：NT$ 30\n完成後請傳截圖至 LINE 客服。");
 }
