@@ -12,7 +12,8 @@ async function startAnalysis() {
     const data = await response.json();
     status.style.color = "#0f0";
     status.innerText = `推演完成：${data.result}`;
-  } catch {
+  } catch (err) {
+    console.error("分析失敗:", err);
     status.style.color = "red";
     status.innerText = "❌ 連線異常，請確認 ngrok 隧道是否保持 Online 並更新 API_BASE_URL。";
   }
@@ -29,7 +30,8 @@ async function startFraudScan() {
     const data = await response.json();
     status.style.color = "#0f0";
     status.innerText = `掃描完成：${data.result}`;
-  } catch {
+  } catch (err) {
+    console.error("掃描失敗:", err);
     status.style.color = "red";
     status.innerText = "❌ 防詐掃描失敗，請確認 ngrok 隧道是否保持 Online 並更新 API_BASE_URL。";
   }
@@ -49,7 +51,7 @@ async function verifyAPI() {
     } else {
       console.warn("⚠️ API 回應異常，請檢查 server.js 路由");
     }
-  } catch {
+  } catch (err) {
     console.error("❌ 無法連線 API，請更新 script.js 中的 API_BASE_URL");
   }
 }
