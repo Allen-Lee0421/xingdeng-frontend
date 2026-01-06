@@ -1,4 +1,4 @@
-/* 強制恢復諸葛孔明背景與雙框橫向布局 */
+/* 強制恢復氣場背景與雙框橫向布局 */
 body {
     background: url('bg3.jpg') no-repeat center center fixed !important;
     background-size: cover !important;
@@ -15,7 +15,7 @@ body {
 .strategy-card {
     flex: 1;
     background: rgba(30, 30, 40, 0.9) !important;
-    padding: 20px;
+    padding: 25px;
     border: 1px solid #d4af37;
-    border-radius: 10px;
+    border-radius: 12px;
 }
