@@ -1,89 +1,61 @@
-/* 全域設定 */
+:root {
+    --gold: #d4af37;
+    --dark-bg: rgba(0, 0, 0, 0.7);
+}
+
 body {
-    background-color: #000000;
     margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: #ffffff !important;
-    font-family: 'Segoe UI', sans-serif;
+    padding: 0;
+    font-family: "Microsoft JhengHei", serif;
+    background: url('bg3.jpg') no-repeat center center fixed; /* 預設觀象圖 */
+    background-size: cover;
+    color: white;
+    transition: background 1s ease-in-out;
+}
+
+.overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* 增加對比度 */
+    z-index: -1;
 }
 
 .container {
-    width: 95%;
-    max-width: 600px;
-    padding: 20px 0;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
 }
 
-/* 跑馬燈 */
-.ticker-wrap { width: 100%; background: rgba(0, 255, 0, 0.1); border-bottom: 1px solid #00FF00; padding: 10px 0; overflow: hidden; }
-.ticker { display: inline-block; white-space: nowrap; animation: ticker 30s linear infinite; color: #00FF00; font-weight: bold; }
-@keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
-
-/* 加大版語言選擇器 [重點修正] */
-.lang-selector {
-    margin-top: 20px;
-    text-align: right;
-    width: 95%;
-    max-width: 600px;
-}
-.lang-selector select {
-    background: #111;
-    color: #00FF00;
-    border: 2px solid #00FF00;
-    padding: 12px 20px;
+.preface-text {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    background: var(--dark-bg);
+    padding: 20px;
     border-radius: 10px;
-    font-size: 1.1rem;
+    border: 1px solid var(--gold);
+    margin: 20px 0;
+    text-align: justify;
+}
+
+.primary-btn {
+    background: var(--gold);
+    color: black;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2rem;
     font-weight: bold;
     cursor: pointer;
-    box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
+    border-radius: 5px;
+    margin: 10px;
 }
 
-header h1 { font-size: 2.2rem; text-shadow: 0 0 20px #00FF00; text-align: center; margin: 30px 0 10px; }
-header p { color: #00FF00 !important; font-size: 0.85rem; text-align: center; letter-spacing: 1px; }
-
-/* 容器框 [立體綠框] */
-.scan-box, .payment-box {
-    background: #000;
-    border: 2px solid #00FF00;
-    border-radius: 15px;
-    padding: 30px;
-    margin-bottom: 25px;
-    box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+.secondary-btn {
+    background: transparent;
+    color: var(--gold);
+    border: 2px solid var(--gold);
+    padding: 15px 30px;
+    cursor: pointer;
+    border-radius: 5px;
 }
-
-/* 所有文字強制全白 */
-h1, h2, h3, p, span, div { color: #ffffff !important; }
-
-/* 輸入框 */
-input {
-    width: 100%; padding: 15px; background: #111; border: 1px solid #333;
-    color: #fff !important; border-radius: 8px; margin-bottom: 15px; box-sizing: border-box;
-}
-
-/* 按鈕樣式 */
-button { border: none; cursor: pointer; transition: 0.3s; font-weight: bold; color: #ffffff !important; }
-
-#btnScan {
-    background: #00FF00; color: #000 !important; width: 100%; padding: 18px;
-    border-radius: 10px; font-size: 1.2rem; margin-top: 10px;
-}
-
-.btn-pay-action {
-    background: #00FF00; color: #000 !important; width: 100%; padding: 15px;
-    border-radius: 30px; margin: 15px 0; font-size: 1.1rem;
-}
-
-.btn-pay-corp {
-    background: transparent; border: 2px solid #00FF00; color: #00FF00 !important;
-    width: 100%; padding: 15px; border-radius: 10px; font-size: 1.1rem;
-}
-
-.btn-line {
-    background: #00b900; color: #fff !important; padding: 15px;
-    border-radius: 30px; width: 100%; font-size: 1.1rem; margin-top: 10px;
-}
-
-.disclaimer { font-size: 0.75rem; color: #666 !important; text-align: center; padding: 20px; }
-
 
