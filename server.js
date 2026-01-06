@@ -2,18 +2,16 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
-app.use(cors());
+app.use(cors()); // 允許跨網域請求
 app.use(express.json());
 
 // 對應前端 startAnalysis()
 app.post('/analyze', (req, res) => {
-  console.log("收到命理推演請求...");
   res.json({ result: "天機顯現，大吉大利！Docker 與 ngrok 運作正常。" });
 });
 
 // 對應前端 startFraudScan()
 app.post('/scan', (req, res) => {
-  console.log("收到防詐掃描請求...");
   res.json({ result: "環境純淨，無詐騙威脅。" });
 });
 
