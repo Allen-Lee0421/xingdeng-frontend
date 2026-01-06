@@ -1,9 +1,9 @@
-/* 易鑒星科 · 2026 視覺終局對齊方案 */
+/* 易鑒星科 · 視覺終極對齊 */
 body {
-    /* 使用絕對網址強制抓取 GitHub 原始圖檔，破除白底 */
+    /* 使用您 GitHub 儲存庫的原始圖片路徑，徹底破除快取導致的白底 */
     background: url('https://raw.githubusercontent.com/xingdeng-frontend/main/bg3.jpg') no-repeat center center fixed !important;
     background-size: cover !important;
-    background-color: #000000 !important; /* 確保背景未載入前為純黑，保護品牌質感 */
+    background-color: #000000 !important; /* 圖檔載入前維持黑色，保護氣場 */
     color: #ffffff;
     font-family: 'Microsoft JhengHei', sans-serif;
     display: flex;
@@ -12,12 +12,20 @@ body {
     padding-top: 50px;
 }
 
-/* 確保按鈕與狀態欄在星空背景下清晰可見 */
-.strategy-card {
-    background: rgba(30, 30, 45, 0.9) !important;
-    border: 1px solid #d4af37;
-    border-radius: 12px;
-    padding: 30px;
-    margin: 20px;
+/* 針對您提供的 HTML 容器進行橫向布局優化 */
+.strategy-grid {
+    display: flex; /* 恢復雙框橫向排列 */
+    gap: 30px;
+    width: 95%;
+    max-width: 1000px;
+    margin: 40px auto;
 }
 
+.strategy-card {
+    flex: 1;
+    background: rgba(15, 15, 25, 0.85); /* 半透明暗色底，透出背景圖 */
+    padding: 30px;
+    border: 1px solid #d4af37; /* 品牌金色邊框 */
+    border-radius: 15px;
+    text-align: center;
+}
