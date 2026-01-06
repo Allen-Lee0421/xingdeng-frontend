@@ -1,61 +1,31 @@
-:root {
-    --gold: #d4af37;
-    --dark-bg: rgba(0, 0, 0, 0.7);
-}
-
+/* 易鑒星科 專屬視覺風格 */
 body {
     margin: 0;
     padding: 0;
-    font-family: "Microsoft JhengHei", serif;
-    background: url('bg3.jpg') no-repeat center center fixed; /* 預設觀象圖 */
+    font-family: 'Noto Serif TC', serif;
+    background: url('bg3.jpg') no-repeat center center fixed; /* 預設星空觀象圖 */
     background-size: cover;
-    color: white;
-    transition: background 1s ease-in-out;
+    color: #e0e0e0;
+    transition: background 1.5s ease-in-out; /* 切換語系時平滑更換背景 */
 }
 
-.overlay {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.4); /* 增加對比度 */
-    z-index: -1;
-}
-
+/* 增加半透明遮罩，確保文字可讀性 */
 .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem;
+    background: rgba(0, 0, 0, 0.65);
+    border: 1px solid #d4af37; /* 金色邊框 */
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+    padding: 2.5rem;
+    max-width: 600px;
+    margin: 100px auto;
+    border-radius: 15px;
     text-align: center;
 }
 
-.preface-text {
-    font-size: 0.9rem;
-    line-height: 1.8;
-    background: var(--dark-bg);
-    padding: 20px;
-    border-radius: 10px;
-    border: 1px solid var(--gold);
-    margin: 20px 0;
+/* 序言樣式 */
+.preface-box {
+    font-size: 0.95rem;
+    line-height: 2;
+    color: #c0c0c0;
     text-align: justify;
+    margin-bottom: 30px;
 }
-
-.primary-btn {
-    background: var(--gold);
-    color: black;
-    border: none;
-    padding: 15px 30px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 5px;
-    margin: 10px;
-}
-
-.secondary-btn {
-    background: transparent;
-    color: var(--gold);
-    border: 2px solid var(--gold);
-    padding: 15px 30px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
