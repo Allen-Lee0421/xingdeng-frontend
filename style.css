@@ -1,31 +1,28 @@
-/* 易鑒星科 專屬視覺風格 */
 body {
     margin: 0;
-    padding: 0;
     font-family: 'Noto Serif TC', serif;
-    background: url('bg3.jpg') no-repeat center center fixed; /* 預設星空觀象圖 */
+    background: url('bg3.jpg') no-repeat center center fixed; /* */
     background-size: cover;
     color: #e0e0e0;
-    transition: background 1.5s ease-in-out; /* 切換語系時平滑更換背景 */
+    transition: background 1s ease-in;
 }
 
-/* 增加半透明遮罩，確保文字可讀性 */
 .container {
-    background: rgba(0, 0, 0, 0.65);
-    border: 1px solid #d4af37; /* 金色邊框 */
-    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
-    padding: 2.5rem;
-    max-width: 600px;
-    margin: 100px auto;
+    background: rgba(0, 0, 0, 0.75); /* 確保文字清晰 */
+    border: 1px solid #d4af37;
+    max-width: 700px;
+    margin: 50px auto;
+    padding: 30px;
     border-radius: 15px;
     text-align: center;
 }
 
-/* 序言樣式 */
-.preface-box {
-    font-size: 0.95rem;
-    line-height: 2;
+.preface-text {
+    font-size: 0.9rem;
+    line-height: 1.8;
     color: #c0c0c0;
     text-align: justify;
-    margin-bottom: 30px;
+    margin: 20px 0;
+    border-top: 1px solid #444;
+    padding-top: 15px;
 }
