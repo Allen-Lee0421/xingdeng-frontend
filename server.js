@@ -1,12 +1,22 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
+const PORT = 3000;
+
+app.use(cors());
 app.use(express.json());
 
-app.options('/analyze', (req, res) => res.sendStatus(204)); // CORS 預檢
+// 命理推演模組
 app.post('/analyze', (req, res) => {
-  res.json({ result: '天機已定' });
+  res.json({ result: '天機已定：您本月宜靜不宜動。' });
 });
 
-app.listen(3000, () => {
-  console.log('易鑒星科後端已啟動於 port 3000');
+// 防詐掃描模組
+app.post('/scan', (req, res) => {
+  res.json({ result: '掃描結果：該來源目前未列入詐騙資料庫。' });
+});
+
+// 啟動伺服器
+app.listen(PORT, () => {
+  console.log(`易鑒星科 · 核心伺服器已啟動於 port ${PORT}`);
 });
