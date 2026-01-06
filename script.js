@@ -1,7 +1,7 @@
-// 1. API 隧道網址 (每次重啟 ngrok 要更新)
-const API_BASE_URL = "https://xxxxx.ngrok-free.dev";
+// 1. API 隧道網址（每次重啟 ngrok 要更新）
+const API_BASE_URL = "https://mariyah-unexplanatory-regan.ngrok-free.dev";
 
-// 2. 推演函式
+// 2. 命理推演函式
 async function startAnalysis() {
   const status = document.getElementById('statusOutput');
   status.style.color = "#d4af37";
@@ -35,12 +35,12 @@ async function startScan() {
   }
 }
 
-// 4. 付款提示
+// 4. 付款提示函式
 function triggerPayment() {
   alert("【易鑒星科 · 結緣資訊】\n銀行：(822) 中國信託\n帳號：您的帳號\n金額：NT$ 30\n完成後請截圖傳至 LINE 客服。");
 }
 
-// 5. 自動檢測 API 對齊
+// 5. API 自動檢測模組
 async function verifyAPI() {
   try {
     const res = await fetch(`${API_BASE_URL}/analyze`, { method: 'POST' });
@@ -53,4 +53,6 @@ async function verifyAPI() {
     console.error("❌ 無法連線 API，請更新 script.js 中的 API_BASE_URL");
   }
 }
+
+// 頁面載入時自動檢測
 window.onload = verifyAPI;
