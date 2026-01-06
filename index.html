@@ -2,31 +2,36 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>易鑒星科 · 命理顧問</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="overlay"></div>
     <div class="container">
-        <select id="langSelect" onchange="changeLanguage()">
-            <option value="zh-TW">繁體中文</option>
-            <option value="en">English</option>
-        </select>
-        
-        <h1 id="mainTitle">易鑒星科 · 命理顧問</h1>
-        
-        <div class="preface-text">
-            自上古伏羲觀象而立卦... 融奇門、六壬、姓名之學，結合科學之精密。於古今交融之中，洞察天地人事，掌握人生之機。
+        <div class="lang-selector">
+            <select id="langSelect" onchange="changeLanguage()">
+                <option value="zh-TW">繁體中文</option>
+                <option value="en">English</option>
+            </select>
         </div>
 
-        <div class="action-area">
-            <button id="btnScan" class="primary-btn" onclick="startAnalysis()">觀象演繹 · 開始推演</button>
-            <br><br>
-            <button id="btnPayPersonal" onclick="triggerPayment()">解鎖天機報告 (NT$ 30)</button>
-        </div>
-        <div id="statusOutput" style="margin-top:20px; color:#d4af37;"></div>
+        <header>
+            <h1 id="mainTitle">易鑒星科 · 命理顧問</h1>
+            <div id="preface" class="preface-text">
+                自上古伏羲觀象而立卦，文王演繹六十四卦，孔子撰《十翼》以定大道，天地陰陽之理遂藏於易經之中；春秋之際，孫武以兵法揭示「兵者，詭道也」，將變化之理化為制勝之謀；三國之世，孔明承易理而融兵法，善用奇門遁甲，洞察天時地利人和，決勝千里之外；六壬神課以因果推演人事，姓名之學以字音五行定性格與命運，皆為先祖智慧之延伸。今日之世，科學演算與邏輯推理已能將隱秘的推演化為精密的模型，將模糊的直覺轉化為清晰的答案。本網「易鑒星科」正是承接此脈絡：以易為根，以兵法為骨，以謀略為翼，融奇門、六壬、姓名之學，結合科學之精密。於古今交融之中，洞察天地人事，掌握人生之機，為世人揭示隱而未顯的方向。
+            </div>
+        </header>
+
+        <main>
+            <div class="action-box">
+                <button id="btnScan" class="primary-btn" onclick="startAnalysis()">觀象演繹 · 開始推演</button>
+                <br>
+                <button id="btnPayPersonal" class="secondary-btn" onclick="triggerPayment()">解鎖天機報告 (NT$ 30)</button>
+            </div>
+            <div id="statusOutput" class="status-message"></div>
+        </main>
     </div>
     <script src="script.js"></script>
 </body>
 </html>
-
