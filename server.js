@@ -3,13 +3,13 @@ const cors = require('cors');
 const app = express();
 const PORT = 3000;
 
-// CORS 設定，允許 ngrok-skip-browser-warning header
+// CORS 設定：允許 ngrok-skip-browser-warning header
 app.use(cors({
   origin: '*',
   allowedHeaders: ['Content-Type', 'ngrok-skip-browser-warning']
 }));
 
-// 全域中介層：在所有回應中加入 ngrok-skip-browser-warning header
+// 全域 header 壓制：加入 ngrok-skip-browser-warning
 app.use((req, res, next) => {
   res.setHeader('ngrok-skip-browser-warning', 'true');
   next();
@@ -17,11 +17,13 @@ app.use((req, res, next) => {
 
 // 路由 /analyze
 app.post('/analyze', (req, res) => {
+  res.setHeader('ngrok-skip-browser-warning', 'true');
   res.json({ result: "推演成功內容" });
 });
 
 // 路由 /scan
 app.post('/scan', (req, res) => {
+  res.setHeader('ngrok-skip-browser-warning', 'true');
   res.json({ result: "掃描成功內容" });
 });
 
