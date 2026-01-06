@@ -13,7 +13,7 @@ async function startAnalysis() {
     status.innerText = `推演完成：${data.result}`;
   } catch {
     status.style.color = "red";
-    status.innerText = "❌ 連線異常，請確認 Docker 是否 Running。";
+    status.innerText = "❌ 連線異常，請確認 Docker 容器狀態。";
   }
 }
 
@@ -29,10 +29,6 @@ async function startScan() {
     status.innerText = `掃描完成：${data.result}`;
   } catch {
     status.style.color = "red";
-    status.innerText = "❌ 防詐掃描失敗。";
+    status.innerText = "❌ 防詐掃描連線失敗。";
   }
-}
-
-function triggerPayment() {
-  alert("【易鑒星科 · 結緣資訊】\n銀行：(822) 中國信託\n金額：NT$ 30\n完成後請傳截圖至 LINE 客服。");
 }
