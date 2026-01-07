@@ -1,9 +1,7 @@
-// ===== 全域設定 =====
 let currentURL = null
-const configPath = "/config.js"   // 從後端生成的 config.js 讀取 ngrok URL
-const checkInterval = 10000       // 每 10 秒檢查一次 ngrok URL
+const configPath = "/config.js"
+const checkInterval = 10000
 
-// ===== 狀態更新模組 =====
 function updateStatus(msg) {
   const status = document.getElementById("statusOutput")
   if (status) {
@@ -12,7 +10,6 @@ function updateStatus(msg) {
   }
 }
 
-// ===== API 驗證模組 =====
 function verifyAPI() {
   if (!window.API_BASE_URL) {
     updateStatus("❌ 尚未設定 API_BASE_URL")
@@ -32,7 +29,6 @@ function verifyAPI() {
   })
 }
 
-// ===== 推演模組 =====
 function startAnalysis() {
   updateStatus("🔍 正在推演中...")
   fetch(`${window.API_BASE_URL}/api/analyze`, {
@@ -49,7 +45,6 @@ function startAnalysis() {
   })
 }
 
-// ===== 防詐掃描模組 =====
 function startFraudScan() {
   updateStatus("🛡️ 正在掃描詐騙指紋...")
   fetch(`${window.API_BASE_URL}/api/fraudscan`, {
@@ -66,7 +61,6 @@ function startFraudScan() {
   })
 }
 
-// ===== 付款模組（模擬） =====
 function triggerPayment() {
   updateStatus("💳 正在處理付款...")
   setTimeout(() => {
@@ -74,7 +68,6 @@ function triggerPayment() {
   }, 2000)
 }
 
-// ===== ngrok URL 自動同步模組 =====
 async function checkNgrokURL() {
   try {
     const res = await fetch(configPath)
@@ -91,10 +84,8 @@ async function checkNgrokURL() {
   }
 }
 
-// ===== 啟動定時檢查 =====
 setInterval(checkNgrokURL, checkInterval)
 
-// ===== 初始化 =====
 document.addEventListener("DOMContentLoaded", () => {
   updateStatus("系統待命中...（自動檢測 API 連線）")
   checkNgrokURL()
