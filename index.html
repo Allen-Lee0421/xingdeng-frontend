@@ -2,21 +2,97 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
-  <title>易鑒星科 · 命理顧問</title>
-  <!-- 加版本號破壞快取 -->
-  <link rel="stylesheet" href="style.css?v=20260106_final">
-  <script src="script.js?v=20260106_final" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>易鑑星科 · 命理顧問</title>
+  <!-- 樣式與腳本加版本號破壞快取 -->
+  <link rel="stylesheet" href="style.css?v=20260107">
+  <script src="script.js?v=20260107" defer></script>
+  <style>
+    body {
+      font-family: 'Microsoft JhengHei', sans-serif;
+      background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+    }
+    h1 {
+      text-align: center;
+      color: #ffeb3b;
+      margin-bottom: 40px;
+      text-shadow: 0 0 10px rgba(255,235,59,0.5);
+    }
+    .strategy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto 40px;
+    }
+    .strategy-card {
+      background: rgba(20,20,40,0.7);
+      border-radius: 16px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s;
+    }
+    .strategy-card:hover {
+      transform: scale(1.05);
+    }
+    .card-desc {
+      color: #ddd;
+      margin: 20px 0;
+    }
+    .action-btn {
+      background: #4caf50;
+      color: white;
+      padding: 15px 40px;
+      font-size: 18px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .scan-btn {
+      background: #ff4d4d;
+    }
+    .pay-btn {
+      background: #ff9800;
+      color: white;
+      padding: 18px 50px;
+      font-size: 20px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      display: block;
+      margin: 40px auto;
+    }
+    .result-display {
+      text-align: center;
+    }
+    .status-box {
+      background: rgba(0,0,0,0.5);
+      border-radius: 12px;
+      padding: 20px;
+      min-height: 100px;
+      font-size: 18px;
+      line-height: 1.6;
+      margin: 20px auto;
+      max-width: 800px;
+    }
+  </style>
 </head>
 <body>
-  <h1 id="mainTitle">易鑒星科 · 命理顧問</h1>
-  
+  <h1>易鑑星科 · 命理顧問</h1>
+
   <main class="strategy-grid">
     <div class="strategy-card">
       <h3>觀象演繹 · 開始推演</h3>
       <p class="card-desc">結合易經、奇門、六壬、姓名學演算，為您洞察天機。</p>
       <button class="action-btn analyze-btn" onclick="startAnalysis()">開始推演</button>
     </div>
-
     <div class="strategy-card">
       <h3 style="color:#ff4d4d;">防詐掃描 · 保護荷包</h3>
       <p class="card-desc">比對全球詐騙指紋與 165 資料庫。</p>
@@ -25,7 +101,7 @@
   </main>
 
   <div class="result-display">
-    <div id="statusOutput" class="status-box">系統待命中...</div>
+    <div id="statusOutput" class="status-box">系統待命中...（自動檢測 API 連線）</div>
     <button class="pay-btn" onclick="triggerPayment()">解鎖天機報告 (NT$ 30)</button>
   </div>
 </body>
