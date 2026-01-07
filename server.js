@@ -192,3 +192,5 @@ app.use((err, req, res, next) => {
 app.listen(3000, () => {
   console.log('✅ Server is running on port 3000');
 });
+console.log('🧠 CPU 使用率:', process.cpuUsage());
+console.log('🧠 記憶體使用:', process.memoryUsage());
