@@ -1,4 +1,4 @@
-// script.js - 純前端版 (2026/01/07) - 刪除所有後端程式碼
+// script.js - 純前端版 (2026/01/07) - 已移除 require/cors
 
 const API_BASE_URL = "https://mariyah-unexplanatory-regan.ngrok-free.dev";
 
@@ -16,7 +16,7 @@ async function callAPI(endpoint, method = 'POST', body = null) {
   try {
     const headers = {
       'Content-Type': 'application/json',
-      'ngrok-skip-browser-warning': '69420'  // 跳過 ngrok 警告頁面
+      'ngrok-skip-browser-warning': '69420'
     };
 
     const options = { method, headers };
