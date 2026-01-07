@@ -7,6 +7,17 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+// ✅ 強制攔截所有 OPTIONS 請求
+app.use((req, res, next) => {
+  if (req.method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, ngrok-skip-browser-warning');
+    return res.sendStatus(200);
+  }
+  next();
+});
+
 function respond(res, code, message, data = {}, lang = 'zh-TW') {
   const translations = {
     'zh-TW': { success: '成功', error: '錯誤', danger: '危險' },
@@ -43,33 +54,18 @@ function logEvent(type, payload, category = 'general') {
 }
 
 app.post('/verify', (req, res) => {
-  try {
-    logEvent('verify', req.body, '驗證');
-    respond(res, 'success', 'API 驗證成功', { timestamp: new Date() });
-  } catch (err) {
-    logEvent('verify-error', { error: err.message }, '錯誤');
-    respond(res, 'error', '驗證失敗', { error: err.message });
-  }
+  logEvent('verify', req.body, '驗證');
+  respond(res, 'success', 'API 驗證成功', { timestamp: new Date() });
 });
 
 app.post('/analyze', (req, res) => {
-  try {
-    logEvent('analyze', req.body, '推演');
-    respond(res, 'success', '推演完成！測試回應：吉', req.body);
-  } catch (err) {
-    logEvent('analyze-error', { error: err.message }, '錯誤');
-    respond(res, 'error', '推演失敗', { error: err.message });
-  }
+  logEvent('analyze', req.body, '推演');
+  respond(res, 'success', '推演完成！測試回應：吉', req.body);
 });
 
 app.post('/scan', (req, res) => {
-  try {
-    logEvent('scan', req.body, '防詐');
-    respond(res, 'danger', '測試：這是可疑網址', req.body);
-  } catch (err) {
-    logEvent('scan-error', { error: err.message }, '錯誤');
-    respond(res, 'error', '掃描失敗', { error: err.message });
-  }
+  logEvent('scan', req.body, '防詐');
+  respond(res, 'danger', '測試：這是可疑網址', req.body);
 });
 
 app.listen(3000, () => {
