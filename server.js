@@ -1,16 +1,75 @@
 const express = require('express');
 const cors = require('cors');
+const fs = require('fs');
+const path = require('path');
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
-app.post('/verify', (req, res) => {
+function respond(res, code, message, data = {}, lang = 'zh-TW') {
+  const translations = {
+    'zh-TW': { success: '成功', error: '錯誤', danger: '危險' },
+    'en': { success: 'Success', error: 'Error', danger: 'Danger' }
+  };
+  const dict = translations[lang] || translations['zh-TW'];
   res.json({
-    code: 'success',
-    message: '成功：API 驗證成功',
-    data: { timestamp: new Date() }
+    code,
+    message: `${dict[code] || code}：${message}`,
+    data
   });
+}
+
+function logEvent(type, payload, category = 'general') {
+  const timestamp = new Date();
+  const dateStr = timestamp.toISOString().split('T')[0];
+  const timeStr = timestamp.toISOString();
+  const logDir = path.join(__dirname, 'logs');
+  const logFile = path.join(logDir, `${dateStr}.txt`);
+  const emojiMap = {
+    推演: '🔍',
+    防詐: '🛡️',
+    驗證: '📡',
+    錯誤: '❌',
+    general: '📄'
+  };
+  const emoji = emojiMap[category] || '📄';
+  const entry = `${emoji} [${timeStr}] [${category}] ${type}\n${JSON.stringify(payload, null, 2)}\n\n`;
+
+  if (!fs.existsSync(logDir)) fs.mkdirSync(logDir);
+  fs.appendFile(logFile, entry, err => {
+    if (err) console.error('❌ 寫入 log 檔失敗:', err);
+  });
+}
+
+app.post('/verify', (req, res) => {
+  try {
+    logEvent('verify', req.body, '驗證');
+    respond(res, 'success', 'API 驗證成功', { timestamp: new Date() });
+  } catch (err) {
+    logEvent('verify-error', { error: err.message }, '錯誤');
+    respond(res, 'error', '驗證失敗', { error: err.message });
+  }
+});
+
+app.post('/analyze', (req, res) => {
+  try {
+    logEvent('analyze', req.body, '推演');
+    respond(res, 'success', '推演完成！測試回應：吉', req.body);
+  } catch (err) {
+    logEvent('analyze-error', { error: err.message }, '錯誤');
+    respond(res, 'error', '推演失敗', { error: err.message });
+  }
+});
+
+app.post('/scan', (req, res) => {
+  try {
+    logEvent('scan', req.body, '防詐');
+    respond(res, 'danger', '測試：這是可疑網址', req.body);
+  } catch (err) {
+    logEvent('scan-error', { error: err.message }, '錯誤');
+    respond(res, 'error', '掃描失敗', { error: err.message });
+  }
 });
 
 app.listen(3000, () => {
