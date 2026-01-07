@@ -1,3 +1,29 @@
+const express = require('express');
+const cors = require('cors');
+const app = express();
+
+// 加 CORS：允許所有來源（測試用）
+app.use(cors({
+  origin: '*',  // 允許所有域名，包含 xingdeng.tw
+  methods: ['GET', 'POST', 'OPTIONS'],  // 允許這些方法
+  allowedHeaders: ['Content-Type', 'ngrok-skip-browser-warning']  // 允許這些標頭
+}));
+
+// 你的其他程式碼...
+app.get('/', (req, res) => {
+  res.send('EdisonStar API is running.');
+});
+
+// 你的 API 路由，例如
+app.post('/analyze', (req, res) => {
+  res.json({ result: '推演完成！' });
+});
+
+app.post('/scan', (req, res) => {
+  res.json({ status: 'success', reason: '測試回應' });
+});
+
+app.listen(3000, () => console.log('Server is running on port 3000'));
 // script.js - 最終版 (2026/01/07)
 
 const API_BASE_URL = "https://mariyah-unexplanatory-regan.ngrok-free.dev";
@@ -79,3 +105,4 @@ async function verifyAPI() {
 }
 
 window.onload = verifyAPI;
+
