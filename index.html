@@ -82,9 +82,20 @@
       margin: 20px auto;
       max-width: 800px;
     }
+    #backgroundLayer {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+      background-size: cover;
+      background-position: center;
+      transition: background-image 1s ease-in-out;
+    }
   </style>
 </head>
 <body>
+  <div id="backgroundLayer"></div>
+
   <h1>易鑑星科 · 命理顧問</h1>
 
   <main class="strategy-grid">
