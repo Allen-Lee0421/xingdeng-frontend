@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
-// 解析 JSON
+// 解析 JSON 請求體
 app.use(express.json());
 
 // CORS - 允許所有來源 + 明確 OPTIONS
@@ -13,7 +13,7 @@ app.use(cors({
   credentials: false
 }));
 
-// 明確處理 preflight OPTIONS 請求
+// 明確處理 preflight OPTIONS 請求（這行解決 90% CORS 問題）
 app.options('*', (req, res) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -21,7 +21,7 @@ app.options('*', (req, res) => {
   res.sendStatus(200);
 });
 
-// 測試根路由
+// 根路由測試
 app.get('/', (req, res) => {
   res.send('EdisonStar API is running.');
 });
