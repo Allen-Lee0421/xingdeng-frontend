@@ -1,73 +1,35 @@
 const express = require('express');
 const cors = require('cors');
-const fs = require('fs');
 const path = require('path');
 const app = express();
 
 app.use(express.json());
 app.use(cors());
+app.use(express.static(path.join(__dirname, 'public')));
 
-// ✅ 強制攔截所有 OPTIONS 請求
+// OPTIONS 攔截器
 app.use((req, res, next) => {
   if (req.method === 'OPTIONS') {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, ngrok-skip-browser-warning');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
     return res.sendStatus(200);
   }
+  res.header('Access-Control-Allow-Origin', '*');
   next();
 });
 
-function respond(res, code, message, data = {}, lang = 'zh-TW') {
-  const translations = {
-    'zh-TW': { success: '成功', error: '錯誤', danger: '危險' },
-    'en': { success: 'Success', error: 'Error', danger: 'Danger' }
-  };
-  const dict = translations[lang] || translations['zh-TW'];
-  res.json({
-    code,
-    message: `${dict[code] || code}：${message}`,
-    data
-  });
-}
-
-function logEvent(type, payload, category = 'general') {
-  const timestamp = new Date();
-  const dateStr = timestamp.toISOString().split('T')[0];
-  const timeStr = timestamp.toISOString();
-  const logDir = path.join(__dirname, 'logs');
-  const logFile = path.join(logDir, `${dateStr}.txt`);
-  const emojiMap = {
-    推演: '🔍',
-    防詐: '🛡️',
-    驗證: '📡',
-    錯誤: '❌',
-    general: '📄'
-  };
-  const emoji = emojiMap[category] || '📄';
-  const entry = `${emoji} [${timeStr}] [${category}] ${type}\n${JSON.stringify(payload, null, 2)}\n\n`;
-
-  if (!fs.existsSync(logDir)) fs.mkdirSync(logDir);
-  fs.appendFile(logFile, entry, err => {
-    if (err) console.error('❌ 寫入 log 檔失敗:', err);
-  });
-}
-
+// 三路由掛載
 app.post('/verify', (req, res) => {
-  logEvent('verify', req.body, '驗證');
-  respond(res, 'success', 'API 驗證成功', { timestamp: new Date() });
+  res.json({ code: 'success', message: 'API 驗證成功' });
 });
-
 app.post('/analyze', (req, res) => {
-  logEvent('analyze', req.body, '推演');
-  respond(res, 'success', '推演完成！測試回應：吉', req.body);
+  res.json({ code: 'success', message: '推演完成！測試回應：吉' });
 });
-
 app.post('/scan', (req, res) => {
-  logEvent('scan', req.body, '防詐');
-  respond(res, 'danger', '測試：這是可疑網址', req.body);
+  res.json({ code: 'danger', message: '測試：這是可疑網址' });
 });
 
 app.listen(3000, () => {
-  console.log('✅ Server is running on port 3000');
+  console.log('✅ Server running on port 3000');
 });
