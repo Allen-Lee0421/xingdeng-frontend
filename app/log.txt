@@ -1,0 +1,20 @@
+const path = require('path');
+
+function logEvent(type, payload, category = 'general') {
+  const timestamp = new Date();
+  const dateStr = timestamp.toISOString().split('T')[0]; // YYYY-MM-DD
+  const timeStr = timestamp.toISOString();
+  const logDir = path.join(__dirname, 'logs');
+  const logFile = path.join(logDir, `${dateStr}.txt`);
+  const entry = `[${timeStr}] [${category}] ${type} 收到：${JSON.stringify(payload)}\n`;
+
+  // 確保 logs 資料夾存在
+  if (!fs.existsSync(logDir)) {
+    fs.mkdirSync(logDir);
+  }
+
+  // 寫入當日 log 檔案
+  fs.appendFile(logFile, entry, err => {
+    if (err) console.error('❌ 寫入 log 檔失敗:', err);
+  });
+}
