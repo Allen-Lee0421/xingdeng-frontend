@@ -1,73 +1,96 @@
+// script.js - 最終穩定版 (2026/01/07)
+
 // 1. API 隧道網址 (保持不變)
 const API_BASE_URL = "https://mariyah-unexplanatory-regan.ngrok-free.dev";
 
-// 2. 命理推演函式 (注入破壁標頭)
-async function startAnalysis() {
-  const status = document.getElementById('statusOutput');
-  status.style.color = "#d4af37";
-  status.innerText = "正在連通本機 Docker 引擎進行因果推演...";
-  try {
-    const response = await fetch(`${API_BASE_URL}/analyze`, { 
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'ngrok-skip-browser-warning': 'true' // 🚀 關鍵密碼：跳過 ngrok 警告頁面
-      }
-    });
-    if (!response.ok) throw new Error("API 回應異常");
-    const data = await response.json();
-    status.style.color = "#0f0";
-    status.innerText = `推演完成：${data.result}`;
-  } catch (err) {
-    console.error("分析失敗:", err);
-    status.style.color = "red";
-    status.innerText = "❌ 連線異常，請手動打開一次 ngrok 網址並按下 Visit Site。";
+// 2. 共用狀態元素 (避免重複 getElementById)
+const statusElement = document.getElementById('statusOutput');
+
+// 3. 共用 fetch 包裝函式 (加錯誤處理 + ngrok 標頭)
+async function callAPI(endpoint, method = 'POST', body = null) {
+  if (!statusElement) {
+    console.error("找不到 #statusOutput 元素");
+    return null;
   }
-}
 
-// 3. 防詐掃描函式 (同樣注入標頭)
-async function startFraudScan() {
-  const status = document.getElementById('statusOutput');
-  status.style.color = "#d4af37";
-  status.innerText = "正在比對全球詐騙指紋資料庫...";
+  statusElement.style.color = "#d4af37";
+  statusElement.innerText = "正在連通本機 Docker 引擎...";
+
   try {
-    const response = await fetch(`${API_BASE_URL}/scan`, { 
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'ngrok-skip-browser-warning': 'true' // 🚀 關鍵密碼
-      }
-    });
-    if (!response.ok) throw new Error("API 回應異常");
-    const data = await response.json();
-    status.style.color = "#0f0";
-    status.innerText = `掃描完成：${data.result}`;
-  } catch (err) {
-    console.error("掃描失敗:", err);
-    status.style.color = "red";
-    status.innerText = "❌ 防詐掃描失敗，請確認連線。";
-  }
-}
+    const headers = {
+      'Content-Type': 'application/json',
+      'ngrok-skip-browser-warning': 'true'  // 關鍵：跳過 ngrok 警告頁
+    };
 
-// 4. 付款提示函式 (保持不變)
-function triggerPayment() {
-  alert("【易鑒星科 · 結緣資訊】\n銀行：(822) 中國信託\n帳號：您的帳號\n金額：NT$ 30\n完成後請截圖傳至 LINE 客服。");
-}
+    const options = { method, headers };
 
-// 5. API 自動檢測模組 (同樣注入標頭)
-async function verifyAPI() {
-  try {
-    const res = await fetch(`${API_BASE_URL}/analyze`, { 
-      method: 'POST',
-      headers: { 'ngrok-skip-browser-warning': 'true' } // 🚀 關鍵密碼
-    });
-    if (res.ok) {
-      console.log("✅ API 對齊成功");
-    } else {
-      console.warn("⚠️ API 回應異常");
+    if (body) {
+      options.body = JSON.stringify(body);
     }
+
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, options);
+
+    if (!response.ok) {
+      throw new Error(`API 回應異常: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+
+    statusElement.style.color = "#0f0";
+    statusElement.innerText = "完成！";
+
+    return data;
   } catch (err) {
-    console.error("❌ 無法連線 API");
+    console.error("API 呼叫失敗:", err);
+    statusElement.style.color = "red";
+    statusElement.innerText = `❌ ${err.message}\n請確認 ngrok 隧道是否開啟，或稍後再試。`;
+    return null;
+  }
+}
+
+// 4. 命理推演函式
+async function startAnalysis() {
+  const name = document.getElementById('nameInput')?.value || "未輸入";
+  const birth = document.getElementById('birthInput')?.value || "未輸入";
+
+  const result = await callAPI('/analyze', 'POST', { name, birth });
+
+  if (result) {
+    statusElement.innerText += `\n推演結果：${result.result || JSON.stringify(result)}`;
+  }
+}
+
+// 5. 防詐掃描函式
+async function startFraudScan() {
+  const input = document.getElementById('scanInput')?.value || "";
+
+  if (!input) {
+    statusElement.style.color = "orange";
+    statusElement.innerText = "請輸入可疑網址或訊息";
+    return;
+  }
+
+  const result = await callAPI('/scan', 'POST', { url: input });
+
+  if (result) {
+    statusElement.innerText += `\n掃描結果：${result.status || '安全'} - ${result.reason || JSON.stringify(result)}`;
+  }
+}
+
+// 6. 付款提示
+function triggerPayment() {
+  alert("【易鑑星科 · 結緣資訊】\n銀行：(822) 中國信託\n帳號：您的帳號\n金額：NT$30\n完成後請截圖傳至 LINE 客服。");
+}
+
+// 7. 頁面載入時自動檢測 API
+async function verifyAPI() {
+  const result = await callAPI('/analyze', 'POST', { test: true });  // 用 POST 測試
+  if (result) {
+    console.log("✅ API 對齊成功");
+    statusElement.style.color = "#0f0";
+    statusElement.innerText = "API 連線正常，可開始使用";
+  } else {
+    console.warn("⚠️ API 回應異常");
   }
 }
 
