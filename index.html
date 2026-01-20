@@ -1,98 +1,62 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <title>易鑑星科・命理顧問</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: "Microsoft JhengHei", sans-serif;
-      background: url('bg.jpg') no-repeat center center fixed;
-      background-size: cover;
-      color: #fff;
-    }
-    .container {
-      display: flex;
-      justify-content: space-around;
-      margin-top: 50px;
-    }
-    .panel {
-      background: rgba(0,0,0,0.6);
-      padding: 20px;
-      width: 40%;
-      border-radius: 10px;
-      text-align: center;
-    }
-    .panel h2 {
-      margin-bottom: 10px;
-    }
-    .btn {
-      background: #28a745;
-      color: #fff;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .status {
-      margin-top: 30px;
-      text-align: center;
-      font-size: 14px;
-    }
-    .report-btn {
-      display: block;
-      margin: 20px auto;
-      background: #ffc107;
-      color: #000;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>易鑒星科 - 全球命理演繹總部</title>
+    <style>
+        body { font-family: "Microsoft JhengHei", sans-serif; background: #1a1a1a; color: #f4f4f4; text-align: center; }
+        .container { max-width: 800px; margin: auto; padding: 20px; }
+        .btn-box { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 30px; }
+        .btn { padding: 15px 25px; border-radius: 8px; cursor: pointer; text-decoration: none; font-weight: bold; }
+        .btn-gold { background: #d4af37; color: black; }
+        .btn-red { background: #b22222; color: white; }
+        .currency-display { font-size: 1.2em; color: #ffd700; margin: 20px 0; }
+        .footer-box { margin-top: 50px; font-size: 0.8em; border-top: 1px solid #444; padding-top: 20px; }
+    </style>
 </head>
 <body>
-  <h1 style="text-align:center;">易鑑星科・命理顧問</h1>
-  <div class="container">
-    <div class="panel">
-      <h2>觀象演繹・開始推演</h2>
-      <p>結合易經、奇門、六壬、姓名學演算，為您洞察天機。</p>
-      <button class="btn" onclick="startAnalyze()">開始推演</button>
+    <div class="container">
+        <h1>🏮 易鑒星科 🏮</h1>
+        <p>掌握天機，演繹命格。2026 丙午年國運測算正式啟動。</p>
+
+        <a href="#national-fortune" class="btn btn-red">🇹🇼 中華民國台灣及全球國運專頁</a>
+
+        <hr>
+
+        <div class="currency-display" id="price-box">偵測全球匯率中...</div>
+
+        <div style="background: #333; padding: 20px; border-radius: 10px;">
+            <h3>輸入測算資料</h3>
+            姓名 (Name)：<input type="text" id="username" placeholder="中文或外文姓名"><br><br>
+            生辰八字：<input type="datetime-local" id="birth-time">
+        </div>
+
+        <div class="btn-box">
+            <a onclick="pay(1280)" class="btn btn-gold">原名測算 (NT$ 1280)</a>
+            <a onclick="pay(3600)" class="btn btn-gold">育兒成家/小孩取名 (NT$ 3600 優待)</a>
+            <a onclick="pay(6600)" class="btn btn-gold">高階取名演繹 (NT$ 6600 起)</a>
+        </div>
+
+        <div class="footer-box">
+            <p>🧧 公益公告：本月結餘將捐助至【兒福基金會】，感謝您的慈悲。</p>
+            <p>💬 <a href="#message" style="color: #ccc;">私密隱私詢問留言 (僅供當事人與後台查閱)</a></p>
+            <p>⚠️ 免責聲明：本測算僅供參考，人生選擇請依個人意志，本站不負法律責任。</p>
+        </div>
     </div>
-    <div class="panel">
-      <h2>防詐掃描・保護荷包</h2>
-      <p>比對全球詐騙指紋與 165 資料庫。</p>
-      <button class="btn" onclick="startScan()">啟動掃描</button>
-    </div>
-  </div>
-  <div class="status" id="status">[系統待命中... 自動檢測 API 連線]</div>
-  <button class="report-btn">解鎖天機報告 (NT$ 30)</button>
 
-  <script>
-    const API_BASE_URL = "https://api.xingdeng.tw";
+    <script>
+        // 自動幣值與匯率邏輯 (項9)
+        function updateCurrency() {
+            // 預設 NTD，後續可接 IP API 換算
+            document.getElementById('price-box').innerText = "當前顯示幣別：新台幣 (TWD) 🇹🇼";
+        }
+        updateCurrency();
 
-    async function startAnalyze() {
-      document.getElementById('status').innerText = "推演中...";
-      const res = await fetch(`${API_BASE_URL}/analyze`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "analyze" })
-      });
-      const data = await res.json();
-      document.getElementById('status').innerText = data.message;
-    }
-
-    async function startScan() {
-      document.getElementById('status').innerText = "掃描中...";
-      const res = await fetch(`${API_BASE_URL}/scan`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "scan" })
-      });
-      const data = await res.json();
-      document.getElementById('status').innerText = data.message;
-    }
-  </script>
+        // 金流跳轉 (項5, 12)
+        function pay(amount) {
+            alert("即將前往安全支付。\\n樂天帳號：81201001535981\\nLine Bank：111013844288\\n或使用 PayPal 刷卡。");
+            window.location.href = "https://paypal.me/TaiwanPayment";
+        }
+    </script>
 </body>
 </html>
-
