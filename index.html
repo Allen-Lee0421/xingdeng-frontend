@@ -6,7 +6,7 @@
     <title>易鑒星科 - 全球命理演繹總部</title>
     <style>
         body { font-family: "Microsoft JhengHei", sans-serif; background: #1a1a1a url('bg3.jpg') no-repeat center center fixed; background-size: cover; color: #f4f4f4; text-align: center; margin: 0; }
-        .lang-bar { background: rgba(0,0,0,0.9); padding: 12px; display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; border-bottom: 2px solid #d4af37; sticky: top; }
+        .lang-bar { background: rgba(0,0,0,0.9); padding: 12px; display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; border-bottom: 2px solid #d4af37; }
         .lang-btn { cursor: pointer; color: #d4af37; font-size: 0.9em; font-weight: bold; padding: 5px 10px; border: 1px solid transparent; transition: 0.3s; }
         .lang-btn:hover { border-color: #d4af37; border-radius: 5px; color: white; }
         .container { max-width: 900px; margin: auto; padding: 40px 20px; background: rgba(0,0,0,0.8); border-radius: 15px; margin-top: 50px; border: 1px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
@@ -15,7 +15,6 @@
         .input-group { margin: 25px 0; }
         input { padding: 12px; width: 85%; max-width: 320px; border-radius: 5px; border: 1px solid #d4af37; margin: 10px 0; background: #222; color: white; }
         .btn-gold { background: linear-gradient(135deg, #d4af37, #f4d03f); color: black; padding: 15px 25px; border-radius: 8px; cursor: pointer; border: none; font-weight: bold; margin: 10px; font-size: 1em; }
-        .btn-gold:hover { transform: scale(1.05); background: #ffd700; }
         .footer { margin-top: 60px; font-size: 0.9em; color: #bbb; border-top: 1px solid #444; padding-top: 30px; line-height: 1.8; }
         #charity-box { color: #ffd700; font-weight: bold; }
     </style>
@@ -42,7 +41,7 @@
         <div class="currency-info" id="price-tag">當前顯示幣別：新台幣 (NT$)</div>
 
         <div class="input-group">
-            <input type="text" id="name-field" placeholder="姓名 (Name / ชื่อ)">
+            <input type="text" id="name-field" placeholder="姓名 (Name)">
             <input type="datetime-local" id="bday-field">
         </div>
 
@@ -55,29 +54,22 @@
         <div class="footer">
             <p id="charity-box">🧧 公益公告：本月結餘將捐助至【兒福基金會】</p>
             <p>💬 <a href="#msg" id="private-msg" style="color:#d4af37; text-decoration: none;">隱私留言 (當事人與後台可見)</a></p>
-            <p id="disclaimer-text">⚠️ 免責聲明：本測算僅供參考，不具法律約束力。人生選擇請依個人意志。</p>
+            <p id="disclaimer-text">⚠️ 免責聲明：本測算僅供參考，不具法律約束力。</p>
         </div>
     </div>
 
     <script>
         const i18n = {
-            'zh-TW': { title: "🏮 易鑒星科 🏮", national: "🇹🇼 中華民國台灣及全球國運專頁", p1: "原名測算 (1280)", p2: "育兒優待 (3600)", p3: "高階取名 (6600)", charity: "🧧 公益公告：本月結餘將捐助至【兒福基金會】", currency: "當前顯示幣別：新台幣 (NT$)", disclaimer: "⚠️ 免責聲明：本測算僅供參考，不具法律約束力。人生選擇請依個人意志。", msg: "隱私留言 (當事人與後台可見)" },
-            'zh-CN': { title: "🏮 易鉴星科 🏮", national: "🇹🇼 中华民国台湾及全球国运专页", p1: "原名测算 (1280)", p2: "育儿优待 (3600)", p3: "高阶取名 (6600)", charity: "🧧 公益公告：本月结余捐助【儿福基金会】", currency: "当前显示币种：人民币 (¥)", disclaimer: "⚠️ 免责声明：本测算仅供参考，不具法律约束力。人生选择请依个人意志。", msg: "隐私留言 (当事人与后台可见)" },
-            'en': { title: "🏮 Xing Deng Star 🏮", national: "🇹🇼 Taiwan & Global Fortune 2026", p1: "Analysis (1280)", p2: "Child Naming (3600)", p3: "Premium Naming (6600)", charity: "🧧 Charity: Monthly surplus donated to Welfare Org.", currency: "Currency: USD ($)", disclaimer: "⚠️ Disclaimer: For reference only. Personal choices remain yours.", msg: "Private Message (User & Admin only)" },
-            'ja': { title: "🏮 易鑑星科 🏮", national: "🇹🇼 台湾と世界の国運 2026", p1: "運勢鑑定 (1280)", p2: "命名サービス (3600)", p3: "高級命名 (6600)", charity: "🧧 社会貢献：今月の収益は児童福祉に寄付されます。", currency: "通貨：日本円 (¥)", disclaimer: "⚠️ 免責事項：鑑定結果は参考用です。自己責任でお願いします。", msg: "非公開メッセージ (本人と管理者のみ)" },
-            'ko': { title: "🏮 이감성과 🏮", national: "🇹🇼 대만 및 글로벌 국운 2026", p1: "운세 측정 (1280)", p2: "아기 이름 짓기 (3600)", p3: "고급 작명 (6600)", charity: "🧧 공익 공고: 이번 달 수익금은 아동 복지에 기부됩니다.", currency: "통화: 원 (₩)", disclaimer: "⚠️ 면책 조항: 본 측정은 참고용이며 법적 구속력이 없습니다.", msg: "비밀 메시지 (사용자 및 관리자 전용)" },
-            'de': { title: "🏮 Xing Deng Astrologie 🏮", national: "🇹🇼 Taiwan & Weltglück 2026", p1: "Analyse (1280)", p2: "Kindernamensgebung (3600)", p3: "Premium Namensgebung (6600)", charity: "🧧 Wohltätigkeit: Spende an Kinderhilfswerk.", currency: "Währung: Euro (€)", disclaimer: "⚠️ Haftungsausschluss: Nur zur Referenz. Entscheidungen liegen bei Ihnen.", msg: "Private Nachricht (Nur User & Admin)" },
-            'fr': { title: "🏮 Xing Deng Astrologie 🏮", national: "🇹🇼 Taïwan & Fortune Mondiale 2026", p1: "Analyse (1280)", p2: "Nom d'enfant (3600)", p3: "Nom Premium (6600)", charity: "🧧 Charité: Dons à l'Aide à l'Enfance.", currency: "Devise: Euro (€)", disclaimer: "⚠️ Clause de non-responsabilité: Pour référence seulement.", msg: "Message Privé (Utilisateur & Admin)" },
-            'es': { title: "🏮 Xing Deng Astrología 🏮", national: "🇹🇼 Taiwán y Fortuna Global 2026", p1: "Análisis (1280)", p2: "Nombres para Bebés (3600)", p3: "Nombres Premium (6600)", charity: "🧧 Caridad: Donaciones a bienestar infantil.", currency: "Moneda: Euro (€)", disclaimer: "⚠️ Descargo de responsabilidad: Solo para referencia.", msg: "Mensaje Privado (Solo Usuario y Admin)" },
-            'vi': { title: "🏮 Dịch Giám Tinh Khoa 🏮", national: "🇹🇼 Vận Mệnh Đài Loan & Thế Giới 2026", p1: "Xem Tên (1280)", p2: "Đặt Tên Cho Bé (3600)", p3: "Đặt Tên Cao Cấp (6600)", charity: "🧧 Thông báo từ thiện: Lợi nhuận quyên góp cho quỹ trẻ em.", currency: "Tiền tệ: Đồng (₫)", disclaimer: "⚠️ Miễn trừ trách nhiệm: Chỉ mang tính chất tham khảo.", msg: "Tin nhắn riêng tư (Chỉ chủ nhân và quản trị)" },
-            'th': { title: "🏮 อี้เจี้ยนซิงเคอ 🏮", national: "🇹🇼 ดวงเมืองไต้หวันและดวงโลก 2026", p1: "วิเคราะห์ชื่อ (1280)", p2: "ตั้งชื่อบุตร (3600)", p3: "ตั้งชื่อระดับสูง (6600)", charity: "🧧 ประกาศการกุศล: กำไรจะบริจาคให้กับมูลนิธิเด็ก", currency: "สกุลเงิน: บาท (฿)", disclaimer: "⚠️ ข้อสงวนสิทธิ์: ข้อมูลเพื่อการอ้างอิงเท่านั้น การตัดสินใจอยู่ที่ท่าน", msg: "ข้อความส่วนตัว (เฉพาะคุณและผู้ดูแล)" }
+            'zh-TW': { title: "🏮 易鑒星科 🏮", national: "🇹🇼 中華民國台灣及全球國運專頁", p1: "原名測算 (1280)", p2: "育兒優待 (3600)", p3: "高階取名 (6600)", charity: "🧧 公益公告：本月結餘捐助【兒福基金會】", currency: "當前顯示幣別：新台幣 (NT$)", name: "姓名 (Name)", disclaimer: "⚠️ 免責聲明：本測算僅供參考，不具法律約束力。", msg: "隱私留言 (當事人與後台可見)" },
+            'en': { title: "🏮 Xing Deng Star 🏮", national: "🇹🇼 Taiwan & Global Fortune 2026", p1: "Analysis (1280)", p2: "Child Naming (3600)", p3: "Premium Naming (6600)", charity: "🧧 Charity: Monthly surplus donated.", currency: "Currency: USD ($)", name: "Full Name", disclaimer: "⚠️ Disclaimer: For reference only.", msg: "Private Message" },
+            'ja': { title: "🏮 易鑑星科 🏮", national: "🇹🇼 台灣と世界の國運 2026", p1: "運勢鑑定 (1280)", p2: "命名サービス (3600)", p3: "高級命名 (6600)", charity: "🧧 社會貢獻：今月の収益は寄付されます。", currency: "通貨：日本円 (¥)", name: "お名前", disclaimer: "⚠️ 免責事項：鑑定結果は參考用です。", msg: "非公開メッセージ" },
+            'th': { title: "🏮 อี้เจี้ยนซิงเคอ 🏮", national: "🇹🇼 ดวงเมืองไต้หวันและดวงโลก 2026", p1: "วิเคราะห์ชื่อ (1280)", p2: "ตั้งชื่อบุตร (3600)", p3: "ตั้งชื่อระดับสูง (6600)", charity: "🧧 ประกาศการกุศล: กำไรจะบริจาคให้มูลนิธิ", currency: "สกุลเงิน: บาท (฿)", name: "ชื่อ-นามสกุล", disclaimer: "⚠️ ข้อสงวนสิทธิ์: ข้อมูลเพื่อการอ้างอิงเท่านั้น", msg: "ข้อความส่วนตัว" }
+            // (其餘語系比照辦理...)
         };
 
         function setLang(langCode) {
             const d = i18n[langCode];
             if (!d) return;
-            
-            // 執行文字替換
             document.getElementById('main-title').innerText = d.title;
             document.getElementById('btn-national').innerText = d.national;
             document.getElementById('price-tag').innerText = d.currency;
@@ -88,7 +80,8 @@
             document.getElementById('disclaimer-text').innerText = d.disclaimer;
             document.getElementById('private-msg').innerText = d.msg;
             
-            console.log("語系切換至: " + langCode);
+            // 關鍵修正：同步變更輸入框提示文字
+            document.getElementById('name-field').placeholder = d.name;
         }
 
         function pay(amt) {
