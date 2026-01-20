@@ -5,74 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>易鑒星科 - 全球命理演繹總部</title>
     <style>
-        body { font-family: "Microsoft JhengHei", sans-serif; background: #1a1a1a; color: #f4f4f4; text-align: center; margin: 0; padding: 0; }
-        .lang-bar { background: #333; padding: 10px; display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; border-bottom: 1px solid #d4af37; }
-        .lang-btn { cursor: pointer; color: #d4af37; font-size: 0.85em; text-decoration: underline; }
-        .container { max-width: 900px; margin: auto; padding: 30px; }
-        .btn-box { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 30px; }
-        .btn { padding: 15px 25px; border-radius: 8px; cursor: pointer; text-decoration: none; font-weight: bold; transition: 0.3s; }
-        .btn-gold { background: #d4af37; color: black; border: none; }
-        .btn-red { background: #b22222; color: white; display: block; margin: 20px auto; max-width: 300px; }
-        .currency-display { font-size: 1.4em; color: #ffd700; margin: 25px 0; font-weight: bold; }
-        .input-group { background: #262626; padding: 25px; border-radius: 12px; border: 1px solid #444; margin: 20px 0; }
-        input { padding: 10px; width: 80%; max-width: 300px; border-radius: 5px; border: none; margin: 10px 0; }
-        .footer-box { margin-top: 50px; font-size: 0.8em; border-top: 1px solid #444; padding: 20px; color: #888; }
+        body { font-family: "Microsoft JhengHei", sans-serif; background: #1a1a1a url('bg3.jpg') no-repeat center center fixed; background-size: cover; color: #f4f4f4; text-align: center; margin: 0; }
+        .lang-bar { background: rgba(0,0,0,0.8); padding: 10px; display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; border-bottom: 1px solid #d4af37; }
+        .lang-btn { cursor: pointer; color: #d4af37; font-size: 0.85em; }
+        .container { max-width: 900px; margin: auto; padding: 40px 20px; background: rgba(0,0,0,0.7); border-radius: 15px; margin-top: 50px; }
+        .btn-red { background: #b22222; color: white; padding: 15px 30px; border-radius: 8px; text-decoration: none; display: inline-block; margin-bottom: 30px; font-weight: bold; }
+        .currency-info { font-size: 1.5em; color: #ffd700; margin: 20px 0; }
+        .input-group { margin: 25px 0; }
+        input { padding: 12px; width: 80%; max-width: 300px; border-radius: 5px; border: none; margin: 10px 0; }
+        .btn-gold { background: #d4af37; color: black; padding: 15px 25px; border-radius: 8px; cursor: pointer; border: none; font-weight: bold; margin: 10px; transition: 0.3s; }
+        .footer { margin-top: 50px; font-size: 0.85em; color: #bbb; border-top: 1px solid #444; padding-top: 20px; }
     </style>
 </head>
 <body>
     <div class="lang-bar">
-        <span class="lang-btn" onclick="setLang('zh-TW')">繁體中文</span>
-        <span class="lang-btn" onclick="setLang('zh-CN')">简体中文</span>
-        <span class="lang-btn" onclick="setLang('en')">English</span>
-        <span class="lang-btn" onclick="setLang('ja')">日本語</span>
-        <span class="lang-btn" onclick="setLang('ko')">한국어</span>
-        <span class="lang-btn" onclick="setLang('de')">Deutsch</span>
-        <span class="lang-btn" onclick="setLang('fr')">Français</span>
-        <span class="lang-btn" onclick="setLang('es')">Español</span>
-        <span class="lang-btn" onclick="setLang('vi')">Tiếng Việt</span>
-        <span class="lang-btn" onclick="setLang('th')">ภาษาไทย</span>
+        <span class="lang-btn" onclick="setLang('繁中', 'NT$')">繁中</span>
+        <span class="lang-btn" onclick="setLang('簡中', '¥')">簡中</span>
+        <span class="lang-btn" onclick="setLang('English', '$')">EN</span>
+        <span class="lang-btn" onclick="setLang('日本語', '¥')">JP</span>
+        <span class="lang-btn" onclick="setLang('한국어', '₩')">KR</span>
+        <span class="lang-btn" onclick="setLang('Deutsch', '€')">DE</span>
+        <span class="lang-btn" onclick="setLang('Français', '€')">FR</span>
+        <span class="lang-btn" onclick="setLang('Español', '€')">ES</span>
+        <span class="lang-btn" onclick="setLang('Tiếng Việt', '₫')">VN</span>
+        <span class="lang-btn" onclick="setLang('ภาษาไทย', '฿')">TH</span>
     </div>
 
     <div class="container">
-        <h1 id="title">🏮 易鑒星科 🏮</h1>
-        <p id="subtitle">掌握天機，演繹命格。全球十國語系聯運模式已啟動。</p>
-
-        <a href="#national-fortune" class="btn btn-red" id="btn-national">🇹🇼 中華民國台灣及全球國運專頁</a>
-
-        <div class="currency-display" id="price-info">Loading Currency...</div>
+        <img src="logo.png" alt="易鑒星科" style="width: 120px;">
+        <h1>🏮 易鑒星科 🏮</h1>
+        <a href="#national-fortune" class="btn-red">🇹🇼 中華民國台灣及全球國運專頁</a>
+        
+        <div class="currency-info" id="price-tag">當前顯示幣別：新台幣 (NT$)</div>
 
         <div class="input-group">
-            <h3 id="input-title">輸入測算資料 (Input Data)</h3>
-            <input type="text" id="username" placeholder="姓名 (Name / ชื่อ / 氏名)">
-            <input type="datetime-local" id="birth-time">
+            <input type="text" id="name" placeholder="姓名 (Name / ชื่อ)">
+            <input type="datetime-local" id="bday">
         </div>
 
-        <div class="btn-box">
-            <button onclick="pay(1280)" class="btn btn-gold" id="btn-p1">原名測算 (NT$ 1280)</button>
-            <button onclick="pay(3600)" class="btn btn-gold" id="btn-p2">育兒成家優待 (NT$ 3600)</button>
-            <button onclick="pay(6600)" class="btn btn-gold" id="btn-p3">高階取名演繹 (NT$ 6600)</button>
+        <div>
+            <button class="btn-gold" onclick="pay(1280)">原名測算 (1280)</button>
+            <button class="btn-gold" onclick="pay(3600)">育兒優待 (3600)</button>
+            <button class="btn-gold" onclick="pay(6600)">高階取名 (6600)</button>
         </div>
 
-        <div class="footer-box">
-            <p id="charity">🧧 公益公告：本月結餘將捐助至【兒福基金會】，資金透明可查。</p>
-            <p id="disclaimer">⚠️ 免責聲明：本測算僅供參考，不具法律約束力。人生選擇請依個人意志。</p>
-            <p>💬 <a href="#message" style="color: #d4af37;">隱私留言 (當事人與後台可見)</a></p>
+        <div class="footer">
+            <p>🧧 公益公告：本月結餘捐助【兒福基金會】</p>
+            <p>💬 <a href="#msg" style="color:#d4af37;">隱私留言 (當事人與後台可見)</a></p>
+            <p>⚠️ 免責聲明：本測算僅供參考，不具法律約束力。</p>
         </div>
     </div>
 
     <script>
-        // 匯率匯率對沖邏輯 (項9)
-        const rates = { "zh-TW": "NT$", "en": "$", "ja": "¥", "th": "฿", "de": "€", "fr": "€", "es": "€", "vi": "₫", "ko": "₩" };
-        
-        function setLang(lang) {
-            const currency = rates[lang] || "$";
-            document.getElementById('price-info').innerText = "Global Currency Mode: " + currency;
-            // 這裡後續可接自動翻譯文本
-            alert("語系已切換至: " + lang + "\\n幣符同步調整為: " + currency);
+        function setLang(name, sym) {
+            document.getElementById('price-tag').innerText = "Currency: " + sym + " (" + name + ")";
+            alert("語系切換完成，幣符已同步！");
         }
-
-        function pay(amount) {
-            alert("即將前往安全支付。\\n樂天銀行：81201001535981\\nLine Bank：111013844288\\nPayPal 刷卡收款中心已就緒。");
+        function pay(amt) {
+            alert("支付引導：\\n樂天銀行 (826): 81201001535981\\nLine Bank (824): 111013844288\\n或點擊跳轉 PayPal 刷卡");
             window.location.href = "https://paypal.me/TaiwanPayment";
         }
     </script>
