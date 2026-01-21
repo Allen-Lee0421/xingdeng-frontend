@@ -1,20 +1,61 @@
-<div id="pay-gate" style="position: absolute; top: 250px; left: 50%; transform: translateX(-50%); width: 85%; background: rgba(10,10,10,0.98); border: 2px solid #b22222; padding: 40px; z-index: 1000; text-align: center;">
-    <h3 style="color: #d4af37;">【解鎖精密鑑定報告】</h3>
-    <p>星火計畫授權費：<strong>NT$ 1,280</strong></p>
-    <div style="background: #1a1a1a; padding: 15px; border: 1px dashed #d4af37; font-family: monospace; text-align: left; margin-bottom: 20px;">
-        樂天銀行 (826)：81201001535981<br>
-        Line Bank (824)：111013844288
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>鑑定報告 · 易鑒星科</title>
+    <style>
+        body { background: #050505; color: #fff; font-family: "Noto Serif TC", serif; padding: 40px; }
+        .report-wrap { max-width: 850px; margin: 0 auto; border: 1px solid #d4af37; padding: 60px; background: #0a0a0a; position: relative; }
+        .blur { filter: blur(12px); opacity: 0.3; pointer-events: none; }
+        .pay-overlay { position: absolute; top: 200px; left: 50%; transform: translateX(-50%); width: 80%; background: rgba(20,20,20,0.98); border: 2px solid #b22222; padding: 40px; z-index: 100; text-align: center; }
+        .seal { width: 130px; height: 130px; border: 4px solid #b22222; color: #b22222; display: flex; align-items: center; justify-content: center; font-weight: 900; position: absolute; bottom: 60px; right: 60px; transform: rotate(-10deg); }
+    </style>
+</head>
+<body>
+    <div id="payWall" class="pay-overlay">
+        <h3 style="color:#d4af37">【誠信誓約與解鎖】</h3>
+        <p style="font-size:0.9em; font-style:italic">「吾心正向，所得鑑定僅供決策，不作邪道。」</p>
+        <hr border="0" height="1" background="#333">
+        <p>應付金額：<span id="priceDisplay">NT$ 1,280</span></p>
+        <div style="background:#111; padding:20px; border:1px dashed #d4af37; text-align:left; font-family:monospace; margin:20px 0;">
+            ATM 轉帳 / 網銀：<br>
+            1. 樂天銀行 (826): 81201001535981<br>
+            2. Line Bank (824): 111013844288<br><br>
+            信用卡 / 海外：<br>
+            PayPal: https://paypal.me/TaiwanPayment
+        </div>
+        <button onclick="unlock()" style="background:#b22222; color:#fff; padding:15px 40px; border:none; cursor:pointer; font-size:1.1em;">我已支付，解鎖天機</button>
     </div>
-    <button onclick="unlock()" style="background:#b22222; color:#fff; padding:15px 30px; border:none; cursor:pointer;">我已誠信轉帳，立即解鎖</button>
-</div>
 
-<div id="content-body" style="filter: blur(10px); opacity: 0.3; transition: 0.8s;">
+    <div class="report-wrap" id="reportContent" class="blur">
+        <h2 style="text-align:center; color:#d4af37; border-bottom:2px solid #d4af37; padding-bottom:10px;">2026 丙午年 · 智謀鑑定書</h2>
+        <div id="mainText" style="line-height:2.4; font-size:1.15em; margin-top:30px;">
+            <p><strong>【總論：赤龍抬頭，金石為開】</strong></p>
+            <p>根據 5,592 筆數據演算，全球經濟將於 Q2 迎來能量熔斷期...</p>
+            </div>
+        <div class="seal">易鑒星科<br>智謀鑑定</div>
     </div>
 
-<script>
-    function unlock() {
-        document.getElementById('pay-gate').style.display = 'none';
-        document.getElementById('content-body').style.filter = 'none';
-        document.getElementById('content-body').style.opacity = '1';
-    }
-</script>
+    <script>
+        const pending = JSON.parse(localStorage.getItem('pendingData'));
+        if(pending) {
+            document.getElementById('priceDisplay').innerText = `NT$ ${pending.mode === 'analysis' ? '1,280' : pending.mode === 'babyNaming' ? '3,600' : '8,800'}`;
+            // 預先呼叫後台進行運算
+            fetch('/api/calculate', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(pending)
+            }).then(res => res.json()).then(data => {
+                window.finalReport = data.report;
+            });
+        }
+
+        function unlock() {
+            document.getElementById('payWall').style.display = 'none';
+            document.getElementById('reportContent').classList.remove('blur');
+            document.getElementById('mainText').innerHTML += `<div style="color:#d4af37; border:1px solid #333; padding:20px; margin-top:20px;">${window.finalReport}</div>`;
+            alert('鑑定解鎖成功。凡事均須天時、地利、人和，三合為關鍵。');
+        }
+    </script>
+</body>
+</html>
