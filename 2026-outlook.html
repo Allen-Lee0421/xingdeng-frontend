@@ -1,3 +1,9 @@
+<div class="radar-box">
+    <canvas id="outlookChart"></canvas>
+</div>
+<div class="q2-pulse">⚠️ 警告：2026 Q2 (丙午月) 能量過熱，防備高溫變局</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     const ctx = document.getElementById('outlookChart');
     const chart = new Chart(ctx, {
@@ -6,28 +12,32 @@
             labels: ['動能(火)', '流動(水)', '成長(木)', '穩定(土)', '防禦(金)'],
             datasets: [{
                 label: '2026 丙午年能量權重',
-                data: [0, 0, 0, 0, 0], // 初始為 0
+                data: [0, 0, 0, 0, 0], // 初始點，準備擴張
                 borderColor: '#b22222',
                 backgroundColor: 'rgba(178,34,34,0.3)',
-                borderWidth: 3
+                borderWidth: 3,
+                pointBackgroundColor: '#d4af37'
             }]
         },
         options: {
-            animation: {
-                duration: 3000, // 3秒擴張動畫
-                easing: 'easeOutQuart'
-            },
             scales: {
-                r: { min: 0, max: 100, ticks: { display: false } }
-            }
+                r: { 
+                    min: 0, max: 100, 
+                    ticks: { display: false },
+                    grid: { color: 'rgba(212,175,55,0.1)' },
+                    angleLines: { color: 'rgba(212,175,55,0.2)' }
+                }
+            },
+            plugins: { legend: { labels: { color: '#d4af37' } } }
         }
     });
 
-    // 總監指令：進入頁面後立即執行「能量噴發」
+    // 總監指令：震撼擴張動畫
     window.onload = () => {
         setTimeout(() => {
-            chart.data.datasets[0].data = [95, 60, 75, 45, 40]; // 注入總監核定權重
+            chart.data.datasets[0].data = [95, 60, 75, 45, 40]; // 火能高達 95%
             chart.update();
-        }, 500);
+        }, 800);
     };
 </script>
+
