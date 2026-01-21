@@ -4,75 +4,109 @@
     <meta charset="UTF-8">
     <title>個人局勢鑑定 · 易鑒星科</title>
     <style>
-        :root { --gold: #d4af37; --red: #b22222; }
-        body { background: #000; color: #e0e0e0; font-family: "Noto Serif TC", serif; text-align: center; margin: 0; padding-bottom: 50px; }
-        .container { max-width: 500px; margin: 0 auto; padding: 20px; }
-        .form-box { border: 1px solid var(--gold); background: rgba(255,255,255,0.02); padding: 30px; margin-top: 30px; }
-        input, select { width: 100%; padding: 12px; margin: 10px 0; background: #111; border: 1px solid #444; color: #fff; box-sizing: border-box; }
-        .payment-options { margin-top: 30px; text-align: left; display: none; } /* 初始隱藏，填完資料才顯示 */
-        .pay-method { border: 1px solid #333; padding: 15px; margin-bottom: 10px; cursor: pointer; transition: 0.3s; }
-        .pay-method:hover { border-color: var(--gold); background: rgba(212,175,55,0.1); }
-        .pay-method h4 { margin: 0; color: var(--gold); }
-        .pay-method p { margin: 5px 0 0 0; font-size: 0.9em; color: #aaa; }
-        .btn-submit { background: var(--gold); color: #000; padding: 15px; width: 100%; border: none; font-weight: bold; font-size: 1.1em; cursor: pointer; margin-top: 20px; }
-        .viral-seed { color: var(--red); font-size: 0.85em; margin-top: 30px; border-top: 1px solid #333; padding-top: 20px; letter-spacing: 1px; }
+        :root { --gold: #d4af37; --red: #b22222; --dark: #0a0a0a; }
+        body { background: var(--dark); color: #e0e0e0; font-family: "Noto Serif TC", "Noto Sans JP", "Noto Sans KR", serif; text-align: center; margin: 0; padding-bottom: 50px; }
+        .container { max-width: 550px; margin: 0 auto; padding: 20px; }
+        
+        /* 語言切換器樣式 */
+        .lang-switcher { text-align: right; margin-bottom: 15px; }
+        select#langSelector { background: #111; color: var(--gold); border: 1px solid var(--gold); padding: 8px 12px; cursor: pointer; border-radius: 4px; font-size: 0.9em; }
+
+        .form-box { border: 1px solid var(--gold); background: rgba(255,255,255,0.02); padding: 30px; margin-top: 20px; box-shadow: 0 0 20px rgba(212,175,55,0.05); }
+        input, select { width: 100%; padding: 14px; margin: 10px 0; background: #111; border: 1px solid #444; color: #fff; box-sizing: border-box; border-radius: 4px; }
+        
+        .payment-options { margin-top: 30px; text-align: left; display: none; animation: fadeIn 0.8s; } 
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .price-display { font-size: 2.2em; color: var(--gold); margin: 25px 0; text-align: center; font-weight: bold; font-family: 'Courier New', monospace; text-shadow: 0 0 10px rgba(212,175,55,0.3); }
+
+        .pay-method { border: 1px solid #333; padding: 18px; margin-bottom: 12px; cursor: pointer; transition: 0.3s; background: rgba(255,255,255,0.03); }
+        .pay-method:hover { border-color: var(--gold); background: rgba(212,175,55,0.1); transform: translateY(-2px); }
+        .pay-method h4 { margin: 0; color: var(--gold); letter-spacing: 1px; }
+        .pay-method p { margin: 8px 0 0 0; font-size: 0.85em; color: #aaa; line-height: 1.5; }
+        
+        .btn-submit { background: var(--gold); color: #000; padding: 18px; width: 100%; border: none; font-weight: bold; font-size: 1.1em; cursor: pointer; margin-top: 20px; letter-spacing: 3px; transition: 0.4s; }
+        .btn-submit:hover { background: #fff; box-shadow: 0 0 30px rgba(212,175,55,0.5); }
+        
+        .viral-seed { color: var(--red); font-size: 0.8em; margin-top: 40px; border-top: 1px solid #333; padding-top: 20px; opacity: 0.7; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 style="color:var(--gold); letter-spacing: 5px;">個人時空矩陣鑑定</h1>
-        <p style="font-size: 0.9em; opacity: 0.7;">依據 5,592 筆干支數據，鎖定您的財星動能</p>
+        <div class="lang-switcher">
+            <select id="langSelector" onchange="switchLang()">
+                <option value="zh-TW">繁體中文 (TWD)</option>
+                <option value="zh-CN">简体中文 (CNY)</option>
+                <option value="en">English (USD)</option>
+                <option value="ja">日本語 (JPY)</option>
+                <option value="ko">한국어 (KRW)</option>
+                <option value="fr">Français (EUR)</option>
+                <option value="de">Deutsch (EUR)</option>
+                <option value="vi">Tiếng Việt (VND)</option>
+                <option value="th">ไทย (THB)</option>
+                <option value="ar">العربية (AED)</option>
+                <option value="es">Español (USD)</option>
+                <option value="pt">Português (USD)</option>
+            </select>
+        </div>
+
+        <h1 id="main-title" style="color:var(--gold); letter-spacing: 5px;">個人時空矩陣鑑定</h1>
+        <p id="sub-title" style="font-size: 0.9em; opacity: 0.7;">依據 5,592 筆干支數據，鎖定您的財星動能</p>
 
         <div class="form-box" id="data-section">
             <input type="text" id="userName" placeholder="請輸入姓名">
             <input type="date" id="userBirthday">
             <select id="userHour">
-                <option value="">選擇出生時辰</option>
+                <option value="" id="opt-hour-default">選擇出生時辰</option>
                 <option value="0">早子 (00:00-01:00)</option>
                 <option value="1">丑時 (01:00-03:00)</option>
-                </select>
-            <button class="btn-submit" onclick="showPayment()">鎖定時空數據並前往鑑定</button>
+                <option value="3">寅時 (03:00-05:00)</option>
+                <option value="5">卯時 (05:00-07:00)</option>
+                <option value="7">辰時 (07:00-09:00)</option>
+                <option value="9">巳時 (09:00-11:00)</option>
+                <option value="11">午時 (11:00-13:00)</option>
+                <option value="13">未時 (13:00-15:00)</option>
+                <option value="15">申時 (15:00-17:00)</option>
+                <option value="17">酉時 (17:00-19:00)</option>
+                <option value="19">戌時 (19:00-21:00)</option>
+                <option value="21">亥時 (21:00-23:00)</option>
+                <option value="23">晚子 (23:00-24:00)</option>
+            </select>
+            <button class="btn-submit" id="btn-lock" onclick="showPayment()">鎖定時空數據並前往鑑定</button>
         </div>
 
         <div class="payment-options" id="pay-section">
-            <h3 style="color:var(--gold);">選擇鑑定支付管道 (NT$ 1,280)</h3>
+            <h3 id="pay-title" style="color:var(--gold);">選擇鑑定支付管道</h3>
             
-            <div class="pay-method" onclick="copyToClipboard('81201001535981')">
-                <h4>826 樂天國際銀行 (ATM 轉帳)</h4>
-                <p>帳號：81201001535981 (點擊可複製)</p>
+            <div class="price-display">
+                <span id="curr-symbol">NT$</span> <span id="price-val">1,280</span>
+            </div>
+            
+            <div class="pay-method" id="bank-1" onclick="copyToClipboard('81201001535981')">
+                <h4 id="bank-1-name">826 樂天國際銀行 (ATM)</h4>
+                <p id="bank-1-desc">帳號：81201001535981 (點擊可複製)</p>
             </div>
 
             <div class="pay-method" onclick="window.open('https://paypal.me/TaiwanPayment', '_blank')">
-                <h4>PayPal / 海外信用卡</h4>
-                <p>點擊跳轉至 PayPal 進行支付</p>
+                <h4 id="paypal-name">PayPal / Global Card</h4>
+                <p id="paypal-desc">點擊跳轉至 PayPal 進行支付</p>
             </div>
 
-            <div class="pay-method" onclick="copyToClipboard('111013844288')">
-                <h4>824 連線銀行 (刷卡/轉帳)</h4>
-                <p>帳號：111013844288 (點擊可複製)</p>
+            <div class="pay-method" id="bank-2" onclick="copyToClipboard('111013844288')">
+                <h4 id="bank-2-name">824 連線銀行 (LINE Bank)</h4>
+                <p id="bank-2-desc">帳號：111013844288 (點擊可複製)</p>
             </div>
 
-            <p style="font-size:0.8em; color:var(--red);">* 完成支付後，系統將自動啟動矩陣病毒種子進行運算。</p>
+            <p id="pay-footer" style="font-size:0.8em; color:var(--red); text-align:center; margin-top:20px;">* 完成支付後，系統將自動啟動矩陣病毒種子進行運算。</p>
         </div>
 
         <div class="viral-seed">
-            <p>矩陣病毒種子已啟動：ES-SEED-2026-ACTIVE</p>
-            <p>分享鑑定連結，每筆成交將自動提撥 5% 至星燈公益盒</p>
+            <p id="seed-msg">ES-SEED-2026-ACTIVE | Global Matrix Node</p>
+            <p id="share-msg">每筆成交自動提撥 5% 至星燈公益盒</p>
         </div>
     </div>
 
     <script>
-        function showPayment() {
-            const name = document.getElementById('userName').value;
-            if(!name) { alert('請輸入您的尊姓大名以利演算'); return; }
-            document.getElementById('data-section').style.display = 'none';
-            document.getElementById('pay-section').style.display = 'block';
-        }
-
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text);
-            alert('帳號已複製：' + text + '\n請於轉帳完成後截圖告知。');
-        }
-    </script>
-</body>
-</html>
+        const langData = {
+            "zh-TW": { mainTitle: "個人時空矩陣鑑定", subTitle: "依據 5,592 筆干支數據，鎖定您的財星動能", placeholder: "請輸入姓名", optHour: "選擇出生時辰", btnLock: "鎖定時空數據並前往鑑定", payTitle: "選擇鑑定支付管道", symbol: "NT$", price: 1280, bank1Name: "826 樂天國際銀行", bank2Name: "824 連線銀行", paypalDesc: "全球信用卡支付", copyMsg: "帳號已複製" },
+            "zh-CN": { mainTitle: "个人时空矩阵鉴定", subTitle: "依据 5,592 笔干支数据，锁定您的财星动能", placeholder: "请输入姓名
