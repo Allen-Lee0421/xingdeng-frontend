@@ -5,46 +5,98 @@
     <title>易鑒星科 · Edison Star Strategic Intelligence</title>
     <style>
         :root { --gold: #d4af37; --white: #e0e0e0; --alert: #b22222; }
-        body { margin: 0; padding: 0; min-height: 100vh; font-family: "Noto Serif TC", serif; color: var(--white); overflow-x: hidden; background-color: #000; }
+        body { margin: 0; padding: 0; min-height: 100vh; font-family: "Noto Serif TC", "Microsoft JhengHei", serif; color: var(--white); overflow-x: hidden; background-color: #000; }
         #dynamic-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; transition: background-image 3s ease-in-out; background-size: cover; background-position: center; }
-        #dynamic-bg::after { content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.8); }
-        .container { max-width: 900px; margin: 0 auto; padding: 80px 20px; text-align: center; position: relative; z-index: 1; }
+        #dynamic-bg::after { content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.85); }
+        .lang-switcher { position: fixed; top: 20px; right: 20px; z-index: 100; background: rgba(0,0,0,0.6); padding: 10px; border: 1px solid var(--gold); }
+        .lang-switcher select { background: transparent; color: var(--gold); border: none; font-size: 0.9em; outline: none; cursor: pointer; }
+        .container { max-width: 950px; margin: 0 auto; padding: 80px 20px; text-align: center; position: relative; z-index: 1; }
         .prologue-title { color: var(--gold); letter-spacing: 15px; font-size: 2.8em; margin-bottom: 5px; text-shadow: 0 0 15px rgba(212,175,55,0.4); }
-        .content-box { text-align: justify; line-height: 2.4; letter-spacing: 1.8px; margin-bottom: 60px; font-size: 1.1em; color: rgba(224,224,224,0.9); }
+        .content-box { text-align: justify; line-height: 2.2; letter-spacing: 1.5px; margin-bottom: 60px; font-size: 1.05em; color: rgba(224,224,224,0.95); }
         .section-title { color: var(--gold); font-size: 1.4em; margin: 50px 0 25px 0; border-left: 4px solid var(--gold); padding-left: 20px; text-align: left; }
-        .tech-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 35px; }
+        .tech-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-top: 35px; }
         .tech-item { border: 1px solid rgba(212, 175, 55, 0.2); padding: 25px; background: rgba(255,255,255,0.02); text-align: left; }
-        .tech-item h4 { color: var(--gold); margin: 0 0 15px 0; }
-        .btn-enter { display: inline-block; margin: 60px 0; padding: 22px 70px; border: 1px solid var(--gold); color: var(--gold); text-decoration: none; letter-spacing: 10px; font-weight: bold; transition: 0.5s; }
-        .btn-enter:hover { background: var(--gold); color: #000; }
-        .charity-section { border: 1px dashed rgba(212, 175, 55, 0.5); padding: 35px; background: rgba(178,34,34,0.08); margin-top: 50px; }
+        .tech-item h4 { color: var(--gold); margin: 0 0 10px 0; font-size: 1.2em; }
+        .btn-enter { display: inline-block; margin: 60px 0; padding: 22px 70px; border: 1px solid var(--gold); color: var(--gold); text-decoration: none; letter-spacing: 10px; font-weight: bold; transition: 0.5s; font-size: 1.2em; }
+        .btn-enter:hover { background: var(--gold); color: #000; box-shadow: 0 0 30px rgba(212,175,55,0.4); }
+        .charity-section { border: 1px dashed rgba(212, 175, 55, 0.5); padding: 35px; background: rgba(178,34,34,0.1); margin-top: 50px; }
         .charity-amount { font-size: 2.5em; color: var(--gold); margin: 12px 0; font-family: 'Courier New', monospace; font-weight: bold; }
     </style>
 </head>
 <body>
+    <div class="lang-switcher">
+        <select id="langSelect" onchange="changeLanguage(this.value)">
+            <option value="zh">繁體中文</option>
+            <option value="en">English</option>
+            <option value="ja">日本語</option>
+            <option value="ko">한국어</option>
+            <option value="vi">Tiếng Việt</option>
+            <option value="th">ภาษาไทย</option>
+            <option value="ms">Bahasa Melayu</option>
+            <option value="id">Bahasa Indonesia</option>
+            <option value="fr">Français</option>
+            <option value="de">Deutsch</option>
+        </select>
+    </div>
+
     <div id="dynamic-bg"></div>
+
     <div class="container">
-        <div class="prologue-title">易鑒星科</div>
-        <div class="content-box">
-            <p>自上古伏羲觀象而立卦，文王演繹六十四卦，孔子撰《十翼》以定大道...（此處略，請保持您原本的長序言全文）</p>
-            <p style="color:var(--gold); text-align:center; font-size:1.25em; margin-top:40px; font-weight:bold;">於古今交融之中，洞察天地人事，掌握人生之機。</p>
-            <div class="section-title">網站介紹</div>
-            <p>一甲子六十年，術數不再只是玄學，而是可驗證、可應用的時空演算古老智慧...</p>
+        <div class="prologue-title" id="main-title">易鑒星科</div>
+        <p style="opacity:0.5; letter-spacing:5px;">EDISON STAR STRATEGIC INTELLIGENCE</p>
+
+        <div class="content-box" id="trans-content">
+            <p id="p1">自上古伏羲觀象而立卦，文王演繹六十四卦，孔子撰《十翼》以定大道，天地陰陽之理遂藏於易經之中；春秋之際，孫武以兵法揭示「兵者，詭道也」，將變化之理化為制勝之謀；三國之世，孔明承易理而融兵法，善用奇門遁甲，洞察天時地利人和，決勝千里之外；六壬神課以因果推演人事，姓名之學以字音五行定性格與命運，皆為先祖智慧之延伸。今日之世，科學演算與邏輯推理已能將隱秘的推演化為精密的模型，將模糊的直覺轉化為清晰的答案。本網「易鑒星科」正是承接此脈絡：以易為根，以兵法為骨，以謀略為翼，融奇門、六壬、姓名之學，結合科學之精密。於古今交融之中，洞察天地人事，掌握人生之機，為世人揭示隱而未顯的方向。</p>
+            
+            <div class="section-title" id="s1">網站簡介</div>
+            <p id="p2">一甲子六十年，術數不再只是玄學，而是可驗證、可應用的 時空演算古老智慧。</p>
+            <p id="p3">興勝盛衰敗，生老病死，輪迴未止，循環不息。易鑒星科核心以科學方法，將近五百年來 5,592 筆干支數據 精密標註，涵蓋法理重組、經濟轉折、國運興衰。每一筆皆為閉環，皆為基準。這不僅是術數的再造，亦是決策者最冷峻的關鍵謀略。</p>
+
             <div class="tech-grid">
-                <div class="tech-item"><h4>易經</h4><p>長期週期洞察 → 適合人生方向。</p></div>
-                <div class="tech-item"><h4>奇門遁甲</h4><p>時空戰略佈局 → 適合重大抉擇。</p></div>
+                <div class="tech-item"><h4 id="h1">易經</h4><p id="t1">長期週期洞察 → 適合人生方向與決策。</p></div>
+                <div class="tech-item"><h4 id="h2">奇門遁甲</h4><p id="t2">時空戰略佈局 → 適合重大抉擇。</p></div>
+                <div class="tech-item"><h4 id="h3">姓名學</h4><p id="t3">個人命格調整 → 適合改名、取名。</p></div>
+                <div class="tech-item"><h4 id="h4">六壬神課</h4><p id="t4">短期事件斷測 → 適合急事判斷。</p></div>
             </div>
         </div>
-        <a href="input.html" class="btn-enter">開始鑑定局勢</a>
+
+        <a href="input.html" class="btn-enter" id="btn-text">開始鑑定局勢</a>
+
         <div class="charity-section">
-            <div style="letter-spacing: 4px; opacity: 0.7;">星燈公益積累盒 (Global Charity Fund)</div>
-            <div class="charity-amount">NT$ <span id="charity-val">0</span></div>
-            <p style="font-size: 0.85em; opacity: 0.6;">鑑定營收之 5% 自動提撥，公開透明回饋社會</p>
+            <div style="letter-spacing: 4px; opacity: 0.7;" id="charity-title">星燈公益積累盒 (Global Charity Fund)</div>
+            <div class="charity-amount"><span id="curr-symbol">NT$</span> <span id="charity-val">0</span></div>
+            <p style="font-size: 0.85em; opacity: 0.6;" id="charity-desc">鑑定營收之 5% 自動提撥，公開透明回饋社會</p>
         </div>
-        <div style="margin-top: 40px; font-size: 0.85em; opacity: 0.4;">凡事均須天時、地利、人和，三合為關鍵。</div>
     </div>
+
     <script>
-        const imgs = ['bg2.jpg', 'bg3.jpg', 'bg4.jpg', 'bg5.jpg', 'bg6.jpg', 'bg7.jpg'];
+        // 1. 十國語系文本資料庫 (精簡版)
+        const translations = {
+            zh: { title: "易鑒星科", s1: "網站簡介", btn: "開始鑑定局勢", symbol: "NT$" },
+            en: { title: "Edison Star", s1: "Introduction", btn: "Start Assessment", symbol: "USD" },
+            ja: { title: "易鑒星科", s1: "サイト紹介", btn: "鑑定を開始する", symbol: "JPY" },
+            ko: { title: "이감성과", s1: "웹사이트 소개", btn: "감정 시작하기", symbol: "KRW" }
+            // ... 其餘語系可按此格式擴充
+        };
+
+        // 2. 匯率換算邏輯 (以 NT$ 12580 為基準)
+        const rates = { zh: 1, en: 0.031, ja: 4.6, ko: 42.5, vi: 760, th: 1.1, ms: 0.14, id: 480, fr: 0.029, de: 0.029 };
+
+        function changeLanguage(lang) {
+            const t = translations[lang] || translations['zh'];
+            document.getElementById('main-title').innerText = t.title;
+            document.getElementById('s1').innerText = t.s1;
+            document.getElementById('btn-text').innerText = t.btn;
+            document.getElementById('curr-symbol').innerText = t.symbol;
+            
+            // 換算公益金數字
+            const baseValue = 12580;
+            const converted = Math.floor(baseValue * rates[lang]);
+            document.getElementById('charity-val').innerText = converted.toLocaleString();
+        }
+
+        // 3. 背景 90秒輪放
+        const imgs = ['bg2.jpg','bg3.jpg','bg4.jpg','bg5.jpg','bg6.jpg','bg7.jpg'];
         let idx = 0;
         function changeBG() {
             const bg = document.getElementById('dynamic-bg');
@@ -53,9 +105,9 @@
                 idx = (idx + 1) % imgs.length;
             }
         }
-        changeBG();
-        setInterval(changeBG, 90000);
+        changeBG(); setInterval(changeBG, 90000);
 
+        // 4. 公益金噴發動畫
         function animateValue(id, start, end, duration) {
             const obj = document.getElementById(id);
             let startTimestamp = null;
