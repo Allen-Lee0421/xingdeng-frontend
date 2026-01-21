@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="2026國運預測, 丙午年避險, 火雷噬嗑商戰, 科學命理演算法, 易鑒星科">
+    <title>2026 全球智謀鑑定 · 易鑒星科</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root { --gold: #d4af37; --red: #b22222; }
+        body { margin: 0; background: #0a0a0a; color: #e0e0e0; font-family: "Noto Serif TC", serif; text-align: center; }
+        .q2-pulse { color: var(--red); animation: pulse 2s infinite; font-weight: bold; margin: 30px 0; letter-spacing: 2px; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        .radar-box { max-width: 500px; margin: 0 auto; background: rgba(255,255,255,0.02); padding: 20px; border-radius: 20px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; max-width: 1000px; margin: 40px auto; text-align: left; padding: 0 20px; }
+        .item { border-left: 3px solid var(--gold); padding-left: 20px; }
+        .item h3 { color: var(--gold); margin-top: 0; }
+        .seal-btn { border: 4px solid var(--red); color: var(--red); padding: 15px 45px; display: inline-block; cursor: pointer; font-size: 1.5em; font-weight: 900; transform: rotate(-2deg); margin: 40px 0; transition: 0.3s; }
+        .seal-btn:hover { transform: rotate(0deg) scale(1.1); background: rgba(178,34,34,0.1); }
+        .nav-back { color: #888; text-decoration: none; font-size: 0.9em; display: block; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="q2-pulse" id="alert-text">⚠️ 數據預警：2026 Q2 (4-6月) 實施高溫預警，嚴防燥動風險</div>
+    <a href="index.html" class="nav-back">← Back to HQ / 返回總部</a>
+    <h2 id="main-title" style="color:var(--gold); font-size:2.2em; letter-spacing:10px;">2026 丙午年局勢矩陣</h2>
+    
+    <div class="radar-box"><canvas id="outlookChart"></canvas></div>
+
+    <div class="grid">
+        <div class="item"><h3 id="t1">🇹🇼 台灣產業</h3><p id="d1">半導體面臨資源重組，宜採「開門」之勢佈局能源。</p></div>
+        <div class="item"><h3 id="t2">💰 金融趨勢</h3><p id="d2">價值重估年，AI 算力與能源成為全球硬通貨。</p></div>
+        <div class="item"><h3 id="t3">🌍 全球軍事</h3><p id="d3">火旺剋金，傳統防禦體系面臨高能武器衝擊。</p></div>
+        <div class="item"><h3 id="t4">👥 社會民生</h3><p id="d4">清涼經濟與情緒價值產業將迎來爆發式成長。</p></div>
+    </div>
+
+    <div class="seal-btn" onclick="executeAudit()">啟動 5592 數據鑑定</div>
+
+    <script>
+        const ctx = document.getElementById('outlookChart');
+        const chart = new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: ['動能(火)', '流動(水)', '成長(木)', '穩定(土)', '防禦(金)'],
+                datasets: [{ data: [0,0,0,0,0], borderColor: '#b22222', backgroundColor: 'rgba(178,34,34,0.3)', borderWidth: 3 }]
+            },
+            options: { animation: { duration: 2500 }, scales: { r: { grid: { color: '#333' }, ticks: { display: false }, angleLines: { color: '#333' } } }, plugins: { legend: { display: false } } }
+        });
+        setTimeout(() => { chart.data.datasets[0].data = [95, 60, 75, 45, 40]; chart.update(); }, 500);
+
+        function executeAudit() {
+            // 複製文案並跳轉，增加社群擴散 (項1)
+            navigator.clipboard.writeText("我在【易鑒星科】鎖定了 2026 國運智謀矩陣！立即鑑定：xingdeng.tw");
+            alert("智謀鑑定文案已複製！正在連線 5592 數據庫產出加密報告...");
+            window.location.href = "index.html#input-section"; // 導回主頁輸入區域
+        }
+    </script>
+</body>
+</html>
