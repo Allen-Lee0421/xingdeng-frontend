@@ -1,67 +1,83 @@
-const express = require('express');
-const path = require('path');
-const { exec } = require('child_process');
-const app = express();
-const PORT = process.env.PORT || 3000;
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>易鑒星科 · Edison Star Strategic Intelligence</title>
+    <style>
+        :root { --gold: #d4af37; --white: #e0e0e0; --red: #b22222; }
+        body { margin: 0; background: #000; color: var(--white); font-family: "Noto Serif TC", serif; transition: 2.5s; background-size: cover; background-attachment: fixed; }
+        body::before { content: ""; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: -1; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; text-align: center; }
+        .lang-bar { margin-bottom: 30px; display: flex; flex-wrap: wrap; justify-content: center; }
+        .lang-btn { background: transparent; border: 1px solid var(--gold); color: var(--gold); margin: 5px; cursor: pointer; padding: 5px 12px; font-size: 0.85em; }
+        h1 { color: var(--gold); letter-spacing: 20px; font-size: 4em; margin-bottom: 10px; }
+        .section-text { text-align: justify; line-height: 2.4; font-size: 1.15em; margin-bottom: 40px; color: #ddd; }
+        .input-zone { background: rgba(255,255,255,0.03); border: 1px solid var(--gold); padding: 40px; margin: 40px 0; }
+        input, select { background: #111; border: 1px solid var(--gold); color: #fff; padding: 12px; margin: 10px; width: 260px; font-family: inherit; }
+        .btn-start { background: transparent; border: 2px solid var(--gold); color: var(--gold); padding: 18px 80px; font-size: 1.3em; cursor: pointer; transition: 0.5s; letter-spacing: 5px; }
+        .btn-start:hover { background: var(--gold); color: #000; box-shadow: 0 0 30px var(--gold); }
+        .legal-notice { color: var(--gold); font-weight: bold; margin: 20px 0; letter-spacing: 2px; }
+        .charity-box { border: 1px solid rgba(212,175,55,0.3); padding: 25px; margin-top: 60px; background: rgba(0,0,0,0.5); }
+        .charity-val { font-size: 2em; color: var(--gold); margin: 10px 0; font-family: serif; }
+    </style>
+</head>
+<body style="background-image: url('bg2.jpg');">
+    <div class="container">
+        <div class="lang-bar">
+            <button class="lang-btn">繁中</button><button class="lang-btn">簡中</button>
+            <button class="lang-btn">English</button><button class="lang-btn">日本語</button>
+            <button class="lang-btn">한국어</button><button class="lang-btn">ไทย</button>
+            <button class="lang-btn">Tiếng Việt</button><button class="lang-btn">Deutsch</button>
+            <button class="lang-btn">Bahasa</button><button class="lang-btn">Français</button>
+        </div>
 
-app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
+        <h1>易鑒星科</h1>
+        <div style="color:var(--gold); letter-spacing:5px; margin-bottom:40px;">Edison Star · Strategic Intelligence</div>
 
-// 🏮 總監 13 項規格：金流帳號與階梯定價
-const config = {
-    bank: {
-        rakuten: "826 樂天國際銀行 帳號：81201001535981",
-        linebank: "824 Line Bank 帳號：111013844288",
-        paypal: "https://paypal.me/TaiwanPayment"
-    },
-    pricing: {
-        "basic": 888,
-        "star_project": 1280,   // 星火計畫 (需彈出誠信誓約)
-        "quick_detect": 3300,   // 六壬速斷 / 取名優待 (原3600可手動調整)
-        "name_fix": 9900,      // 姓名定格
-        "strategic": 19100,    // 奇門佈局
-        "macro_outlook": 36000 // 易經大略
-    }
-};
+        <div class="section-text">
+            自上古伏羲觀象而立卦...（總監序言全文保留，目前由前端靜態顯示）...為世人揭示隱而未顯的方向。
+        </div>
 
-// 運營數據監控 (項 11)
-let stats = { revenueTotal: 0, charityFund: 0, totalOrders: 0 };
+        <div class="input-zone">
+            <h3 style="color:var(--gold)">啟動 5,592 數據對沖鑑定</h3>
+            <input type="text" id="userName" placeholder="鑑定對象姓名">
+            <input type="datetime-local" id="birthTime">
+            <select id="serviceMode">
+                <option value="star_project">2026 國運智謀鑑定 (NT$1,280)</option>
+                <option value="quick_detect">六壬速斷 / 取名優待 (NT$3,600)</option>
+                <option value="name_fix">姓名定格補足 (NT$9,900)</option>
+                <option value="strategic">奇門遁甲佈局 (NT$19,100)</option>
+                <option value="macro_outlook">易經大略宏觀 (NT$36,000)</option>
+            </select>
+            <div class="legal-notice">「凡事均須天時、地利、人和，三合為關鍵。」</div>
+            <button class="btn-start" onclick="startAnalysis()">啟動演繹</button>
+        </div>
 
-// API: 獲取定價與公益數據
-app.get('/api/stats', (req, res) => res.json({ ...config, ...stats }));
+        <div class="charity-box">
+            <div style="letter-spacing: 3px; opacity: 0.8;">星燈公益積累盒</div>
+            <div class="charity-val">NT$ <span id="charityDisplay">0</span></div>
+            <div style="font-size: 0.85em; opacity: 0.6;">鑑定營收之 5% 自動提撥，公開透明回饋社會</div>
+        </div>
+    </div>
 
-// API: 核心演算連動 (Block 7)
-app.post('/api/calculate', (req, res) => {
-    const { name, birthtime, mode, lang } = req.body;
-    const price = config.pricing[mode] || 1280;
-    
-    // 執行 D:\EdisonStar\block7_service.py 進行 5592 數據對沖
-    const cmd = `python D:\\EdisonStar\\block7_service.py "${birthtime}" "${name}" "${mode}" "${lang}"`;
-    
-    exec(cmd, (error, stdout) => {
-        let finalReport = "";
-        if (!error && stdout) {
-            try {
-                finalReport = JSON.parse(stdout).report;
-            } catch(e) {
-                finalReport = stdout;
-            }
-        } else {
-            finalReport = `【易鑒星科】${name} 閣下，數據對沖值 5,592 閉環成功。凡事均須天時、地利、人和，三合為關鍵...`;
+    <script>
+        // 每秒更新公益數據
+        setInterval(() => {
+            fetch('/api/stats').then(res => res.json()).then(data => {
+                document.getElementById('charityDisplay').innerText = data.charityFund.toLocaleString();
+            });
+        }, 3000);
+
+        function startAnalysis() {
+            const data = {
+                name: document.getElementById('userName').value,
+                time: document.getElementById('birthTime').value,
+                mode: document.getElementById('serviceMode').value
+            };
+            if(!data.name || !data.time) return alert('請完整填寫資料');
+            localStorage.setItem('targetData', JSON.stringify(data));
+            location.href = 'analysis.html';
         }
-        
-        // 自動提撥 5% 公益金
-        stats.revenueTotal += price;
-        stats.charityFund += price * 0.05;
-        stats.totalOrders += 1;
-
-        res.json({ status: "success", report: finalReport, charity: stats.charityFund });
-    });
-});
-
-app.listen(PORT, () => {
-    console.log("--------------------------------------------------");
-    console.log("🚀 易鑒星科雲端總部：1979/4/21 數據模組已就緒。");
-    console.log(`🚀 營利模式啟動：http://localhost:${PORT}`);
-    console.log("--------------------------------------------------");
-});
+    </script>
+</body>
+</html>
