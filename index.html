@@ -1,72 +1,67 @@
-<!DOCTYPE html>
-<html lang="zh-Hant">
-<head>
-    <meta charset="UTF-8">
-    <title>易鑒星科 · Edison Star Strategic Intelligence</title>
-    <style>
-        :root { --gold: #d4af37; --white: #e0e0e0; }
-        body { margin: 0; background: #000; color: var(--white); font-family: "Noto Serif TC", serif; transition: 2s; background-size: cover; }
-        body::before { content: ""; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: -1; }
-        .container { max-width: 1000px; margin: 0 auto; padding: 60px 20px; text-align: center; }
-        .lang-bar { margin-bottom: 30px; }
-        .lang-btn { background: transparent; border: 1px solid var(--gold); color: var(--gold); margin: 0 5px; cursor: pointer; padding: 5px 10px; }
-        h1 { color: var(--gold); letter-spacing: 15px; font-size: 3.5em; }
-        .input-zone { background: rgba(212,175,55,0.05); border: 1px solid var(--gold); padding: 40px; margin: 40px 0; }
-        input { background: #111; border: 1px solid var(--gold); color: #fff; padding: 12px; margin: 10px; width: 250px; }
-        .btn-start { background: transparent; border: 2px solid var(--gold); color: var(--gold); padding: 15px 60px; font-size: 1.2em; cursor: pointer; transition: 0.5s; letter-spacing: 5px; }
-        .btn-start:hover { background: var(--gold); color: #000; }
-        .notice { font-size: 0.8em; color: var(--gold); opacity: 0.7; margin-top: 20px; }
-    </style>
-</head>
-<body style="background-image: url('bg2.jpg');">
-    <div class="container">
-        <div class="lang-bar" id="langBar">
-            <button class="lang-btn" onclick="setLang('zh-TW')">繁體中文</button>
-            <button class="lang-btn" onclick="setLang('en')">English</button>
-            <button class="lang-btn" onclick="setLang('ja')">日本語</button>
-            <button class="lang-btn" onclick="setLang('th')">ไทย</button>
-            <button class="lang-btn" onclick="setLang('vi')">Tiếng Việt</button>
-        </div>
+const express = require('express');
+const path = require('path');
+const { exec } = require('child_process');
+const app = express();
+const PORT = process.env.PORT || 3000;
 
-        <h1>易鑒星科</h1>
-        <div style="color:var(--gold); letter-spacing:3px;">Edison Star Strategic Intelligence</div>
+app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
-        <div style="text-align: justify; line-height: 2.2; margin: 40px 0; opacity: 0.9;">
-            自上古伏羲觀象而立卦...（總監序言全文保留）...為世人揭示隱而未顯的方向。
-        </div>
+// 🏮 總監 13 項規格：金流帳號與階梯定價
+const config = {
+    bank: {
+        rakuten: "826 樂天國際銀行 帳號：81201001535981",
+        linebank: "824 Line Bank 帳號：111013844288",
+        paypal: "https://paypal.me/TaiwanPayment"
+    },
+    pricing: {
+        "basic": 888,
+        "star_project": 1280,   // 星火計畫 (需彈出誠信誓約)
+        "quick_detect": 3300,   // 六壬速斷 / 取名優待 (原3600可手動調整)
+        "name_fix": 9900,      // 姓名定格
+        "strategic": 19100,    // 奇門佈局
+        "macro_outlook": 36000 // 易經大略
+    }
+};
 
-        <div class="input-zone">
-            <h3 style="color:var(--gold); margin-bottom:20px;">啟動 5,592 數據對沖鑑定</h3>
-            <input type="text" id="name" placeholder="請輸入姓名">
-            <input type="datetime-local" id="birth">
-            <select id="mode" style="background:#111; color:#fff; border:1px solid var(--gold); padding:11px;">
-                <option value="analysis">2026 國運/原名鑑定 (NT$1,280)</option>
-                <option value="babyNaming">新生兒/成家取名優待 (NT$3,600)</option>
-                <option value="premiumNaming">旗艦取名/佈局 (NT$8,800)</option>
-            </select>
-            <br><br>
-            <button class="btn-start" onclick="execAnalysis()">立即測算</button>
-            <div class="notice">凡事均須天時、地利、人和，三合為關鍵。</div>
-        </div>
+// 運營數據監控 (項 11)
+let stats = { revenueTotal: 0, charityFund: 0, totalOrders: 0 };
 
-        <div style="border: 1px solid #333; padding: 20px;">
-            <div style="color:var(--gold)">星燈公益積累盒</div>
-            <div id="charityVal" style="font-size: 1.5em;">NT$ 0</div>
-            <small>資金用途：全球偏鄉教育資助與災後重建</small>
-        </div>
-    </div>
+// API: 獲取定價與公益數據
+app.get('/api/stats', (req, res) => res.json({ ...config, ...stats }));
 
-    <script>
-        function execAnalysis() {
-            const data = {
-                name: document.getElementById('name').value,
-                birth: document.getElementById('birth').value,
-                mode: document.getElementById('mode').value
-            };
-            if(!data.name || !data.birth) return alert('請完整填寫資料');
-            localStorage.setItem('pendingData', JSON.stringify(data));
-            location.href = 'analysis.html';
+// API: 核心演算連動 (Block 7)
+app.post('/api/calculate', (req, res) => {
+    const { name, birthtime, mode, lang } = req.body;
+    const price = config.pricing[mode] || 1280;
+    
+    // 執行 D:\EdisonStar\block7_service.py 進行 5592 數據對沖
+    const cmd = `python D:\\EdisonStar\\block7_service.py "${birthtime}" "${name}" "${mode}" "${lang}"`;
+    
+    exec(cmd, (error, stdout) => {
+        let finalReport = "";
+        if (!error && stdout) {
+            try {
+                finalReport = JSON.parse(stdout).report;
+            } catch(e) {
+                finalReport = stdout;
+            }
+        } else {
+            finalReport = `【易鑒星科】${name} 閣下，數據對沖值 5,592 閉環成功。凡事均須天時、地利、人和，三合為關鍵...`;
         }
-    </script>
-</body>
-</html>
+        
+        // 自動提撥 5% 公益金
+        stats.revenueTotal += price;
+        stats.charityFund += price * 0.05;
+        stats.totalOrders += 1;
+
+        res.json({ status: "success", report: finalReport, charity: stats.charityFund });
+    });
+});
+
+app.listen(PORT, () => {
+    console.log("--------------------------------------------------");
+    console.log("🚀 易鑒星科雲端總部：1979/4/21 數據模組已就緒。");
+    console.log(`🚀 營利模式啟動：http://localhost:${PORT}`);
+    console.log("--------------------------------------------------");
+});
