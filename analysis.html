@@ -2,60 +2,31 @@
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <title>鑑定報告 · 易鑒星科</title>
+    <title>5592 數據鑑定報告 · 易鑒星科</title>
     <style>
         body { background: #050505; color: #fff; font-family: "Noto Serif TC", serif; padding: 40px; }
-        .report-wrap { max-width: 850px; margin: 0 auto; border: 1px solid #d4af37; padding: 60px; background: #0a0a0a; position: relative; }
-        .blur { filter: blur(12px); opacity: 0.3; pointer-events: none; }
-        .pay-overlay { position: absolute; top: 200px; left: 50%; transform: translateX(-50%); width: 80%; background: rgba(20,20,20,0.98); border: 2px solid #b22222; padding: 40px; z-index: 100; text-align: center; }
-        .seal { width: 130px; height: 130px; border: 4px solid #b22222; color: #b22222; display: flex; align-items: center; justify-content: center; font-weight: 900; position: absolute; bottom: 60px; right: 60px; transform: rotate(-10deg); }
+        .report-wrap { max-width: 900px; margin: 0 auto; border: 1px solid #d4af37; padding: 60px; background: rgba(20,20,20,0.95); position: relative; }
+        h2 { text-align: center; color: #d4af37; letter-spacing: 8px; border-bottom: 2px solid #d4af37; padding-bottom: 20px; }
+        .data-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 30px 0; color: #aaa; border-bottom: 1px solid #333; padding-bottom: 20px; }
+        .digital-seal { width: 130px; height: 130px; border: 4px solid #b22222; color: #b22222; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.5em; position: absolute; bottom: 60px; right: 60px; transform: rotate(-10deg); opacity: 0.8; }
     </style>
 </head>
 <body>
-    <div id="payWall" class="pay-overlay">
-        <h3 style="color:#d4af37">【誠信誓約與解鎖】</h3>
-        <p style="font-size:0.9em; font-style:italic">「吾心正向，所得鑑定僅供決策，不作邪道。」</p>
-        <hr border="0" height="1" background="#333">
-        <p>應付金額：<span id="priceDisplay">NT$ 1,280</span></p>
-        <div style="background:#111; padding:20px; border:1px dashed #d4af37; text-align:left; font-family:monospace; margin:20px 0;">
-            ATM 轉帳 / 網銀：<br>
-            1. 樂天銀行 (826): 81201001535981<br>
-            2. Line Bank (824): 111013844288<br><br>
-            信用卡 / 海外：<br>
-            PayPal: https://paypal.me/TaiwanPayment
+    <div class="report-wrap">
+        <h2>2026 丙午年 · 智謀鑑定書</h2>
+        <div class="data-meta">
+            <div>鑑定基數：5,592 筆歷法閉環數據</div>
+            <div>核心權重：1979-04-21 能量對沖</div>
         </div>
-        <button onclick="unlock()" style="background:#b22222; color:#fff; padding:15px 40px; border:none; cursor:pointer; font-size:1.1em;">我已支付，解鎖天機</button>
-    </div>
-
-    <div class="report-wrap" id="reportContent" class="blur">
-        <h2 style="text-align:center; color:#d4af37; border-bottom:2px solid #d4af37; padding-bottom:10px;">2026 丙午年 · 智謀鑑定書</h2>
-        <div id="mainText" style="line-height:2.4; font-size:1.15em; margin-top:30px;">
+        <div style="line-height: 2.2; font-size: 1.2em;">
             <p><strong>【總論：赤龍抬頭，金石為開】</strong></p>
-            <p>根據 5,592 筆數據演算，全球經濟將於 Q2 迎來能量熔斷期...</p>
-            </div>
-        <div class="seal">易鑒星科<br>智謀鑑定</div>
+            <p>2026 丙午年，歲火極旺。根據 5,592 筆數據演算，全球經濟將於 Q2 迎來能量熔斷期，隨後在 Q4 重新定鼎。對於總監級決策者，此時應以「火生土」之勢，將虛擬資產轉化為實體佈局。</p>
+            <p style="color: #d4af37;">「凡事均須天時、地利、人和，三合為關鍵。」</p>
+        </div>
+        <div class="digital-seal">易鑒星科<br>智謀鑑定</div>
+        <div style="text-align:center; margin-top:100px;">
+            <a href="index.html" style="color:#d4af37; text-decoration:none;">[ 返回主控台 ]</a>
+        </div>
     </div>
-
-    <script>
-        const pending = JSON.parse(localStorage.getItem('pendingData'));
-        if(pending) {
-            document.getElementById('priceDisplay').innerText = `NT$ ${pending.mode === 'analysis' ? '1,280' : pending.mode === 'babyNaming' ? '3,600' : '8,800'}`;
-            // 預先呼叫後台進行運算
-            fetch('/api/calculate', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(pending)
-            }).then(res => res.json()).then(data => {
-                window.finalReport = data.report;
-            });
-        }
-
-        function unlock() {
-            document.getElementById('payWall').style.display = 'none';
-            document.getElementById('reportContent').classList.remove('blur');
-            document.getElementById('mainText').innerHTML += `<div style="color:#d4af37; border:1px solid #333; padding:20px; margin-top:20px;">${window.finalReport}</div>`;
-            alert('鑑定解鎖成功。凡事均須天時、地利、人和，三合為關鍵。');
-        }
-    </script>
 </body>
 </html>
