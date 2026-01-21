@@ -2,46 +2,44 @@
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <title>2026 國運鑑定 · 易鑒星科</title>
+    <title>2026 國運雷達圖 · 易鑒星科</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        body { margin: 0; background: #000; color: #fff; text-align: center; font-family: serif; }
-        .radar-container { max-width: 600px; margin: 50px auto; padding: 20px; background: rgba(255,255,255,0.05); }
-        .btn-back { display: inline-block; margin-top: 30px; color: #d4af37; text-decoration: none; border: 1px solid #d4af37; padding: 10px 30px; }
+        body { background: #000; color: #fff; text-align: center; font-family: serif; }
+        .chart-container { position: relative; max-width: 550px; margin: 40px auto; border: 1px solid #333; padding: 20px; }
+        
+        /* 五、浮水印技術 */
+        .watermark { position: absolute; bottom: 20px; right: 30px; color: rgba(212,175,55,0.3); font-weight: bold; letter-spacing: 2px; pointer-events: none; }
+        .btn-pay { background: #b22222; color: #fff; padding: 18px 50px; text-decoration: none; display: inline-block; margin-top: 30px; font-weight: bold; }
     </style>
 </head>
 <body>
-    <h1 style="color:#d4af37; margin-top:50px;">2026 丙午年 能量鑑定圖譜</h1>
-    <div class="radar-container">
-        <canvas id="outlookChart"></canvas>
+    <h2 style="color:#d4af37; margin-top:50px;">2026 丙午年 能量鑑定矩陣</h2>
+    
+    <div class="chart-container">
+        <canvas id="radarChart"></canvas>
+        <div class="watermark">xingdeng.tw 權威鑑定</div>
     </div>
-    <a href="index.html" class="btn-back">返回首頁</a>
+
+    <p style="color:#d4af37;">系統警示：2026 火能爆發係數 95%</p>
+    <a href="input.html" class="btn-pay">立即解鎖個人避險數據 (NT$ 1,280)</a>
 
     <script>
-        const ctx = document.getElementById('outlookChart').getContext('2d');
-        const outlookChart = new Chart(ctx, {
+        const ctx = document.getElementById('radarChart');
+        new Chart(ctx, {
             type: 'radar',
             data: {
-                labels: ['動能(火)', '流動(水)', '成長(木)', '穩定(土)', '防禦(金)'],
+                labels: ['動能', '流動', '成長', '穩定', '防禦'],
                 datasets: [{
-                    label: '能量指標',
-                    data: [0, 0, 0, 0, 0], // 初始為 0
+                    label: '2026 丙午能量',
+                    data: [95, 40, 70, 50, 45],
                     backgroundColor: 'rgba(178,34,34,0.4)',
                     borderColor: '#b22222',
-                    borderWidth: 3,
-                    pointBackgroundColor: '#d4af37'
+                    borderWidth: 2
                 }]
             },
-            options: {
-                scales: { r: { min: 0, max: 100, grid: { color: 'rgba(212,175,55,0.2)' }, angleLines: { color: 'rgba(212,175,55,0.2)' }, ticks: { display: false } } }
-            }
+            options: { scales: { r: { min: 0, max: 100, grid: { color: '#333' }, ticks: { display: false } } } }
         });
-
-        // 強制進場噴發動畫
-        setTimeout(() => {
-            outlookChart.data.datasets[0].data = [95, 40, 70, 50, 45]; // 火能 95%
-            outlookChart.update();
-        }, 800);
     </script>
 </body>
 </html>
