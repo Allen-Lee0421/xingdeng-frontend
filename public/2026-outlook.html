@@ -2,44 +2,76 @@
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <title>2026 國運雷達圖 · 易鑒星科</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>全球暨中華民國台灣2026國運預測 · 易鑒星科</title>
     <style>
-        body { background: #000; color: #fff; text-align: center; font-family: serif; }
-        .chart-container { position: relative; max-width: 550px; margin: 40px auto; border: 1px solid #333; padding: 20px; }
+        :root { --gold: #d4af37; --red: #b22222; --dark: #0a0a0a; --gray: #222; }
+        body { background: var(--dark); color: #e0e0e0; font-family: "Noto Serif TC", serif; margin: 0; padding-bottom: 80px; }
+        .header { padding: 60px 20px; text-align: center; border-bottom: 1px solid var(--gold); background: rgba(178, 34, 34, 0.05); }
+        .header h1 { color: var(--gold); font-size: 2.5em; letter-spacing: 8px; margin: 0; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
+
+        /* 五大領域矩陣排版 */
+        .matrix-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; margin-top: 40px; }
+        .matrix-card { background: var(--gray); border: 1px solid #444; padding: 30px; position: relative; overflow: hidden; transition: 0.3s; }
+        .matrix-card:hover { border-color: var(--gold); box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); }
+        .matrix-card::before { content: "2026"; position: absolute; top: -10px; right: -10px; font-size: 5em; opacity: 0.03; font-family: 'Courier New'; }
         
-        /* 五、浮水印技術 */
-        .watermark { position: absolute; bottom: 20px; right: 30px; color: rgba(212,175,55,0.3); font-weight: bold; letter-spacing: 2px; pointer-events: none; }
-        .btn-pay { background: #b22222; color: #fff; padding: 18px 50px; text-decoration: none; display: inline-block; margin-top: 30px; font-weight: bold; }
+        .card-title { color: var(--gold); font-size: 1.5em; margin-bottom: 15px; border-bottom: 2px solid var(--red); display: inline-block; padding-bottom: 5px; }
+        .card-tag { font-size: 0.8em; background: var(--red); color: #fff; padding: 2px 10px; margin-left: 10px; vertical-align: middle; }
+        
+        .prediction-list { list-style: none; padding: 0; text-align: justify; line-height: 1.8; }
+        .prediction-list li { margin-bottom: 12px; padding-left: 20px; position: relative; }
+        .prediction-list li::before { content: "◈"; position: absolute; left: 0; color: var(--gold); }
+
+        .radar-placeholder { width: 100%; height: 300px; background: rgba(212, 175, 55, 0.05); border: 1px dashed var(--gold); margin: 40px 0; display: flex; align-items: center; justify-content: center; color: var(--gold); }
+        
+        .btn-back { display: block; width: 200px; margin: 50px auto; padding: 15px; border: 1px solid var(--gold); color: var(--gold); text-decoration: none; text-align: center; transition: 0.4s; }
+        .btn-back:hover { background: var(--gold); color: #000; }
     </style>
 </head>
 <body>
-    <h2 style="color:#d4af37; margin-top:50px;">2026 丙午年 能量鑑定矩陣</h2>
-    
-    <div class="chart-container">
-        <canvas id="radarChart"></canvas>
-        <div class="watermark">xingdeng.tw 權威鑑定</div>
+
+    <div class="header">
+        <h1>全球暨中華民國台灣2026國運預測</h1>
+        <p style="letter-spacing: 3px; opacity: 0.6; margin-top: 15px;">BING-WU YEAR STRATEGIC FORECAST MATRIX</p>
     </div>
 
-    <p style="color:#d4af37;">系統警示：2026 火能爆發係數 95%</p>
-    <a href="input.html" class="btn-pay">立即解鎖個人避險數據 (NT$ 1,280)</a>
+    <div class="container">
+        <div class="radar-placeholder">
+            [ 2026 丙午年火能噴發雷達矩陣圖 - 數據加載中 ]
+        </div>
 
-    <script>
-        const ctx = document.getElementById('radarChart');
-        new Chart(ctx, {
-            type: 'radar',
-            data: {
-                labels: ['動能', '流動', '成長', '穩定', '防禦'],
-                datasets: [{
-                    label: '2026 丙午能量',
-                    data: [95, 40, 70, 50, 45],
-                    backgroundColor: 'rgba(178,34,34,0.4)',
-                    borderColor: '#b22222',
-                    borderWidth: 2
-                }]
-            },
-            options: { scales: { r: { min: 0, max: 100, grid: { color: '#333' }, ticks: { display: false } } } }
-        });
-    </script>
-</body>
-</html>
+        <div class="matrix-grid">
+            <div class="matrix-card">
+                <span class="card-title">政治格局</span><span class="card-tag">火能 95%</span>
+                <ul class="prediction-list">
+                    <li><strong>全球局勢</strong>：極右翼與民族主義火能噴發，傳統國際協議面臨毀滅式重組。</li>
+                    <li><strong>台灣政局</strong>：內部法理爭議進入「火雷噬嗑」期，剛柔並濟方能化解僵局。</li>
+                    <li><strong>核心預測</strong>：夏季將出現關鍵政治更迭，舊體制面臨斷裂。</li>
+                </ul>
+            </div>
+
+            <div class="matrix-card">
+                <span class="card-title">經濟金融</span><span class="card-tag">震盪極大</span>
+                <ul class="prediction-list">
+                    <li><strong>股市脈動</strong>：科技股火能過剩，面臨估值重塑；傳統能源轉型為新型電力系統。</li>
+                    <li><strong>匯率市場</strong>：數位貨幣與實體貨幣的邊界模糊化，通膨將以新型態捲土重來。</li>
+                    <li><strong>投資建言</strong>：宜守不宜攻，鎖定「土屬性」資產以化解過剩火能。</li>
+                </ul>
+            </div>
+
+            <div class="matrix-card">
+                <span class="card-title">軍事國防</span><span class="card-tag">乾卦臨頭</span>
+                <ul class="prediction-list">
+                    <li><strong>台海動態</strong>：軍事演習頻率與強度達歷史高點，無人機群與電磁干擾成為主戰場。</li>
+                    <li><strong>全球衝突</strong>：北極與太空資源爭奪戰升溫，非傳統戰領域成為博弈重心。</li>
+                    <li><strong>預判</strong>：兵者詭道，秋季為戰略敏感期。</li>
+                </ul>
+            </div>
+
+            <div class="matrix-card">
+                <span class="card-title">百工百業</span><span class="card-tag">轉型元年</span>
+                <ul class="prediction-list">
+                    <li><strong>新興領軍</strong>：AI自動化、氫能、高端半導體持續領漲。</li>
+                    <li><strong>夕陽警戒</strong>：傳統人力密集產業與過度依賴舊型房產商模者面臨「離火」焚燒。</li>
+                    <li><strong>機會點</strong>：大健康與心理修復產業將隨
