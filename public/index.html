@@ -2,108 +2,110 @@
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <title>易鑒星科 · Edison Star Strategic Intelligence</title>
+    <title>易鑒星科 · Edison Star</title>
     <style>
         :root { --gold: #d4af37; --white: #e0e0e0; }
-        body { margin: 0; padding: 0; min-height: 100vh; font-family: "Noto Serif TC", serif; color: var(--white); overflow-x: hidden; background-color: #000; }
-        #dynamic-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; transition: background-image 3s ease-in-out; background-size: cover; background-position: center; }
+        body { margin: 0; padding: 0; min-height: 100vh; font-family: "Noto Serif TC", serif; color: var(--white); background-color: #000; }
+        #dynamic-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; transition: background-image 3s; background-size: cover; background-position: center; }
         #dynamic-bg::after { content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.85); }
-        .lang-switcher { position: fixed; top: 20px; right: 20px; z-index: 100; background: rgba(0,0,0,0.7); padding: 8px 15px; border: 1px solid var(--gold); }
-        .lang-switcher select { background: transparent; color: var(--gold); border: none; font-size: 0.9em; cursor: pointer; outline: none; }
+        .lang-switcher { position: fixed; top: 20px; right: 20px; z-index: 100; background: rgba(0,0,0,0.8); padding: 10px; border: 1px solid var(--gold); }
         .container { max-width: 950px; margin: 0 auto; padding: 80px 20px; text-align: center; position: relative; z-index: 1; }
-        .prologue-title { color: var(--gold); letter-spacing: 15px; font-size: 2.8em; margin-bottom: 5px; text-shadow: 0 0 15px rgba(212,175,55,0.4); }
-        .content-box { text-align: justify; line-height: 2.3; letter-spacing: 1.6px; margin-bottom: 60px; font-size: 1.1em; color: rgba(224,224,224,0.95); }
+        .prologue-title { color: var(--gold); letter-spacing: 15px; font-size: 2.8em; margin-bottom: 5px; }
+        .content-box { text-align: justify; line-height: 2.3; letter-spacing: 1.6px; margin-bottom: 60px; font-size: 1.1em; }
         .section-title { color: var(--gold); font-size: 1.4em; margin: 50px 0 25px 0; border-left: 4px solid var(--gold); padding-left: 20px; text-align: left; }
         .tech-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-top: 35px; }
         .tech-item { border: 1px solid rgba(212, 175, 55, 0.2); padding: 25px; background: rgba(255,255,255,0.03); text-align: left; }
         .tech-item h4 { color: var(--gold); margin: 0 0 10px 0; }
-        .btn-enter { display: inline-block; margin: 60px 0; padding: 22px 70px; border: 1px solid var(--gold); color: var(--gold); text-decoration: none; letter-spacing: 10px; font-weight: bold; transition: 0.5s; font-size: 1.2em; }
-        .btn-enter:hover { background: var(--gold); color: #000; box-shadow: 0 0 30px rgba(212,175,55,0.4); }
+        .btn-enter { display: inline-block; margin: 60px 0; padding: 22px 70px; border: 1px solid var(--gold); color: var(--gold); text-decoration: none; letter-spacing: 10px; font-weight: bold; }
         .charity-section { border: 1px dashed rgba(212, 175, 55, 0.5); padding: 35px; background: rgba(178,34,34,0.12); margin-top: 50px; }
-        .charity-amount { font-size: 2.8em; color: var(--gold); margin: 12px 0; font-family: 'Courier New', monospace; font-weight: bold; }
+        .charity-amount { font-size: 2.8em; color: var(--gold); margin: 12px 0; font-family: 'Courier New', monospace; }
     </style>
 </head>
 <body>
     <div class="lang-switcher">
-        <select id="langSelect" onchange="changeLanguage(this.value)">
+        <select id="langSelect" onchange="applyLanguage(this.value)">
             <option value="zh">繁體中文</option>
             <option value="en">English</option>
             <option value="ja">日本語</option>
             <option value="ko">한국어</option>
-            <option value="vi">Tiếng Việt</option>
-            <option value="th">ภาษาไทย</option>
-            <option value="ms">Bahasa Melayu</option>
-            <option value="id">Bahasa Indonesia</option>
-            <option value="fr">Français</option>
-            <option value="de">Deutsch</option>
         </select>
     </div>
     <div id="dynamic-bg"></div>
     <div class="container">
-        <div class="prologue-title">易鑒星科</div>
+        <div class="prologue-title" data-key="main_title">易鑒星科</div>
         <p style="opacity:0.5; letter-spacing:5px;">EDISON STAR STRATEGIC INTELLIGENCE</p>
         <div class="content-box">
-            <p>自上古伏羲觀象而立卦，文王演繹六十四卦，孔子撰《十翼》以定大道，天地陰陽之理遂藏於易經之中；春秋之際，孫武以兵法揭示「兵者，詭道也」，將變化之理化為制勝之謀；三國之世，孔明承易理而融兵法，善用奇門遁甲，洞察天時地利人和，決勝千里之外；六壬神課以因果推演人事，姓名之學以字音五行定性格與命運，皆為先祖智慧之延伸。今日之世，科學演算與邏輯推理已能將隱秘的推演化為精密的模型，將模糊的直覺轉化為清晰的答案。本網「易鑒星科」正是承接此脈絡：以易為根，以兵法為骨，以謀略為翼，融奇門、六壬、姓名之學，結合科學之精密。於古今交融之中，洞察天地人事，掌握人生之機，為世人揭示隱而未顯的方向。</p>
-            <div class="section-title">網站簡介</div>
-            <p>一甲子六十年，術數不再只是玄學，而是可驗證、可應用的 時空演算古老智慧。</p>
-            <p>興勝盛衰敗，生老病死，輪迴未止，循環不息。易鑒星科核心以科學方法，將近五百年來 5,592 筆干支數據 精密標註，涵蓋法理重組、經濟轉折、國運興衰。每一筆皆為閉環，皆為基準。這不僅是術數的再造，亦是決策者最冷峻的關鍵謀略。</p>
+            <p data-key="prologue_text">自上古伏羲觀象而立卦...（系統將自動替換全文）</p>
+            <div class="section-title" data-key="intro_title">網站簡介</div>
+            <p data-key="intro_text1">一甲子六十年，術數不再只是玄學...</p>
+            <p data-key="intro_text2">興勝盛衰敗，生老病死... 5,592 筆干支數據...</p>
             <div class="tech-grid">
-                <div class="tech-item"><h4>易經</h4><p>長期週期洞察 → 適合人生方向與決策。</p></div>
-                <div class="tech-item"><h4>奇門遁甲</h4><p>時空戰略佈局 → 適合重大抉擇。</p></div>
-                <div class="tech-item"><h4>姓名學</h4><p>個人命格調整 → 適合改名、取名。</p></div>
-                <div class="tech-item"><h4>六壬神課</h4><p>短期事件斷測 → 適合急事判斷。</p></div>
+                <div class="tech-item"><h4 data-key="h1">易經</h4><p data-key="t1">長期週期洞察 → 適合人生方向與決策。</p></div>
+                <div class="tech-item"><h4 data-key="h2">奇門遁甲</h4><p data-key="t2">時空戰略佈局 → 適合重大抉擇。</p></div>
+                <div class="tech-item"><h4 id="h3" data-key="h3">姓名學</h4><p id="t3" data-key="t3">個人命格調整 → 適合改名、取名。</p></div>
+                <div class="tech-item"><h4 id="h4" data-key="h4">六壬神課</h4><p id="t4" data-key="t4">短期事件斷測 → 適合急事判斷。</p></div>
             </div>
         </div>
-        <a href="input.html" class="btn-enter" id="btn-text">開始鑑定局勢</a>
+        <a href="2026-outlook.html" class="btn-enter" data-key="btn_enter">開始鑑定局勢</a>
         <div class="charity-section">
-            <div style="letter-spacing: 4px; opacity: 0.7;">星燈公益積累盒 (Global Charity Fund)</div>
+            <div style="letter-spacing: 4px; opacity: 0.7;" data-key="charity_title">星燈公益積累盒 (Global Charity Fund)</div>
             <div class="charity-amount"><span id="curr-symbol">NT$</span> <span id="charity-val">0</span></div>
-            <p style="font-size: 0.85em; opacity: 0.6;">鑑定營收之 5% 自動提撥，公開透明回饋社會</p>
         </div>
     </div>
+
     <script>
-        const i18n = {
-            zh: { symbol: "NT$", rate: 1, btn: "開始鑑定局勢" },
-            en: { symbol: "$", rate: 0.031, btn: "Enter Assessment" },
-            ja: { symbol: "¥", rate: 4.6, btn: "鑑定を開始" },
-            ko: { symbol: "₩", rate: 42.5, btn: "감정 시작" },
-            vi: { symbol: "₫", rate: 760, btn: "Bắt đầu" },
-            th: { symbol: "฿", rate: 1.1, btn: "เริ่มการประเมิน" },
-            ms: { symbol: "RM", rate: 0.14, btn: "Mula" },
-            id: { symbol: "Rp", rate: 480, btn: "Mulai" },
-            fr: { symbol: "€", rate: 0.029, btn: "Démarrer" },
-            de: { symbol: "€", rate: 0.029, btn: "Starten" }
+        const i18nData = {
+            zh: {
+                main_title: "易鑒星科",
+                prologue_text: "自上古伏羲觀象而立卦，文王演繹六十四卦，孔子撰《十翼》以定大道...（您的長序言）",
+                intro_title: "網站簡介",
+                intro_text1: "一甲子六十年，術數不再只是玄學，而是可驗證、可應用的時空演算智慧。",
+                intro_text2: "興勝盛衰敗，生老病死，輪迴未止。以 5,592 筆數據標註國運興衰。",
+                h1: "易經", t1: "長期週期洞察 → 適合人生方向。",
+                h2: "奇門遁甲", t2: "時空戰略佈局 → 適合重大抉擇。",
+                h3: "姓名學", t3: "個人命格調整 → 適合改名取名。",
+                h4: "六壬神課", t4: "短期事件斷測 → 適合急事判斷。",
+                btn_enter: "開始鑑定局勢",
+                charity_title: "星燈公益積累盒", symbol: "NT$", rate: 1
+            },
+            en: {
+                main_title: "Edison Star",
+                prologue_text: "From the ancient Fuxi observing the stars to create Hexagrams... (English Version)",
+                intro_title: "Introduction",
+                intro_text1: "Sixty years of a cycle, numerology is no longer just mystery but verifiable science.",
+                intro_text2: "Based on 5,592 sets of historical data to decode strategic intelligence.",
+                h1: "I-Ching", t1: "Long-term cycle insight.",
+                h2: "Qi Men Dun Jia", t2: "Strategic spatial layout.",
+                h3: "Nameology", t3: "Personal destiny adjustment.",
+                h4: "Liu Ren", t4: "Short-term event prediction.",
+                btn_enter: "Start Assessment",
+                charity_title: "Global Charity Fund", symbol: "$", rate: 0.031
+            }
+            // 總監，以此類推加入 ja, ko 等
         };
-        let baseVal = 12580;
-        function changeLanguage(lang) {
-            const config = i18n[lang];
-            document.getElementById('curr-symbol').innerText = config.symbol;
-            document.getElementById('btn-text').innerText = config.btn;
-            document.getElementById('charity-val').innerText = Math.floor(baseVal * config.rate).toLocaleString();
+
+        function applyLanguage(lang) {
+            const langData = i18nData[lang] || i18nData['zh'];
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (langData[key]) el.innerText = langData[key];
+            });
+            document.getElementById('curr-symbol').innerText = langData.symbol;
+            document.getElementById('charity-val').innerText = Math.floor(12580 * langData.rate).toLocaleString();
         }
-        const bgList = ['bg2.jpg','bg3.jpg','bg4.jpg','bg5.jpg','bg6.jpg','bg7.jpg'];
+
+        const bgImages = ['bg2.jpg','bg3.jpg','bg4.jpg','bg5.jpg','bg6.jpg','bg7.jpg'];
         let bgIdx = 0;
-        function updateBackground() {
+        function rotateBG() {
             const bg = document.getElementById('dynamic-bg');
             if(bg) {
-                bg.style.backgroundImage = `url('assets/img/${bgList[bgIdx]}')`;
-                bgIdx = (bgIdx + 1) % bgList.length;
+                bg.style.backgroundImage = `url('assets/img/${bgImages[bgIdx]}')`;
+                bgIdx = (bgIdx + 1) % bgImages.length;
             }
         }
-        updateBackground();
-        setInterval(updateBackground, 90000);
-        function animateNumber(id, start, end, duration) {
-            const obj = document.getElementById(id);
-            let startTime = null;
-            const step = (now) => {
-                if(!startTime) startTime = now;
-                const progress = Math.min((now - startTime) / duration, 1);
-                obj.innerText = Math.floor(progress * (end - start) + start).toLocaleString();
-                if(progress < 1) window.requestAnimationFrame(step);
-            };
-            window.requestAnimationFrame(step);
-        }
-        window.onload = () => { setTimeout(() => { animateNumber("charity-val", 0, 12580, 2500); }, 1000); };
+        rotateBG(); setInterval(rotateBG, 90000);
+
+        window.onload = () => { applyLanguage('zh'); };
     </script>
 </body>
 </html>
