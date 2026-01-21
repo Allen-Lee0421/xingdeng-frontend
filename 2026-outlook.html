@@ -1,43 +1,68 @@
-<div class="radar-box">
-    <canvas id="outlookChart"></canvas>
-</div>
-<div class="q2-pulse">⚠️ 警告：2026 Q2 (丙午月) 能量過熱，防備高溫變局</div>
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>2026 全球智謀鑑定 · 易鑒星科</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root { --gold: #d4af37; --red: #b22222; }
+        body { margin: 0; background: #0a0a0a; color: #e0e0e0; font-family: "Noto Serif TC", serif; padding-bottom: 80px; }
+        .q2-pulse { color: var(--red); animation: pulse 2s infinite; font-weight: bold; margin: 30px 0; letter-spacing: 2px; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        .radar-box { max-width: 550px; margin: 0 auto; background: rgba(255,255,255,0.02); padding: 30px; border: 1px solid rgba(212,175,55,0.1); }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 900px; margin: 40px auto; padding: 0 20px; }
+        .item { border: 1px solid #333; padding: 20px; background: #111; text-align: left; }
+        .item h3 { color: var(--gold); margin-top: 0; border-bottom: 1px solid var(--gold); padding-bottom: 10px; }
+        .seal-btn { display: inline-block; margin-top: 40px; padding: 15px 40px; border: 2px solid var(--red); color: var(--red); font-weight: bold; cursor: pointer; transition: 0.3s; letter-spacing: 5px; }
+        .seal-btn:hover { background: var(--red); color: white; }
+    </style>
+</head>
+<body>
+    <h1 style="color:var(--gold); margin-top:50px; letter-spacing:10px;">2026 丙午年 · 全球動能圖譜</h1>
+    <div class="q2-pulse">⚠️ 警告：2026 Q2 能量過熱，防備高溫變局</div>
+    
+    <div class="radar-box">
+        <canvas id="outlookChart"></canvas>
+    </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    const ctx = document.getElementById('outlookChart');
-    const chart = new Chart(ctx, {
-        type: 'radar',
-        data: {
-            labels: ['動能(火)', '流動(水)', '成長(木)', '穩定(土)', '防禦(金)'],
-            datasets: [{
-                label: '2026 丙午年能量權重',
-                data: [0, 0, 0, 0, 0], // 初始點，準備擴張
-                borderColor: '#b22222',
-                backgroundColor: 'rgba(178,34,34,0.3)',
-                borderWidth: 3,
-                pointBackgroundColor: '#d4af37'
-            }]
-        },
-        options: {
-            scales: {
-                r: { 
-                    min: 0, max: 100, 
-                    ticks: { display: false },
-                    grid: { color: 'rgba(212,175,55,0.1)' },
-                    angleLines: { color: 'rgba(212,175,55,0.2)' }
-                }
+    <div class="grid">
+        <div class="item"><h3>🇹🇼 台灣產業</h3><p>半導體面臨資源重組，宜採「開門」之勢佈局能源。</p></div>
+        <div class="item"><h3>💰 金融趨勢</h3><p>價值重估年，AI 算力與能源成為全球硬通貨。</p></div>
+        <div class="item"><h3>🌍 全球軍事</h3><p>火旺剋金，傳統防禦體系面臨高能武器衝擊。</p></div>
+        <div class="item"><h3>👥 社會民生</h3><p>清涼經濟與情緒價值產業將迎來爆發式成長。</p></div>
+    </div>
+
+    <div class="seal-btn" onclick="location.href='pay.html'">解鎖 5592 數據完整鑑定報告</div>
+
+    <script>
+        const ctx = document.getElementById('outlookChart');
+        const chart = new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: ['動能(火)', '流動(水)', '成長(木)', '穩定(土)', '防禦(金)'],
+                datasets: [{
+                    label: '2026 能量權重',
+                    data: [0, 0, 0, 0, 0],
+                    borderColor: '#b22222',
+                    backgroundColor: 'rgba(178,34,34,0.3)',
+                    borderWidth: 4,
+                    pointBackgroundColor: '#d4af37'
+                }]
             },
-            plugins: { legend: { labels: { color: '#d4af37' } } }
-        }
-    });
+            options: {
+                animation: { duration: 3000, easing: 'easeOutQuart' },
+                scales: { r: { min: 0, max: 100, ticks: { display: false }, grid: { color: 'rgba(212,175,55,0.1)' } } }
+            }
+        });
 
-    // 總監指令：震撼擴張動畫
-    window.onload = () => {
-        setTimeout(() => {
-            chart.data.datasets[0].data = [95, 60, 75, 45, 40]; // 火能高達 95%
-            chart.update();
-        }, 800);
-    };
-</script>
+        window.onload = () => {
+            setTimeout(() => {
+                chart.data.datasets[0].data = [95, 60, 75, 45, 40];
+                chart.update();
+            }, 500);
+        };
+    </script>
+</body>
+</html>
+
 
